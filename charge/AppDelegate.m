@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "BaseNavigationController.h"
+#import "LoginViewController.h"
+#import "LZQStratViewController_25.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +19,31 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    NSUserDefaults *picName1=[NSUserDefaults standardUserDefaults];
+    NSString *picName=[picName1 objectForKey:@"firstPic"];
+    
+    if ([picName length]==0) {
+        
+        [[UserInfo defaultUserInfo]setFirstPic:@"OK"];
+        LZQStratViewController_25 *lzqStartViewController = [[LZQStratViewController_25 alloc] init];
+        
+        BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:lzqStartViewController];
+        self.window.rootViewController = nav;
+        
+    }else{
+        
+        BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        self.window.rootViewController = nav;
+    }
+    
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 

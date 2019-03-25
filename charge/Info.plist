@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Project EV</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,11 +17,40 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>1.2.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>jpush.cn</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Communicating with Bluetooth devices</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Quickly add datalogger or take pictures for after-sale service</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Add location information for your account or power station in order to facilitate after-sales service</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Add location information for your account or power station in order to facilitate after-sales service</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Add location information for your account or power station in order to facilitate after-sales service</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>You need to save pictures. Do you allow access to albums</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>You need to scan code to get ID. Are you allowed to turn on the camera</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -41,5 +72,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

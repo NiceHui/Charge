@@ -1,0 +1,30 @@
+//
+//  PrefixHeader.pch
+//  charge
+//
+//  Created by growatt007 on 2018/10/16.
+//  Copyright © 2018年 hshao. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "HSUIMarco.h"
+#import "BaseRequest.h"
+#import "UserInfo.h"
+#import "languageNew.h"
+#import "DeviceManager.h"
+
+// 分类
+#import "UIImage+Color.h"
+#import "UIView+Frame.h"
+#import "NSString+Zero.h"
+
+// 第三方
+#import "AFNetWorking.h"
+#import "SafeObject.h"
+#import "MJExtension.h"
+#import "MJRefresh.h"
+
+
+#endif /* PrefixHeader_pch */

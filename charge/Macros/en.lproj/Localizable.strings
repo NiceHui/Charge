@@ -1,0 +1,289 @@
+/* 
+  Localizable.strings
+  charge
+
+  Created by growatt007 on 2018/10/30.
+  Copyright © 2018 hshao. All rights reserved.
+*/
+
+
+
+
+
+// 登录
+"1立即体验" = "Try it now";
+"2下一步" = "Next";
+"3完成" = "Done";
+"4服务器错误" = "Server error";
+"5拍照" = "Take a photo";
+"6从相册选取" = "Choose from photos";
+"7取消" = "Cancel";
+"8警告" = "Warning";
+"9确定" = "Enter";
+"10删除" = "Delete";
+"11扫描结果" = "Scanning result";
+"12配置" = "Configuration";
+"13控制提示" = "Control";
+"14添加问题提示" = "Add questions";
+"15控制密码" = "password";
+"16返回" = "Back";
+"17停止配置" = "Stop configuration";
+"18注册失败" = "Registration failed";
+"19是否退出当前账户" = "Sign out?";
+
+
+//
+"20用户名密码错误" = "User name or password error ";
+"21用户名密码为空" = "User name or password is empty";
+"22Enter your username" = "Enter your username";
+"23Enter your pwd" = "Enter your pwd";
+"24忘记密码?" = "Forgot password";
+"25注册" = "Sign up";
+"26登录" = "Sign in";
+"27请输入用户名" = "Enter username";
+"28请输入密码" = "Enter password";
+"29温馨提示" = "Note";
+"30原密码" = "Old password";
+"30UID为空" = "UID is empty";
+"30浏览账户" = "Demo";
+
+//注册,忘记密码
+"31成功后将发送新密码到账号绑定的邮箱" = "After successful, the new password will be sent to the account bound mailbox";
+"32请输入正确的用户名" = "Please enter correct username";
+"33发送邮件失败" = "Email sending failed";
+"34填写资料注册新用户" = "Fill in the information";
+"35同意本公司各项用户条款及隐私政策" = "User agreement";
+"36选择用户协议" = "Please tick user Agreement";
+"37请输入正确邮箱格式" = "Please enter the correct email box format";
+"38超出版本限制注册用户数量" = "Users number exceeds limit";
+"39服务器错误" = "Server error";
+"40注册错误" = "Registration error";
+"41采集器序列号或校验码错误" = "Datalogger SN or checkcode incorrect";
+"42用户名已被使用" = "Registered username";
+"43代理商编码错误" = "Agency ID error";
+"44注册成功" = "Registered successfully";
+"45采集器序列号已经存在" = "Existing datalogger SN";
+"46服务器错误提示" = "Server error";
+"47服务器错误提示2" = "Server error2";
+"48采集器10位提示（应该为错误提示）" = "Datalogger error";
+"49不能找到用户名" = "Username can not be found";
+"50打开定位开关" = "Location service is disabled";
+"51定位提示跳转" = "Back to \"Settings\" page?";
+// 我的
+"52我的" = "Me";
+"53账号管理" = "Account management ";
+"54消息中心" = "Message center";
+"55关于" = "About";
+"56用户协议" = "User agreement";
+"57注销账号" = "Sign out";
+"58暂未开放" = "function is not ready";
+"59修改密码" = "Change password";
+"60修改手机号" = "Change cellphone number";
+"61修改邮箱" = "Change the email address";
+"62填入不带国家代码的手机号" = "Enter phone number without country code";
+"63输入邮箱地址" = "Enter E-Mail address";
+"64输入代理商编号" = "Enter the agency ID";
+"65系统错误" = "System error";
+"66原密码错误" = "Password incorrect";
+"67用户不存在" = "User does not exist";
+"68你的账号没有操作权限" = "Your account does not have permission to operate";
+"69参数设置成功" = "Parameter set successfully";
+"70请验证注册时填写的手机号码" = "Please verify the phone number";
+"71验证用户手机号码" = "Verify the user's phone number";
+"72验证用户邮箱" = "Verify the user's email address";
+"73您注册时填写的手机号是" = "You phone number used for registation is ";
+"74请输入短信验证码" = "Enter verification code";
+"76验证码错误" = "Verification code wrong";
+"77发送验证码" = "Send verification code";
+"78国际区号错误" = "The country code for international telephone call is wrong";
+"79手机号格式错误" = "Phone number format is wrong";
+"80发送短信验证码不成功" = "Send verification code message failed";
+"81该手机号没有注册用户" = "No account related to this phone number";
+"82短信验证码请求已经失效" = "Verification code request failed";
+"83请输入正确的手机校验码" = "Please enter the correct phone verification code";
+
+"84是否更新" = "Update or not";
+"85立即更新" = "Update now";
+"86最新版本为" = "Latest version";
+"87暂不" = "Update later";
+"88您使用的是最新版本" = "Current version is the latest";
+"89请求苹果服务器失败" = "Apple Server Error";
+"90拨打电话" = "Do you need to make a call?";
+"91当前版本:" = "current version:";
+
+
+"92用户名" = "Username";
+"93密码" = "Password";
+"94重复密码" = "Repeat password";
+"95重复输入密码" = "Repeat password";
+"96电子邮箱" = "Email";
+"97联系电话" = "Phone";
+"98代理商编号" = "Agency ID";
+"99输入代理商编号" = "Enter the agency ID";
+"100请输入相同的密码" = "Please enter the same password";
+"101用户名必须大于3位" = "Username must be 3 or more characters";
+"102密码必须大于6位" = "Password must be 6 or more characters";
+"103输入邮箱" = "Enter email";
+"104输入电话号码" = "Enter phone number";
+"105请求超时" = "Networking Timeout";
+"106Yes" = "Enter";
+
+
+// 充电桩
+"107添加设备" = "Add device";
+"108充电桩" = "Charger";
+"109充电" = "ON";
+"110充电记录" = "Record";
+"111桩体设置" = "Setting";
+"112选择充电桩" = "select Charger";
+"113连接" = "connect";
+"114停止充电" = "OFF";
+"115输入充电桩序列号添加充电桩" = "Input charger ID to add charger";
+"116您暂时还没有设备呢" = "No device";
+"117您暂时还没有充电记录呢" = "There is no charge record yet.";
+"118暂时还没有定时,请点击右上角进行添加" = "For the time being, please click on the upper right corner to add";
+
+"119A枪" = "A Gun";
+"120B枪" = "B Gun";
+"121C枪" = "C Gun";
+"122交流" = "AC";
+"123直流" = "DC";
+"124单枪" = "1 Gun";
+"125双枪" = "2 Gun";
+"126无" = "Null";
+
+"127空闲" = "Available";
+"128充电中" = "Charging";
+"129准备中" = "Preparing";
+"130充电结束" = "Finish";
+"131故障" = "Faulted";
+"132通讯异常" = "Unavailable";
+"133通讯异常" = "Suspended EV";
+"134已经注销" = "Has been cancelled";
+"135启用中" = "Starting";
+"136已经工作过" = "Have worked";
+
+"137设置金额不能为0" = "Cost settings cannot be 0";
+"138设置电量不能为0" = "Energy settings cannot be 0";
+"139时长设置不能为空" = "Time settings can not be empty.";
+"140未设置开始时间" = "No start time was set";
+"141空闲状态无法直接开始充电，请先连接车辆与充电桩" = "You cannot start charging directly. Please connect the vehicle with the charging pile first.";
+
+"142切换" = "Switch";
+"143添加" = "Add";
+"144是否确定删除设备" = "Are you sure you want to delete the device?";
+"145是否确定删除授权用户" = "Are you sure you want to delete the authorized user?";
+"146删除成功" = "Deleted successfully";
+"147请输入充电桩ID" = "Enter charger ID";
+"148扫码添加" = "Sweep the code to add";
+"149添加充电桩" = "Add charger";
+"150添加成功" = "Added successfully";
+"151不能为空" = "Can't be empty!";
+// 设置
+"152参数设置" = "Parameter setting";
+"153授权管理" = "Authorization";
+"154基本参数" = "Basic parameter ";
+"155重要数据" = "Important data";
+"156其他数据" = "Other data";
+"157输入更改的设置" = "Input change settings";
+
+"158充电桩ID" = "Charger ID";
+"159授权认证秘钥" = "Authorization key";
+"160基础参数" = "Basic parameters";
+"161电桩名称" = "Charger name";
+"162国家城市" = "Country and city";
+"163站点" = "Site";
+"164充电费率" = "Rate";
+"165功率设置" = "Power Setting";
+"166充电模式" = "Charging model";
+"167高级设置" = "Advance settings";
+"168充电桩IP" = "Charger IP";
+"169网关" = "Default gateway";
+"170子网掩码" = "Subnet mask";
+"171网络MAC地址" = "MAC";
+"172服务器URL" = "Server URL";
+"173DNS地址" = "DNS";
+
+"174扫码/刷卡" = "APP/RFID";
+"175仅刷卡充电" = "Only RFID";
+"176插枪充电" = "Plug&Charge";
+"177添加授权" = "Add authorized";
+"178输入用户名添加授权用户" = "Enter a user name to add an authorized user";
+"179注册新用户" = "Sign up";
+"180填写资料注册新用户" = "Fill in the information";
+"181请输入用户名/车牌/电话/邮箱" = "Please enter user name";
+"182现在正处于时段预约状态，如需立即开始充电，请关闭预约按键，并重新设置时长!" = "If you need to start charging immediately, please close the reservation button and reset the time!";
+"183不能删除桩主" = "Unable to delete pile owner";
+
+// 蓝牙
+"184搜索" = "Search";
+"185连接成功!" = "Connection OK";
+"186请将充电枪插入车辆!" = "Please insert the charging gun into the vehicle!";
+"187蓝牙" = "Bluetooth";
+"188连接充电桩需打开蓝牙" = "Connect the charger to bluetooth";
+"189我的设备" = "My device list";
+"190可配对设备" = "Matchable device";
+"191配件" = "Fittings ";
+
+// 定时
+"192确认" = "Confirm";
+"193输入格式不正确，请重新输入" = "Format is wrong,please enter again ";
+"194定时" = "Timer";
+"195新增" = "Add";
+"196预设充电方案-时长：" = "Preset scheme-length:";
+"197设置定时" = "Set the timer";
+"198保存" = "Save";
+"199开启" = "Start";
+"200关闭" = "End";
+"201未设置" = "Not Set";
+"202每天" = "Everyday";
+"203删除" = "Delete";
+"204时" = "hour";
+"205分" = "min";
+"206预设" = "Preset";
+"207请输入金额" = "Please input amount of money";
+"208请输入电量（kWh）" = "Please input electricity quantity(kWh)";
+"209时长设置有误" = "Incorrect setup time.";
+"210开始时间不能小于当前时间" = "Start time should not be less than the current time";
+
+// 状态
+"211过压" = "Overvoltage";
+
+"212已充电量" = "Energy";
+"213充电费率" = "Rate";
+"214已充时长" = "Time";
+"215消费金额" = "Cost";
+"216当前电流" = "Current";
+"217当前电压" = "Voltage";
+"218预设金额" = "Preset Amount";
+"219预设电量" = "Preset Electricity";
+"220预设时长" = "Preset Time";
+"221预设方案 -金额" = "Preset program-Amount";
+"222预设方案 -电量" = "Preset program-Electricity";
+"223预设方案 -时长" = "Preset program-Time";
+
+"224充电结束，请拔下充电枪，并将充电枪归位" = "After charging, please unplug the charging gun and put it in position";
+"225请连接充电枪到车辆" = "Please connect the vehicle to the charging gun.";
+"226电桩故障，请切换使用其他充电桩" = "Pile failure, please switch to other charging piles.";
+"227桩体状态为不可用，请切换使用其他充电桩" = "Pile unavailable, please switch to other charging piles.";
+"228预设" = "Preset";
+"229当前" = "At present";
+"230预设充电方案" = "Preset charge";
+"231(达到预设金额、电量、时长后停止充电)" = "(Stop charging after reaching the preset )";
+"232金额" = "Cost";
+"233电量" = "Energy";
+"234时长" = "Time";
+"235预约充电" = "Reserving charging";
+"236开始时间" = "Start time";
+"237已开启" = "ON";
+"238已关闭" = "OFF";
+
+"239登录失败" = "Login failure";
+"240浏览账户验证" = "Browse account validation";
+"241验证失败" = "Verification failure";
+"242验证成功" = "Verification success";
+
+"243设置成功" = "Set up successfully";
+"244设置失败" = "Setup failed";
+"245将充电功率限制为1KW" = "Limit charging power to 1KW";
+"246将关闭充电功率限制" = "Will turn off charging power limit";

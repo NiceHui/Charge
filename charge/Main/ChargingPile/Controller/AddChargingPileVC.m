@@ -157,7 +157,7 @@
     
     __weak typeof(self) weakSelf = self;
     [self showProgressView];
-    [BaseRequest myJsonPost:@"/ocpp/user/checkCode" parameters:parms Method:@"http://chat.growatt.com" success:^(id responseObject) {
+    [BaseRequest myJsonPost:@"/ocpp/user/checkCode" parameters:parms Method:formal_Method success:^(id responseObject) {
         [self hideProgressView];
         if (responseObject) {
             

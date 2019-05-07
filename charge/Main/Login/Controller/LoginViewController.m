@@ -508,7 +508,7 @@
     
     __weak typeof(self) weakSelf = self;
     [self showProgressView];
-    [BaseRequest myJsonPost:@"/ocpp/user/glanceUser" parameters:nil Method:@"http://chat.growatt.com" success:^(id responseObject) {
+    [BaseRequest myJsonPost:@"/ocpp/user/glanceUser" parameters:nil Method:formal_Method success:^(id responseObject) {
         [self hideProgressView];
         if (responseObject) {
             

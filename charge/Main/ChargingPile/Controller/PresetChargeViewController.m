@@ -54,7 +54,7 @@
     presetValueTF.font = FontSize(14*XLscaleH);
     presetValueTF.leftViewMode = UITextFieldViewModeAlways;
     presetValueTF.textAlignment = NSTextAlignmentCenter;
-    presetValueTF.keyboardType = UIKeyboardTypeNumberPad;
+//    presetValueTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:presetValueTF];
     self.presetValueTF = presetValueTF;
     
@@ -137,6 +137,11 @@
         
         if ([_programme isEqualToString:@"Amount"] || [_programme isEqualToString:@"Electricity"]) {// 金额, 电量
             
+            if (![NSString isNum:self.presetValueTF.text]) { // 判断输入是否是数字
+                [self showToastViewWithTitle:root_geshi_cuowu];
+                return;
+            }
+            
             if(self.presetValueTF.text.length >0 && [self.presetValueTF.text integerValue] > 0){// 判断输入是否大于零
                 
                 value1 = self.presetValueTF.text;
@@ -150,8 +155,8 @@
             
             NSInteger totalValue = leftNumber + rightNumber;
             if (totalValue) {
-                if (leftNumber) value1 = [NSString stringWithFormat:@"%ld",leftNumber];
-                if (rightNumber) value2 = [NSString SupplementZero:[NSString stringWithFormat:@"%ld",rightNumber]];
+                if (leftNumber) value1 = [NSString stringWithFormat:@"%ld",(long)leftNumber];
+                if (rightNumber) value2 = [NSString SupplementZero:[NSString stringWithFormat:@"%ld",(long)rightNumber]];
             }else{
                 [self showToastViewWithTitle:HEM_time_buweiling];
                 return ;

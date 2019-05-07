@@ -58,6 +58,53 @@
     return sendByteData;
 }
 
+/**
+ WiFi 发送指令
+ 
+ @discussion
+ 帧头：1字节， 0x5a
+ 帧头：1字节， 0x5a
+ 协议类型：1字节， 0x01表示交流桩，0x02表示直流桩，0x03表示交直流桩
+ 加密类型：1字节，0x00表示不加密，0x01表示掩码加密，其他加密预留
+ 消息类型：1字节，对应业务流程命令类型
+ 数据长度：1字节，指示有效数据长度
+ 有效数据：低字节在前，高字节在后。最长(240字节)
+ 数据校验：1字节，和校验，取低字节
+ 结束符：1字节， 0x88
+ 
+ @param protocol 协议类型
+ @param cmd 消息类型
+ @param dataLength 有效数据的长度
+ @param payload 有效数据
+ */
++ (NSData *)wifiSendDataProtocol:(NSString *)protocol Cmd:(NSString *)cmd DataLenght:(int)dataLength Payload:(Byte[])payload Mask:(Byte[])mask Useless:(Byte[])useless
+{
+    //先以16为参数告诉strtoul字符串参数表示16进制数字
+    Byte bytes[] = {};
+    bytes[0] = 0x5a; // 帧头
+    bytes[1] = 0x5a; // 帧头
+    bytes[2] = strtoul([protocol UTF8String], 0, 0); // 协议类型
+    bytes[3] = 0x01; // 加密类型
+    bytes[4] = strtoul([cmd UTF8String], 0, 0); // 消息类型
+    bytes[5] = strtoul([[self ToHex:dataLength] UTF8String], 0, 16); // 有效数据的长度,转16进制
+    NSLog(@"加密前的有效数据: %@",[NSData dataWithBytes:payload length:dataLength]);
+    // 有效数据进行掩码加密
+    NSData *PayloadData = [self MaskEncryption:payload length:dataLength Mask:mask];
+    NSLog(@"加密后的有效数据: %@", PayloadData);
+    
+    // byte转Data数据再进行拼接
+    NSMutableData *bytesData = [[NSMutableData alloc]initWithBytes:bytes length:6];
+    [bytesData appendData:PayloadData];
+    
+    // 转回byte类型
+    Byte *bytes2 = (Byte *)[bytesData bytes];
+    bytes2[bytesData.length] = [self checkSumWithData:bytes2 length:(int)bytesData.length]; // 数据校验
+    bytes2[bytesData.length + 1] = 0x88; // 结束符
+    
+    NSData *sendByteData = [NSData dataWithBytes:bytes2 length:bytesData.length + 2];
+    NSLog(@"最后发送的完整 sendByteData: %@",sendByteData);
+    return sendByteData;
+}
 
 /**
  Payload数据做掩码加密
@@ -120,11 +167,12 @@
 }
 
  #pragma mark -- 获取当前时间字符串
-+ (NSData *)getCurrentTime
++ (NSData *)getCurrentTimeType:(NSString *)type
 {
     NSDate *now = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+//    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSUInteger unitFlags = NSCalendarUnitDay | NSCalendarUnitDay | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
     
     int year =(int) [dateComponent year];
@@ -143,6 +191,11 @@
     NSString *secondstr=[self stringWithInteget:(long)second];
     
     NSString *TimeString = [NSString stringWithFormat:@"%@%@%@_%@%@%@",yearstr,monthstr,daystr,hourstr,minutestr,secondstr];
+    
+    if([type isEqualToString:@"1"]){
+        TimeString = [NSString stringWithFormat:@"%@%@%@%@%@%@",yearstr,monthstr,daystr,hourstr,minutestr,secondstr];
+    }
+    
     NSData *timeData = [self dataWithString:TimeString];
     NSLog(@"TimeString: %@, timeData: %@", TimeString, timeData);
     
@@ -162,7 +215,27 @@
 {
     unsigned char *bytes = (unsigned char *)[string UTF8String];
     NSInteger len = string.length;
-    return [NSData dataWithBytes:bytes length:len];
+    NSMutableData *strData = [[NSMutableData alloc]initWithBytes:bytes length:len];
+    return strData;
+}
+// 按规定位数返回，不足补00
++ (NSData*)dataWithString:(NSString *)string length:(NSInteger)length
+{
+    unsigned char *bytes = (unsigned char *)[string UTF8String];
+    NSInteger len = string.length;
+    NSMutableData *strData = [[NSMutableData alloc]initWithBytes:bytes length:len];
+    if(strData.length > length){ // 判断是否超出位数
+        return [NSData data];
+    }
+    
+    // 不足补零
+    NSMutableData *mutalData = [[NSMutableData alloc]init];
+    while (mutalData.length < length-strData.length) {
+        [mutalData appendData:[NSData dataWithBytes:[@"" UTF8String] length:1]];
+    }
+    [strData appendData:mutalData];
+    
+    return strData;
 }
 
 

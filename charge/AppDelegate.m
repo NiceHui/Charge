@@ -10,6 +10,7 @@
 #import "BaseNavigationController.h"
 #import "LoginViewController.h"
 #import "LZQStratViewController_25.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 注册使用bugly
+    [Bugly startWithAppId:@"dfd9d8bcc8"];
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

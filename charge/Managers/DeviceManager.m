@@ -831,4 +831,35 @@
     }];
 }
 
+/**
+ 30.电桩切换AP模式
+ 
+ @param sn 电桩id
+ @param userId 用户id
+ @param success 成功
+ @param failure 失败
+ */
+- (void)switchAPModeWithSn:(NSString *)sn
+                    userId:(NSString *)userId
+                   success:(void (^)(id obj))success
+                   failure:(void (^)(NSError *error))failure{
+    NSDictionary *parms = @{
+                            @"chargeId": sn,
+                            @"userId": userId
+                            };
+    
+    [BaseRequest myJsonPost:@"/ocpp/user/appMode" parameters:parms Method:formal_Method success:^(id responseObject) {
+        if (responseObject) {
+            id jsonObj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            
+            NSLog(@"%@/ocpp/user/appMode: %@",formal_Method,jsonObj);
+            success(jsonObj);
+        }
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error: %@", error);
+        failure(error);
+    }];
+}
+
 @end

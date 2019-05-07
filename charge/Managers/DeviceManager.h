@@ -374,5 +374,17 @@
                      failure:(void (^)(NSError *error))failure;
 
 
+/**
+ 30.电桩切换AP模式
+ 
+ @param sn 电桩id
+ @param userId 用户id
+ @param success 成功
+ @param failure 失败
+ */
+- (void)switchAPModeWithSn:(NSString *)sn
+                    userId:(NSString *)userId
+                   success:(void (^)(id obj))success
+                   failure:(void (^)(NSError *error))failure;
 
 @end

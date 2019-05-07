@@ -24,6 +24,8 @@
 #import "ChargingpileInfoModel.h"
 #import "PickerViewAlert.h"
 #import "SolarTipsAlert.h"
+//#import "HSWiFiChargeListVC.h"
+#import "HSWiFiChargeTipsVC.h"
 
 @interface ChargingpileVC ()<ChargingStateDelegate>
 {
@@ -82,7 +84,15 @@
     [self getChargingpileList];
     [self addNotification];
 
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"link_wifi_set"] style:UIBarButtonItemStyleDone target:self action:@selector(goToWiFiSetting)];
+    self.navigationItem.rightBarButtonItem = barButton;
 }
+
+- (void)goToWiFiSetting{
+    HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)creatView{
     
     self.scrollView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
@@ -162,7 +172,7 @@
     [solarButton setBackgroundColor:[UIColor whiteColor]];
     [solarButton addTarget:self action:@selector(setSolar:) forControlEvents:UIControlEventTouchUpInside];
     XLViewBorderRadius(solarButton, solarH/2, 0, kClearColor);
-    [self.scrollView addSubview:solarButton];
+//    [self.scrollView addSubview:solarButton];
     _solarButton = solarButton;
     
 }
@@ -263,8 +273,14 @@
     if ([_InfoModel.status isEqualToString:@"Faulted"]) {// 故障
         [self showToastViewWithTitle:root_charge_state_faulted];
         return;
-    }else if ([_InfoModel.status isEqualToString:@"Unavailable"] || [_InfoModel.status isEqualToString:@"SuspendedEV"] || [_InfoModel.status isEqualToString:@"SuspendedEVSE"]){// 通讯异常
+    }else if ([_InfoModel.status isEqualToString:@"Unavailable"]){// 通讯异常
         [self showToastViewWithTitle:root_charge_state_unavailable];
+        return;
+    }else if ([_InfoModel.status isEqualToString:@"SuspendedEV"]){ // 车拒绝充电
+        [self showToastViewWithTitle:root_charge_state_SuspendedEV];
+        return;
+    }else if ([_InfoModel.status isEqualToString:@"SuspendedEVSE"]){ // 桩拒绝充电
+        [self showToastViewWithTitle:root_charge_state_SuspendedEVSE];
         return;
     }
     
@@ -526,7 +542,8 @@
             [weakSelf hideProgressView];
             if ([obj[@"code"] isEqualToNumber:@0]) {
                 [self.scrollView.mj_header endRefreshing];
-                weakSelf.dataSource = [GRTChargingPileModel objectArrayWithKeyValuesArray:obj[@"data"]];
+                NSDictionary *dict = [obj[@"data"] mutableCopy];
+                weakSelf.dataSource = [GRTChargingPileModel objectArrayWithKeyValuesArray:dict];
                 [weakSelf.devCollectView reloadData];
                 if (weakSelf.dataSource.count != 0) {// 获取当前设备获取详细信息
                     weakSelf.deviceModel = weakSelf.dataSource[currentDevIndex];
@@ -644,12 +661,24 @@
 }
 
 #pragma mark -- 刷新控件操作
-- (void)reloadUIView:(NSDictionary *)dict{
-    
-    ChargingpileInfoModel *model = [ChargingpileInfoModel objectWithKeyValues:dict[@"data"]];
+- (void)reloadUIView:(NSDictionary *)dict0{
+    NSDictionary *dict = [dict0[@"data"] mutableCopy];
+    ChargingpileInfoModel *model = [ChargingpileInfoModel objectWithKeyValues:dict];
     if(!model)return;
-    model.LastAction = self.LastActionDict;
-    model.ReserveNow = self.ReserveNowArray;
+    if ([[self.LastActionDict class] isKindOfClass:[NSDictionary class]]) {
+        if(self.LastActionDict.allKeys.count > 0){
+            model.LastAction = self.LastActionDict;
+        }
+    } else{
+        model.LastAction = NULL;
+    }
+    if ([[self.ReserveNowArray class] isKindOfClass:[NSArray class]]) {
+        if(self.ReserveNowArray.count > 0){
+            model.ReserveNow = self.ReserveNowArray;
+        }
+    } else{
+        model.ReserveNow = NULL;
+    }
     self.InfoModel = model;
     
     _modelLabel.text = [NSString stringWithFormat:@"%@ | %@",[_deviceModel getmodel], [_deviceModel getConnectors]];// 类型

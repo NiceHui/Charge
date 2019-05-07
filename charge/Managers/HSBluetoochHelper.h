@@ -20,6 +20,12 @@
  */
 + (NSData *)sendDataProtocol:(NSString *)protocol Cmd:(NSString *)cmd DataLenght:(int)dataLength Payload:(Byte[])payload Mask:(Byte[])mask Useless:(Byte[])useless;
 
+
+/**
+    WiFi指令
+ */
++ (NSData *)wifiSendDataProtocol:(NSString *)protocol Cmd:(NSString *)cmd DataLenght:(int)dataLength Payload:(Byte[])payload Mask:(Byte[])mask Useless:(Byte[])useless;
+
 /**
  Payload数据做掩码加密或解密
  
@@ -40,8 +46,8 @@
 + (long int)checkSumWithData:(Byte[])bytes length:(int)length;
 
 
-// 获取当前时间字符串
-+ (NSData *)getCurrentTime;
+// 获取当前时间字符串  0 - 返回15位   1 - 返回14位
++ (NSData *)getCurrentTimeType:(NSString *)type;
 
 
 //将NSData转换成十六进制的字符串
@@ -50,6 +56,9 @@
 
 //将传入的NSString类型转换成ASCII码并返回
 + (NSData*)dataWithString:(NSString *)string;
+
+//将传入的NSString类型转换成ASCII码并返回 , 不足位数补00
++ (NSData*)dataWithString:(NSString *)string length:(NSInteger)length;
 
 
 // 16进制转10进制

@@ -7,12 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9F6FC6E227C2733006765C0 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F6FC6D227C2733006765C0 /* Bugly.framework */; };
+		B9F6FC71227C274C006765C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F6FC70227C274C006765C0 /* SystemConfiguration.framework */; };
+		B9F6FC73227C2755006765C0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F6FC72227C2755006765C0 /* Security.framework */; };
+		B9F6FC75227C276B006765C0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F6FC74227C276B006765C0 /* libz.tbd */; };
+		B9F6FC77227C2782006765C0 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F6FC76227C2782006765C0 /* libc++.tbd */; };
+		B9F6FC7A227C2A79006765C0 /* dSYMUpload.sh in Resources */ = {isa = PBXBuildFile; fileRef = B9F6FC79227C2A79006765C0 /* dSYMUpload.sh */; };
 		BC1510E4217B09AE003F724A /* ChargeRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1510E3217B09AE003F724A /* ChargeRecordModel.m */; };
 		BC1510E8217B1C41003F724A /* NSString+Zero.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1510E7217B1C41003F724A /* NSString+Zero.m */; };
+		BC246A092251F61B0009CFA7 /* HSWiFiChargeTipsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC246A082251F61B0009CFA7 /* HSWiFiChargeTipsVC.m */; };
 		BC28DEC721796EA1004E0094 /* ManagementController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC28DEC521796EA0004E0094 /* ManagementController.m */; };
 		BC28DEC821796EA1004E0094 /* changManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = BC28DEC621796EA0004E0094 /* changManeger.m */; };
+		BC4C0B9C224CE9D4000FCACF /* HSUDPWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4C0B9B224CE9D4000FCACF /* HSUDPWiFiManager.m */; };
 		BC4F26D12187EA4B00918157 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC4F26D32187EA4B00918157 /* Localizable.strings */; };
 		BC54890A21A58A27005B8334 /* SolarTipsAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54890921A58A27005B8334 /* SolarTipsAlert.m */; };
+		BC594B61225DD50A002643D3 /* CGforDemoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B4F225DD50A002643D3 /* CGforDemoShowViewController.m */; };
+		BC594B62225DD50A002643D3 /* CGXPickerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B51225DD50A002643D3 /* CGXPickerViewManager.m */; };
+		BC594B63225DD50A002643D3 /* NSDate+CGXPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B56225DD50A002643D3 /* NSDate+CGXPicker.m */; };
+		BC594B64225DD50A002643D3 /* CGXAddressPcikerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B57225DD50A002643D3 /* CGXAddressPcikerView.m */; };
+		BC594B65225DD50A002643D3 /* CGXPickerView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC594B58225DD50A002643D3 /* CGXPickerView.bundle */; };
+		BC594B66225DD50A002643D3 /* CGXDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B5A225DD50A002643D3 /* CGXDatePickerView.m */; };
+		BC594B67225DD50A002643D3 /* CGXPickerUIBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B5C225DD50A002643D3 /* CGXPickerUIBaseView.m */; };
+		BC594B68225DD50A002643D3 /* CGXAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B5D225DD50A002643D3 /* CGXAddressModel.m */; };
+		BC594B69225DD50A002643D3 /* CGXStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B5F225DD50A002643D3 /* CGXStringPickerView.m */; };
+		BC594B6A225DD50A002643D3 /* CGXPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B60225DD50A002643D3 /* CGXPickerView.m */; };
+		BC594B6D225DDBBB002643D3 /* SelectTimeAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC594B6C225DDBBB002643D3 /* SelectTimeAlert.m */; };
 		BC664BB42176C56D00CED085 /* AddAuthorizationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664B922176C56D00CED085 /* AddAuthorizationVC.m */; };
 		BC664BB52176C56D00CED085 /* AddChargingPileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664B942176C56D00CED085 /* AddChargingPileVC.m */; };
 		BC664BB62176C56D00CED085 /* AuthorizationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664B962176C56D00CED085 /* AuthorizationVC.m */; };
@@ -75,6 +94,8 @@
 		BC664C5421770A5400CED085 /* NSObject+ImpChangeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664C4B21770A5400CED085 /* NSObject+ImpChangeTool.m */; };
 		BC664C5521770A5400CED085 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664C4D21770A5400CED085 /* NSObject+Swizzling.m */; };
 		BC664C5A2177368400CED085 /* PresetChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664C592177368400CED085 /* PresetChargeViewController.m */; };
+		BC6EE1FD224DAC9500743A3E /* HSWiFiChargeSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */; };
+		BC6EE200224DC1E300743A3E /* HSTCPWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6EE1FF224DC1E300743A3E /* HSTCPWiFiManager.m */; };
 		BC811038217F418D00A9DEFB /* XLCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC811037217F418D00A9DEFB /* XLCircle.m */; };
 		BC873CA6217D627D002C70A3 /* MMScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC873CA0217D627D002C70A3 /* MMScanView.m */; };
 		BC873CA7217D627D002C70A3 /* MMScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC873CA2217D627D002C70A3 /* MMScanViewController.m */; };
@@ -150,6 +171,9 @@
 		BC8A675721872B830018152A /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8A674121872B820018152A /* MJRefreshComponent.m */; };
 		BCB0649B2179824D006AA647 /* OssMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB0649A2179824D006AA647 /* OssMessageViewController.m */; };
 		BCB0649E2179830D006AA647 /* QCCountdownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB0649C2179830D006AA647 /* QCCountdownButton.m */; };
+		BCB6D787224B667F00F4B039 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6D783224B667F00F4B039 /* GCDAsyncUdpSocket.m */; };
+		BCB6D788224B667F00F4B039 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6D784224B667F00F4B039 /* GCDAsyncSocket.m */; };
+		BCC4904C224A3F7300AA975A /* HSWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4904B224A3F7300AA975A /* HSWiFiManager.m */; };
 		BCE5485E21782BDB0022E0E3 /* PickerViewAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5485C21782BDB0022E0E3 /* PickerViewAlert.m */; };
 		BCE54861217876220022E0E3 /* TimingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE54860217876220022E0E3 /* TimingListViewController.m */; };
 		BCE5486521787A500022E0E3 /* TimingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5486321787A500022E0E3 /* TimingTableViewCell.m */; };
@@ -177,20 +201,52 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B9F6FC6D227C2733006765C0 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		B9F6FC70227C274C006765C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B9F6FC72227C2755006765C0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B9F6FC74227C276B006765C0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B9F6FC76227C2782006765C0 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B9F6FC79227C2A79006765C0 /* dSYMUpload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dSYMUpload.sh; sourceTree = "<group>"; };
+		BC10B3072248876100ACEB40 /* charge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = charge.entitlements; sourceTree = "<group>"; };
 		BC1510E2217B09AE003F724A /* ChargeRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChargeRecordModel.h; sourceTree = "<group>"; };
 		BC1510E3217B09AE003F724A /* ChargeRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChargeRecordModel.m; sourceTree = "<group>"; };
 		BC1510E6217B1C41003F724A /* NSString+Zero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Zero.h"; sourceTree = "<group>"; };
 		BC1510E7217B1C41003F724A /* NSString+Zero.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Zero.m"; sourceTree = "<group>"; };
+		BC246A072251F61B0009CFA7 /* HSWiFiChargeTipsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSWiFiChargeTipsVC.h; sourceTree = "<group>"; };
+		BC246A082251F61B0009CFA7 /* HSWiFiChargeTipsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiChargeTipsVC.m; sourceTree = "<group>"; };
 		BC28DEC321796EA0004E0094 /* ManagementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagementController.h; sourceTree = "<group>"; };
 		BC28DEC421796EA0004E0094 /* changManeger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = changManeger.h; sourceTree = "<group>"; };
 		BC28DEC521796EA0004E0094 /* ManagementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagementController.m; sourceTree = "<group>"; };
 		BC28DEC621796EA0004E0094 /* changManeger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = changManeger.m; sourceTree = "<group>"; };
+		BC4C0B9A224CE9D4000FCACF /* HSUDPWiFiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSUDPWiFiManager.h; sourceTree = "<group>"; };
+		BC4C0B9B224CE9D4000FCACF /* HSUDPWiFiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSUDPWiFiManager.m; sourceTree = "<group>"; };
 		BC4F26CD2187E9DA00918157 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		BC4F26CE2187E9DA00918157 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		BC4F26D22187EA4B00918157 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC4F26D52188097200918157 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BC54890821A58A27005B8334 /* SolarTipsAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SolarTipsAlert.h; sourceTree = "<group>"; };
 		BC54890921A58A27005B8334 /* SolarTipsAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SolarTipsAlert.m; sourceTree = "<group>"; };
+		BC594B4E225DD50A002643D3 /* CGXAddressPcikerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXAddressPcikerView.h; sourceTree = "<group>"; };
+		BC594B4F225DD50A002643D3 /* CGforDemoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGforDemoShowViewController.m; sourceTree = "<group>"; };
+		BC594B50225DD50A002643D3 /* CGXDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXDatePickerView.h; sourceTree = "<group>"; };
+		BC594B51225DD50A002643D3 /* CGXPickerViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerViewManager.m; sourceTree = "<group>"; };
+		BC594B52225DD50A002643D3 /* CGXAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXAddressModel.h; sourceTree = "<group>"; };
+		BC594B53225DD50A002643D3 /* CGXPickerUIBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXPickerUIBaseView.h; sourceTree = "<group>"; };
+		BC594B54225DD50A002643D3 /* CGXPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXPickerView.h; sourceTree = "<group>"; };
+		BC594B55225DD50A002643D3 /* CGXStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXStringPickerView.h; sourceTree = "<group>"; };
+		BC594B56225DD50A002643D3 /* NSDate+CGXPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CGXPicker.m"; sourceTree = "<group>"; };
+		BC594B57225DD50A002643D3 /* CGXAddressPcikerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXAddressPcikerView.m; sourceTree = "<group>"; };
+		BC594B58225DD50A002643D3 /* CGXPickerView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CGXPickerView.bundle; sourceTree = "<group>"; };
+		BC594B59225DD50A002643D3 /* CGXPickerViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXPickerViewManager.h; sourceTree = "<group>"; };
+		BC594B5A225DD50A002643D3 /* CGXDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXDatePickerView.m; sourceTree = "<group>"; };
+		BC594B5B225DD50A002643D3 /* CGforDemoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGforDemoShowViewController.h; sourceTree = "<group>"; };
+		BC594B5C225DD50A002643D3 /* CGXPickerUIBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerUIBaseView.m; sourceTree = "<group>"; };
+		BC594B5D225DD50A002643D3 /* CGXAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXAddressModel.m; sourceTree = "<group>"; };
+		BC594B5E225DD50A002643D3 /* NSDate+CGXPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CGXPicker.h"; sourceTree = "<group>"; };
+		BC594B5F225DD50A002643D3 /* CGXStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXStringPickerView.m; sourceTree = "<group>"; };
+		BC594B60225DD50A002643D3 /* CGXPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerView.m; sourceTree = "<group>"; };
+		BC594B6B225DDBBB002643D3 /* SelectTimeAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTimeAlert.h; sourceTree = "<group>"; };
+		BC594B6C225DDBBB002643D3 /* SelectTimeAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTimeAlert.m; sourceTree = "<group>"; };
 		BC664B912176C56D00CED085 /* AddAuthorizationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAuthorizationVC.h; sourceTree = "<group>"; };
 		BC664B922176C56D00CED085 /* AddAuthorizationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAuthorizationVC.m; sourceTree = "<group>"; };
 		BC664B932176C56D00CED085 /* AddChargingPileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddChargingPileVC.h; sourceTree = "<group>"; };
@@ -321,6 +377,10 @@
 		BC664C4E21770A5400CED085 /* SafeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeObject.h; sourceTree = "<group>"; };
 		BC664C582177368400CED085 /* PresetChargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresetChargeViewController.h; sourceTree = "<group>"; };
 		BC664C592177368400CED085 /* PresetChargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresetChargeViewController.m; sourceTree = "<group>"; };
+		BC6EE1FB224DAC9500743A3E /* HSWiFiChargeSettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSWiFiChargeSettingVC.h; sourceTree = "<group>"; };
+		BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiChargeSettingVC.m; sourceTree = "<group>"; };
+		BC6EE1FE224DC1E300743A3E /* HSTCPWiFiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSTCPWiFiManager.h; sourceTree = "<group>"; };
+		BC6EE1FF224DC1E300743A3E /* HSTCPWiFiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSTCPWiFiManager.m; sourceTree = "<group>"; };
 		BC811036217F418D00A9DEFB /* XLCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCircle.h; sourceTree = "<group>"; };
 		BC811037217F418D00A9DEFB /* XLCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCircle.m; sourceTree = "<group>"; };
 		BC873C9F217D627D002C70A3 /* MMScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMScanView.h; sourceTree = "<group>"; };
@@ -471,6 +531,12 @@
 		BCB0649A2179824D006AA647 /* OssMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OssMessageViewController.m; sourceTree = "<group>"; };
 		BCB0649C2179830D006AA647 /* QCCountdownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCCountdownButton.m; sourceTree = "<group>"; };
 		BCB0649D2179830D006AA647 /* QCCountdownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCCountdownButton.h; sourceTree = "<group>"; };
+		BCB6D783224B667F00F4B039 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		BCB6D784224B667F00F4B039 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		BCB6D785224B667F00F4B039 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		BCB6D786224B667F00F4B039 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		BCC4904A224A3F7300AA975A /* HSWiFiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSWiFiManager.h; sourceTree = "<group>"; };
+		BCC4904B224A3F7300AA975A /* HSWiFiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiManager.m; sourceTree = "<group>"; };
 		BCE5485C21782BDB0022E0E3 /* PickerViewAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewAlert.m; sourceTree = "<group>"; };
 		BCE5485D21782BDB0022E0E3 /* PickerViewAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewAlert.h; sourceTree = "<group>"; };
 		BCE5485F217876220022E0E3 /* TimingListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimingListViewController.h; sourceTree = "<group>"; };
@@ -491,6 +557,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9F6FC77227C2782006765C0 /* libc++.tbd in Frameworks */,
+				B9F6FC75227C276B006765C0 /* libz.tbd in Frameworks */,
+				B9F6FC73227C2755006765C0 /* Security.framework in Frameworks */,
+				B9F6FC71227C274C006765C0 /* SystemConfiguration.framework in Frameworks */,
+				B9F6FC6E227C2733006765C0 /* Bugly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +582,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B9F6FC6C227C2715006765C0 /* Bugly */ = {
+			isa = PBXGroup;
+			children = (
+				B9F6FC6D227C2733006765C0 /* Bugly.framework */,
+			);
+			path = Bugly;
+			sourceTree = "<group>";
+		};
+		B9F6FC6F227C274C006765C0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9F6FC76227C2782006765C0 /* libc++.tbd */,
+				B9F6FC74227C276B006765C0 /* libz.tbd */,
+				B9F6FC72227C2755006765C0 /* Security.framework */,
+				B9F6FC70227C274C006765C0 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BC1510E5217B1BFD003F724A /* NSString */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,11 +610,38 @@
 			path = NSString;
 			sourceTree = "<group>";
 		};
+		BC594B4D225DD50A002643D3 /* CGXPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				BC594B53225DD50A002643D3 /* CGXPickerUIBaseView.h */,
+				BC594B5C225DD50A002643D3 /* CGXPickerUIBaseView.m */,
+				BC594B59225DD50A002643D3 /* CGXPickerViewManager.h */,
+				BC594B51225DD50A002643D3 /* CGXPickerViewManager.m */,
+				BC594B50225DD50A002643D3 /* CGXDatePickerView.h */,
+				BC594B5A225DD50A002643D3 /* CGXDatePickerView.m */,
+				BC594B4E225DD50A002643D3 /* CGXAddressPcikerView.h */,
+				BC594B57225DD50A002643D3 /* CGXAddressPcikerView.m */,
+				BC594B52225DD50A002643D3 /* CGXAddressModel.h */,
+				BC594B5D225DD50A002643D3 /* CGXAddressModel.m */,
+				BC594B54225DD50A002643D3 /* CGXPickerView.h */,
+				BC594B60225DD50A002643D3 /* CGXPickerView.m */,
+				BC594B5E225DD50A002643D3 /* NSDate+CGXPicker.h */,
+				BC594B56225DD50A002643D3 /* NSDate+CGXPicker.m */,
+				BC594B5B225DD50A002643D3 /* CGforDemoShowViewController.h */,
+				BC594B4F225DD50A002643D3 /* CGforDemoShowViewController.m */,
+				BC594B55225DD50A002643D3 /* CGXStringPickerView.h */,
+				BC594B5F225DD50A002643D3 /* CGXStringPickerView.m */,
+				BC594B58225DD50A002643D3 /* CGXPickerView.bundle */,
+			);
+			path = CGXPickerView;
+			sourceTree = "<group>";
+		};
 		BC664B902176C56D00CED085 /* ChargingPile */ = {
 			isa = PBXGroup;
 			children = (
 				BC664C562177362D00CED085 /* Base */,
 				BC664C572177364500CED085 /* Controller */,
+				BC594B4D225DD50A002643D3 /* CGXPickerView */,
 				BC664BA32176C56D00CED085 /* Option */,
 				BC664BC82176C5E700CED085 /* View */,
 				BC664BD82176C95200CED085 /* Model */,
@@ -725,6 +842,10 @@
 				BCE54860217876220022E0E3 /* TimingListViewController.m */,
 				BCE548672178A23A0022E0E3 /* setTimingViewController.h */,
 				BCE548682178A23A0022E0E3 /* setTimingViewController.m */,
+				BC246A072251F61B0009CFA7 /* HSWiFiChargeTipsVC.h */,
+				BC246A082251F61B0009CFA7 /* HSWiFiChargeTipsVC.m */,
+				BC6EE1FB224DAC9500743A3E /* HSWiFiChargeSettingVC.h */,
+				BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -752,6 +873,8 @@
 				BC873CAD217D6EEC002C70A3 /* InputSettingAlert.m */,
 				BC54890821A58A27005B8334 /* SolarTipsAlert.h */,
 				BC54890921A58A27005B8334 /* SolarTipsAlert.m */,
+				BC594B6B225DDBBB002643D3 /* SelectTimeAlert.h */,
+				BC594B6C225DDBBB002643D3 /* SelectTimeAlert.m */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -763,6 +886,7 @@
 				BC8A50702175799400C02F42 /* chargeTests */,
 				BC8A507B2175799400C02F42 /* chargeUITests */,
 				BC8A50562175799200C02F42 /* Products */,
+				B9F6FC6F227C274C006765C0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -779,6 +903,7 @@
 		BC8A50572175799200C02F42 /* charge */ = {
 			isa = PBXGroup;
 			children = (
+				BC10B3072248876100ACEB40 /* charge.entitlements */,
 				BC8A50582175799200C02F42 /* AppDelegate.h */,
 				BC8A50592175799200C02F42 /* AppDelegate.m */,
 				BC8A508A21757BFB00C02F42 /* Main */,
@@ -836,6 +961,12 @@
 				BC664C072176CE2B00CED085 /* HSBluetoochHelper.m */,
 				BC664C092176CE2B00CED085 /* HSBluetoochManager.h */,
 				BC664C082176CE2B00CED085 /* HSBluetoochManager.m */,
+				BCC4904A224A3F7300AA975A /* HSWiFiManager.h */,
+				BCC4904B224A3F7300AA975A /* HSWiFiManager.m */,
+				BC4C0B9A224CE9D4000FCACF /* HSUDPWiFiManager.h */,
+				BC4C0B9B224CE9D4000FCACF /* HSUDPWiFiManager.m */,
+				BC6EE1FE224DC1E300743A3E /* HSTCPWiFiManager.h */,
+				BC6EE1FF224DC1E300743A3E /* HSTCPWiFiManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -852,6 +983,8 @@
 		BC8A508D21757C4B00C02F42 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				B9F6FC6C227C2715006765C0 /* Bugly */,
+				BCB6D782224B667F00F4B039 /* GCD */,
 				BC8A671521872B820018152A /* MJRefresh */,
 				BC873C9E217D627D002C70A3 /* MMScanner */,
 				BC664C3F21770A5400CED085 /* SafeObject */,
@@ -870,6 +1003,7 @@
 				BC8A509021757EA800C02F42 /* PrefixHeader.pch */,
 				BC8A50A02175917C00C02F42 /* HSUIMarco.h */,
 				BC8A50F82175E5F700C02F42 /* languageNew.h */,
+				B9F6FC79227C2A79006765C0 /* dSYMUpload.sh */,
 				BC4F26D32187EA4B00918157 /* Localizable.strings */,
 			);
 			path = Macros;
@@ -1124,6 +1258,17 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		BCB6D782224B667F00F4B039 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				BCB6D786224B667F00F4B039 /* GCDAsyncSocket.h */,
+				BCB6D784224B667F00F4B039 /* GCDAsyncSocket.m */,
+				BCB6D785224B667F00F4B039 /* GCDAsyncUdpSocket.h */,
+				BCB6D783224B667F00F4B039 /* GCDAsyncUdpSocket.m */,
+			);
+			path = GCD;
+			sourceTree = "<group>";
+		};
 		BCE5486A2178B0560022E0E3 /* Me */ = {
 			isa = PBXGroup;
 			children = (
@@ -1175,6 +1320,7 @@
 				BC8A50512175799200C02F42 /* Sources */,
 				BC8A50522175799200C02F42 /* Frameworks */,
 				BC8A50532175799200C02F42 /* Resources */,
+				B9F6FC78227C28F7006765C0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1232,6 +1378,11 @@
 				TargetAttributes = {
 					BC8A50542175799200C02F42 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 1;
+							};
+						};
 					};
 					BC8A506C2175799400C02F42 = {
 						CreatedOnToolsVersion = 10.0;
@@ -1269,6 +1420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9F6FC7A227C2A79006765C0 /* dSYMUpload.sh in Resources */,
 				BC8A50652175799400C02F42 /* LaunchScreen.storyboard in Resources */,
 				BC4F26D12187EA4B00918157 /* Localizable.strings in Resources */,
 				BC8A50622175799400C02F42 /* Assets.xcassets in Resources */,
@@ -1279,6 +1431,7 @@
 				BC8A50B62175D20F00C02F42 /* README.mdown in Resources */,
 				BC8A674621872B830018152A /* MJRefresh.bundle in Resources */,
 				BC873CA9217D627D002C70A3 /* shouDianTong1.png in Resources */,
+				BC594B65225DD50A002643D3 /* CGXPickerView.bundle in Resources */,
 				BCE5486621787A500022E0E3 /* TimingTableViewCell.xib in Resources */,
 				BC873CA8217D627D002C70A3 /* resource.bundle in Resources */,
 			);
@@ -1300,6 +1453,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B9F6FC78227C28F7006765C0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/charge/Macros/dSYMUpload.sh\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BC8A50512175799200C02F42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1308,6 +1482,7 @@
 				BC8A50CB2175D21700C02F42 /* AFHTTPRequestOperation.m in Sources */,
 				BC8A674E21872B830018152A /* MJRefreshAutoGifFooter.m in Sources */,
 				BC664BE22176CB3300CED085 /* DeviceManager.m in Sources */,
+				BC6EE1FD224DAC9500743A3E /* HSWiFiChargeSettingVC.m in Sources */,
 				BC8A674B21872B830018152A /* MJRefreshBackStateFooter.m in Sources */,
 				BC664BD42176C87700CED085 /* TabButton.m in Sources */,
 				BC8A50AD2175C32000C02F42 /* StTransitions.m in Sources */,
@@ -1323,12 +1498,14 @@
 				BCE548692178A23A0022E0E3 /* setTimingViewController.m in Sources */,
 				BC664C5321770A5400CED085 /* NSMutableString+Safe.m in Sources */,
 				BC664BD72176C89600CED085 /* ChargingStateView.m in Sources */,
+				BC594B61225DD50A002643D3 /* CGforDemoShowViewController.m in Sources */,
 				BC664BB52176C56D00CED085 /* AddChargingPileVC.m in Sources */,
 				BCB0649B2179824D006AA647 /* OssMessageViewController.m in Sources */,
 				BC8A50AE2175C32000C02F42 /* LoginButton.m in Sources */,
 				BC8A50E62175D25800C02F42 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				BC664BC22176C56D00CED085 /* EWOptionItem.m in Sources */,
 				BC873CAE217D6EEC002C70A3 /* InputSettingAlert.m in Sources */,
+				BC594B64225DD50A002643D3 /* CGXAddressPcikerView.m in Sources */,
 				BC664C322176D77700CED085 /* MASConstraintMaker.m in Sources */,
 				BC8A50D32175D21700C02F42 /* AFURLSessionManager.m in Sources */,
 				BC8A50CD2175D21700C02F42 /* AFHTTPSessionManager.m in Sources */,
@@ -1336,6 +1513,8 @@
 				BC664BF62176CB5700CED085 /* MJFoundation.m in Sources */,
 				BC28DEC821796EA1004E0094 /* changManeger.m in Sources */,
 				BC664BFF2176CC4800CED085 /* AuthorizationCell.m in Sources */,
+				BC594B69225DD50A002643D3 /* CGXStringPickerView.m in Sources */,
+				BC594B67225DD50A002643D3 /* CGXPickerUIBaseView.m in Sources */,
 				BC664BC02176C56D00CED085 /* EWOptionCell.m in Sources */,
 				BC664BC72176C5A300CED085 /* EquipmentBaseVC.m in Sources */,
 				BC664BBD2176C56D00CED085 /* EBDropdownListView.m in Sources */,
@@ -1348,8 +1527,10 @@
 				BC8A675221872B830018152A /* MJRefreshGifHeader.m in Sources */,
 				BCE5485E21782BDB0022E0E3 /* PickerViewAlert.m in Sources */,
 				BC664BB72176C56D00CED085 /* BluetoothConnectVC.m in Sources */,
+				BCC4904C224A3F7300AA975A /* HSWiFiManager.m in Sources */,
 				BC664C0B2176CE2B00CED085 /* HSBluetoochManager.m in Sources */,
 				BC8A675421872B830018152A /* MJRefreshHeader.m in Sources */,
+				BC594B6D225DDBBB002643D3 /* SelectTimeAlert.m in Sources */,
 				BC8A674721872B830018152A /* UIScrollView+MJExtension.m in Sources */,
 				BC899AF62179D13B007DCBC5 /* ChargingpileInfoModel.m in Sources */,
 				BC664BD32176C87700CED085 /* TabLeftRightButton.m in Sources */,
@@ -1362,6 +1543,7 @@
 				BC8A50F02175D35000C02F42 /* BaseRequest.m in Sources */,
 				BC1510E4217B09AE003F724A /* ChargeRecordModel.m in Sources */,
 				BC664C352176D77700CED085 /* MASViewConstraint.m in Sources */,
+				BC246A092251F61B0009CFA7 /* HSWiFiChargeTipsVC.m in Sources */,
 				BC664BF82176CB5700CED085 /* MJType.m in Sources */,
 				BCE5486521787A500022E0E3 /* TimingTableViewCell.m in Sources */,
 				BC28DEC721796EA1004E0094 /* ManagementController.m in Sources */,
@@ -1379,6 +1561,7 @@
 				BC664C302176D77700CED085 /* MASCompositeConstraint.m in Sources */,
 				BC664C392176D77700CED085 /* ViewController+MASAdditions.m in Sources */,
 				BC664C5421770A5400CED085 /* NSObject+ImpChangeTool.m in Sources */,
+				BC594B66225DD50A002643D3 /* CGXDatePickerView.m in Sources */,
 				BC664C342176D77700CED085 /* MASViewAttribute.m in Sources */,
 				BC8A50D02175D21700C02F42 /* AFURLConnectionOperation.m in Sources */,
 				BC8A50E92175D25800C02F42 /* UIButton+AFNetworking.m in Sources */,
@@ -1391,6 +1574,7 @@
 				BC664BFB2176CB5700CED085 /* NSObject+MJProperty.m in Sources */,
 				BC664BBA2176C56D00CED085 /* ChargingpileSettingVC.m in Sources */,
 				BC664BC12176C56D00CED085 /* EWOptionGroup.m in Sources */,
+				BC4C0B9C224CE9D4000FCACF /* HSUDPWiFiManager.m in Sources */,
 				BC664C3E2176DA7B00CED085 /* LZQStratViewController_25.m in Sources */,
 				BC664BD22176C87700CED085 /* TabCenterButton.m in Sources */,
 				BC664C122176CED600CED085 /* ChargingPileCell.m in Sources */,
@@ -1398,7 +1582,9 @@
 				BC8A50E72175D25800C02F42 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				BC664C5521770A5400CED085 /* NSObject+Swizzling.m in Sources */,
 				BC54890A21A58A27005B8334 /* SolarTipsAlert.m in Sources */,
+				BC594B6A225DD50A002643D3 /* CGXPickerView.m in Sources */,
 				BC1510E8217B1C41003F724A /* NSString+Zero.m in Sources */,
+				BCB6D788224B667F00F4B039 /* GCDAsyncSocket.m in Sources */,
 				BC664C332176D77700CED085 /* MASLayoutConstraint.m in Sources */,
 				BC8A50CC2175D21700C02F42 /* AFHTTPRequestOperationManager.m in Sources */,
 				BC8A674D21872B830018152A /* MJRefreshAutoStateFooter.m in Sources */,
@@ -1412,8 +1598,12 @@
 				BC664BB92176C56D00CED085 /* ChargingPileSettingOptionVC.m in Sources */,
 				BC899AF32179B38D007DCBC5 /* aboutTableViewCell.m in Sources */,
 				BC664BB62176C56D00CED085 /* AuthorizationVC.m in Sources */,
+				BC594B63225DD50A002643D3 /* NSDate+CGXPicker.m in Sources */,
 				BC664C5121770A5400CED085 /* NSMutableArray+Safe.m in Sources */,
+				BC594B68225DD50A002643D3 /* CGXAddressModel.m in Sources */,
 				BC8A50CF2175D21700C02F42 /* AFSecurityPolicy.m in Sources */,
+				BC594B62225DD50A002643D3 /* CGXPickerViewManager.m in Sources */,
+				BCB6D787224B667F00F4B039 /* GCDAsyncUdpSocket.m in Sources */,
 				BC8A674F21872B830018152A /* MJRefreshAutoNormalFooter.m in Sources */,
 				BC8A50FE2175FF5500C02F42 /* protocol.m in Sources */,
 				BC664BC42176C56D00CED085 /* RegistrationUserVC.m in Sources */,
@@ -1425,6 +1615,7 @@
 				BC8A50AC2175C32000C02F42 /* SpinerLayer.m in Sources */,
 				BC8A505A2175799200C02F42 /* AppDelegate.m in Sources */,
 				BC664C382176D77700CED085 /* View+MASAdditions.m in Sources */,
+				BC6EE200224DC1E300743A3E /* HSTCPWiFiManager.m in Sources */,
 				BC664BCB2176C84C00CED085 /* CircelView.m in Sources */,
 				BC664BDE2176C9E700CED085 /* EquipmentCollectionViewCell.m in Sources */,
 				BC664BF92176CB5700CED085 /* NSObject+MJCoding.m in Sources */,
@@ -1624,9 +1815,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = charge/charge.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DFM3SPMA69;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/charge/Vendors/Bugly",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = charge/Macros/PrefixHeader.pch;
 				INFOPLIST_FILE = charge/Info.plist;
@@ -1646,9 +1844,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = charge/charge.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DFM3SPMA69;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/charge/Vendors/Bugly",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = charge/Macros/PrefixHeader.pch;
 				INFOPLIST_FILE = charge/Info.plist;

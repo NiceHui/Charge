@@ -51,11 +51,12 @@
     XLViewBorderRadius(self.bouncedView, 10, 0, kClearColor);
     [self addSubview:self.bouncedView];
     // 标题
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(50*XLscaleW, 20*XLscaleH, self.bouncedView.xmg_width-100*XLscaleW, 40*XLscaleH)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10*XLscaleW, 15*XLscaleH, self.bouncedView.xmg_width-20*XLscaleW, 50*XLscaleH)];
     titleLabel.textColor = colorblack_51;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = FontSize(20*XLscaleW);
-    titleLabel.adjustsFontSizeToFitWidth = YES;
+    titleLabel.font = FontSize(15*XLscaleH);
+//    titleLabel.adjustsFontSizeToFitWidth = YES;
+    titleLabel.numberOfLines = 0;
     [self.bouncedView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     // 输入
@@ -142,6 +143,10 @@
         self.inputField.text = @"";
     }];
     
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.alignment = NSTextAlignmentCenter;
+    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:HEM_shuru_genggai_shezhi attributes:@{NSFontAttributeName:FontSize(13*XLscaleW), NSParagraphStyleAttributeName:style}];
+    self.inputField.attributedPlaceholder = attri;
 }
 
 - (void)hide {
@@ -188,13 +193,13 @@
     
     _itemText = itemText;
     
-    if ([_itemText isEqualToString:@"rate"] || [_itemText isEqualToString:@"power"]) {
-        
-        self.inputField.keyboardType = UIKeyboardTypeNumberPad;
-    }else{
-        
+//    if ([_itemText isEqualToString:@"rate"] || [_itemText isEqualToString:@"power"]) {
+//
+//        self.inputField.keyboardType = UIKeyboardTypeNumberPad;
+//    }else{
+    
         self.inputField.keyboardType = UIKeyboardTypeDefault;
-    }
+//    }
 }
 
 - (void)setPlaceholderText:(NSString *)PlaceholderText{

@@ -122,7 +122,7 @@
             } else if (self.accessoryType == UITableViewCellAccessoryNone) {
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-15*XLscaleW);
             }
-            make.left.mas_greaterThanOrEqualTo(self.titleLabel.mas_right).offset(20*XLscaleW);
+            make.left.mas_greaterThanOrEqualTo(self.titleLabel.mas_right).offset(5*XLscaleW);
             make.top.bottom.mas_equalTo(self.contentView);
 			make.width.mas_lessThanOrEqualTo(200*XLscaleW);
         }];
@@ -169,7 +169,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.numberOfLines = 1;
-        _titleLabel.font = FontSize(15*XLscaleH);
+        _titleLabel.font = FontSize(14*XLscaleH);
         _titleLabel.textColor = HexRGB(0x464646);
     }
     return _titleLabel;

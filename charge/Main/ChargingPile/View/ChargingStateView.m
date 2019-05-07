@@ -498,8 +498,10 @@
     [looptypeBtn addTarget:self action:@selector(touchSelectLooptype:) forControlEvents:UIControlEventTouchUpInside];
     [orderView addSubview:looptypeBtn];
     _looptypeBtn = looptypeBtn;
-    if ([dict[@"looptype"] isEqualToNumber:@0] && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {// 判断最后一次操作
-        looptypeBtn.selected = YES;// 循环
+    if ([[_model.LastAction class] isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
+        if ([dict[@"looptype"] isEqualToNumber:@0] && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {// 判断最后一次操作
+            looptypeBtn.selected = YES;// 循环
+        }
     }else{
         looptypeBtn.selected = NO;// 不循环
     }
@@ -511,8 +513,10 @@
     [switchButton addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [orderView addSubview:switchButton];
     _switchButton = switchButton;
-    if (_model.ReserveNow.count > 0 && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {
-        _switchButton.on = YES;
+    if ([[_model.LastAction class] isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
+        if (_model.ReserveNow.count > 0 && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {
+            _switchButton.on = YES;
+        }
     }
     if(![self.userType isEqualToNumber:@0]){
         _switchButton.on = NO;

@@ -86,8 +86,12 @@ Byte randomMask[4] = {}; // 随机掩码
 - (void)scanForPeripherals{
     [self.centralManager stopScan];
     NSLog(@"扫描设备");
-    if (self.peripheralState == CBManagerStatePoweredOn){
-        [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    if (@available(iOS 10.0, *)) {
+        if (self.peripheralState == CBManagerStatePoweredOn){
+            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+        }
+    } else {
+        // Fallback on earlier versions
     }
 }
 
@@ -330,7 +334,7 @@ Byte randomMask[4] = {}; // 随机掩码
 
 #pragma mark -- 心跳
 - (void)heartbeat{
-    NSData *TimeData = [HSBluetoochHelper getCurrentTime];
+    NSData *TimeData = [HSBluetoochHelper getCurrentTimeType:@"0"]; // 15
     Byte *Payload = (Byte *)[TimeData bytes];
     NSData *sendData = [HSBluetoochHelper sendDataProtocol:@"0x01" Cmd:@"0x02" DataLenght:15 Payload:Payload Mask:randomMask Useless:nil];
     [self.cbperipheral writeValue:sendData forCharacteristic:self.writeChatacteristic type:CBCharacteristicWriteWithResponse];

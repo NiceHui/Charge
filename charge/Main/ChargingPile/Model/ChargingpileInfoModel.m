@@ -33,9 +33,12 @@
     }else if ([_status isEqualToString:@"Unavailable"]){
         
         return HEM_Unavailable;
-    }else if ([_status isEqualToString:@"SuspendedEV"] || [_status isEqualToString:@"SuspendedEVSE"]){
+    }else if ([_status isEqualToString:@"SuspendedEV"]){ // 车拒绝充电
         
         return HEM_SuspendedEV;
+    }else if ([_status isEqualToString:@"SuspendedEVSE"]){ // 桩拒绝充电
+        
+        return HEM_SuspendedEVSE;
     } if ([_status isEqualToString:@"expiry"]){
         
         return HEM_expiry;
@@ -53,7 +56,7 @@
 // 返回值主要分成四种情况  普通定时， 金额定时， 电量定时， 分段定时
 - (NSDictionary *)getReserveNow{
     
-    if (_LastAction) {
+    if (_LastAction && [[_LastAction class] isKindOfClass:[NSDictionary class]]) {
         NSString *action = _LastAction[@"action"];
         if([action isEqualToString:@"remoteStopTransaction"]){// 远程控制
             
@@ -64,7 +67,7 @@
             
         }else if([action isEqualToString:@"ReserveNow"]){// 预订模式
             
-            if (self.ReserveNow.count > 0) {
+            if ([[self.ReserveNow class] isKindOfClass:[NSArray class]] && self.ReserveNow.count > 0) {
                 NSDictionary *dict = _ReserveNow[0];
                 
                 if ([dict[@"cKey"] isEqualToString:@"G_SetAmount"]) { // 金额

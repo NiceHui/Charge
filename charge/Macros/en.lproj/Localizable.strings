@@ -158,7 +158,7 @@
 "130充电结束" = "Finish";
 "131故障" = "Faulted";
 "132通讯异常" = "Unavailable";
-"133通讯异常" = "Suspended EV";
+"133车拒绝充电" = "SuspendedEV";
 "134已经注销" = "Has been cancelled";
 "135启用中" = "Starting";
 "136已经工作过" = "Have worked";
@@ -167,7 +167,7 @@
 "138设置电量不能为0" = "Energy settings cannot be 0";
 "139时长设置不能为空" = "Time settings can not be empty.";
 "140未设置开始时间" = "No start time was set";
-"141空闲状态无法直接开始充电，请先连接车辆与充电桩" = "You cannot start charging directly. Please connect the vehicle with the charging pile first.";
+"141空闲状态无法直接开始充电，请先连接车辆与充电桩" = "You cannot start charging directly. Please connect the vehicle with the charging Point first.";
 
 "142切换" = "Switch";
 "143添加" = "Add";
@@ -213,7 +213,7 @@
 "180填写资料注册新用户" = "Fill in the information";
 "181请输入用户名/车牌/电话/邮箱" = "Please enter user name";
 "182现在正处于时段预约状态，如需立即开始充电，请关闭预约按键，并重新设置时长!" = "If you need to start charging immediately, please close the reservation button and reset the time!";
-"183不能删除桩主" = "Unable to delete pile owner";
+"183不能删除桩主" = "Unable to delete charging Point owner";
 
 // 蓝牙
 "184搜索" = "Search";
@@ -264,8 +264,8 @@
 
 "224充电结束，请拔下充电枪，并将充电枪归位" = "After charging, please unplug the charging gun and put it in position";
 "225请连接充电枪到车辆" = "Please connect the vehicle to the charging gun.";
-"226电桩故障，请切换使用其他充电桩" = "Pile failure, please switch to other charging piles.";
-"227桩体状态为不可用，请切换使用其他充电桩" = "Pile unavailable, please switch to other charging piles.";
+"226电桩故障，请切换使用其他充电桩" = "charging Point failure, please switch to other charging Point.";
+"227桩体状态为不可用，请切换使用其他充电桩" = "charging Point unavailable, please switch to other charging Point.";
 "228预设" = "Preset";
 "229当前" = "At present";
 "230预设充电方案" = "Preset charge";
@@ -287,3 +287,59 @@
 "244设置失败" = "Setup failed";
 "245将充电功率限制为1KW" = "Limit charging power to 1KW";
 "246将关闭充电功率限制" = "Will turn off charging power limit";
+
+// wifi设置
+"247连接热点" = "Connection hotspot";
+"248打开手机WLAN,将手机连接至电桩热点" = "Turn on your phone's WLAN and connect your phone to the charger hotspot";
+"249当前手机连接WiFi" = "Current phone connected to WiFi";
+"250刷新" = "Refresh";
+"251已连接,下一步" = "Connected, next";
+"252连接充电桩中..." = "Connect the charger...";
+"253手机暂未连接wifi" = "The phone is not connected to wifi";
+"254连接失败" = "Connection failed";
+
+"255设备信息参数设置" = "Device information parameter setting";
+"256设备以太网参数设置" = "Device Ethernet parameter settings";
+"257设备账号密码参数设置" = "Device account password parameter setting";
+"258设备服务器参数设置" = "Device server parameter settings";
+"259设备充电参数设置" = "Device charging parameter setting";
+"260语言" = "Language";
+"261中文" = "Chinese";
+"262泰文" = "Thai";
+"263英文" = "English";
+"264读卡器秘钥" = "Card reader key";
+"265RCD保护值" = "RCD protection value";
+
+"266wifi名称" = "Wifi name";
+"267wifi密码" = "Wifi password";
+"268蓝牙名称" = "Bluetooth name";
+"269蓝牙密码" = "Bluetooth password";
+"2704G用户名" = "4G username";
+"2714G密码" = "4G password";
+"2724G APN" = "4G APN";
+
+"273握手登录授权秘钥" = "Handshake login authorization key";
+"274心跳间隔时间(秒)" = "Heartbeat interval (s)";
+"275PING间隔时间(秒)" = "PING interval (s)";
+"276表计上传间隔时间(秒)" = "Meter upload interval (s)";
+
+"277电桩最大输出电流(A)" = "Charger maximum output current (A)";
+"278保护温度(℃)" = "Protection temperature (°C)";
+"279外部监测最大输入功率(KW)" = "Monitor maximum input power (KW)";
+"280允许充电时间" = "Allow charging time";
+
+"281电桩断开" = "Charger disconnection";
+"282结束时间" = "End Time";
+"283选择时间" = "Selection period";
+"284未设置结束时间" = "End time not set";
+"285开始时间不能大于结束时间" = "Start time cannot be later than end time";
+"286输入值超出规定长度" = "Input value exceeds the specified length";
+"287级" = "level";
+"288未连接" = "not connected";
+"289切换至AP模式" = "Switch to AP mode";
+"290超出设置范围" = "Out of setting range";
+"291设定值不能小于" = "Value cannot be less than";
+
+"292桩拒绝充电" = "SuspendedEVSE";
+"293车拒绝充电,请切换使用其他充电桩" = "The car refuses to charge, the vehicle is full or unlocked";
+"294桩拒绝充电,请切换使用其他充电桩" = "charging Point refused to charge, please switch to other charging Point";

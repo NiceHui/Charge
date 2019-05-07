@@ -43,7 +43,7 @@
     // 设置每一组的头部高度
     self.tableView.sectionHeaderHeight = 35*XLscaleH;
     self.tableView.sectionFooterHeight = 0;
-    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 50, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
 	[self.tableView registerClass:[EWOptionCell class] forCellReuseIdentifier:@"option_cell"];
 	
     self.tableView.rowHeight = 45*XLscaleH;

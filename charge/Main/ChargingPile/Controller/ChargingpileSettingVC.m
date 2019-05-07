@@ -11,6 +11,7 @@
 #import "EWOptionItem.h"
 #import "EWOptionArrowItem.h"
 #import "InputSettingAlert.h"
+#import "HSWiFiChargeTipsVC.h"
 
 @interface ChargingpileSettingVC ()<InputSettingDelegate>
 
@@ -69,7 +70,7 @@
 - (void)createUIView{
     
     __weak typeof(self) weakSelf = self;
-    MJRefreshNormalHeader *header = [MJRefreshHeader headerWithRefreshingBlock:^{
+    MJRefreshHeader *header = [MJRefreshHeader headerWithRefreshingBlock:^{
        
         [weakSelf getChargeoConfigInfomation];
         
@@ -83,6 +84,7 @@
     EWOptionGroup *group1 = [[EWOptionGroup alloc]init];
     EWOptionGroup *group2 = [[EWOptionGroup alloc]init];
     EWOptionGroup *group3 = [[EWOptionGroup alloc]init];
+    EWOptionGroup *group4 = [[EWOptionGroup alloc]init];
     
     // ID
     EWOptionItem *IDItem = [EWOptionItem itemWithTitle:HEM_charge_id detailTitle:@"--"];
@@ -244,9 +246,16 @@
     group3.headerTitle = HEM_charge_gaojishezhi;
     group3.items = @[ip_item, gateway_item, mask_item, mac_item, url_item, dns_item];
     
+    // 切换ap模式
+    EWOptionArrowItem *switch_ap_item = [EWOptionArrowItem arrowItemWithTitle:root_qiehuan_ap detailTitle:@"" didClickBlock:^{
+        [weakSelf switch_ap_mode];
+    }];
+    group4.items = @[switch_ap_item];
+    
     [self.groups addObject:group1];
     [self.groups addObject:group2];
     [self.groups addObject:group3];
+    [self.groups addObject:group4];
     
     [self.tableView reloadData];
     
@@ -341,6 +350,14 @@
         }
     }
     
+    if ([key isEqualToString:@"rate"] || [key isEqualToString:@"power"]) {
+        // 判断是否为数字
+        if(![NSString isNum:prams[key]]){
+            [self showToastViewWithTitle:root_geshi_cuowu];
+            return;
+        }
+    }
+    
     NSMutableDictionary *prams2 = [[NSMutableDictionary alloc]initWithDictionary:prams];
     [prams2 setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
     [prams2 setObject:self.sn forKey:@"chargeId"];
@@ -355,7 +372,7 @@
 - (void)selectModel:(int)model{
     
     NSMutableDictionary *prams2 = [[NSMutableDictionary alloc]init];
-    [prams2 setObject:@(model) forKey:@"model"];
+    [prams2 setObject:@(model) forKey:@"G_ChargerMode"];
     [prams2 setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
     [prams2 setObject:self.sn forKey:@"chargeId"];
     
@@ -365,16 +382,23 @@
     
 }
 
-
-- (UIImage *)createImageWithColor:(UIColor *)color rect:(CGRect)rect {
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return theImage;
+// 电桩切换至AP模式
+- (void)switch_ap_mode{
+    __weak typeof(self) weakSelf = self;
+    [self showProgressView];
+    [[DeviceManager shareInstenced]switchAPModeWithSn:self.sn userId:[UserInfo defaultUserInfo].userName success:^(id obj) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf hideProgressView];
+            if ([obj[@"code"] isEqualToNumber:@0]) {
+                HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            } else{
+                [weakSelf showToastViewWithTitle:[NSString stringWithFormat:@"%@", obj[@"data"]]];
+            }
+        });
+    } failure:^(NSError *error) {
+        [weakSelf hideProgressView];
+    }];
 }
 
 

@@ -64,13 +64,15 @@
         appName = @"ShinePhone";
     }
     
-     _isFirstLogin=YES;
+    _isFirstLogin=YES;
     
     [self initScanDevide];
-   // [self drawTitle];      扫描框提示语
+    // [self drawTitle];      扫描框提示语
     [self drawScanView];
     [self initScanType];
     [self setNavItem:self.scanType];
+    
+    [self drawBottomItems];
 }
 
 
@@ -78,12 +80,13 @@
     [super viewWillAppear:animated];
     
     if (_scanBarType==1) {
-             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"theToolPasswordOpenEnable"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"theToolPasswordOpenEnable"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         if (!_isFirstLogin) {
             [self.navigationController popViewControllerAnimated:NO];
         }
     }
-  
+    
     //开始捕获
     if (self.session) [self.session startRunning];
 }
@@ -93,11 +96,11 @@
     [super viewWillDisappear:animated];
     _isFirstLogin=NO;
     
-//    // 打开系统右滑移动返回手势
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.enabled = YES;      // 手势有效设置为YES  无效为NO
-//        self.navigationController.interactivePopGestureRecognizer.delegate = self;    // 手势的代理设置为self
-//    }
+    //    // 打开系统右滑移动返回手势
+    //    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+    //        self.navigationController.interactivePopGestureRecognizer.enabled = YES;      // 手势有效设置为YES  无效为NO
+    //        self.navigationController.interactivePopGestureRecognizer.delegate = self;    // 手势的代理设置为self
+    //    }
     
     //开始捕获
     if (self.session) [self.session stopRunning];
@@ -144,7 +147,7 @@
     if (self.scanType == MMScanTypeAll) {
         _scanRect = CGRectFromString([self scanRectWithScale:1][0]);
         self.output.rectOfInterest = _scanRect;
-        [self drawBottomItems];
+        
     } else if (self.scanType == MMScanTypeQrCode) {
         self.output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,
                                             AVMetadataObjectTypeEAN13Code,
@@ -201,7 +204,7 @@
     }
 }
 
-#pragma mark -- 扫码结果
+
 /////////扫描结果
 - (void)renderUrlStr:(NSString *)url {
     
@@ -218,9 +221,13 @@
 
 //绘制扫描区域
 - (void)drawScanView {
-    _scanRectView = [[MMScanView alloc] initWithFrame:CGRectMake(0, -100, ScreenWidth, ScreenHeight) style:@""];
+    //    _scanRectView = [[MMScanView alloc] initWithFrame:self.view.frame style:@""];
+    CGRect rect = self.view.frame;
+    _scanRectView = [[MMScanView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height-kNavBarHeight) style:@""];
     [_scanRectView setScanType:self.scanType];
     [self.view addSubview:_scanRectView];
+    
+    
 }
 
 - (void)drawTitle
@@ -248,34 +255,44 @@
         return;
     }
     
-    self.toolsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame)-240,
-                                                                   CGRectGetWidth(self.view.frame), 64)];
+    self.toolsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame)-kNavBarHeight-130,
+                                                             CGRectGetWidth(self.view.frame), 64)];
     _toolsView.backgroundColor = [UIColor clearColor];
     
-   // _toolsView.backgroundColor = [UIColor colorWithRed:0.212 green:0.208 blue:0.231 alpha:1.00];
- //   NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"resource" ofType: @"bundle"]];
+    // _toolsView.backgroundColor = [UIColor colorWithRed:0.212 green:0.208 blue:0.231 alpha:1.00];
+    //   NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"resource" ofType: @"bundle"]];
     
-    float buttonW=64;
+    float buttonW=50;
     CGSize size = CGSizeMake(buttonW, buttonW);
     
     self.scanTypeQrBtn = [[UIButton alloc]init];
-    _scanTypeQrBtn.frame = CGRectMake((ScreenWidth-buttonW)/2, 0, size.width, size.height);
-  
-    [_scanTypeQrBtn setTitleColor:mainColor forState:UIControlStateSelected];
+    _scanTypeQrBtn.frame = CGRectMake((ScreenWidth*0.5-buttonW)*0.5, 0, size.width, size.height);
+    
+    [_scanTypeQrBtn setTitleColor:[UIColor colorWithRed:0.165 green:0.663 blue:0.886 alpha:1.00] forState:UIControlStateSelected];
     [_scanTypeQrBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_scanTypeQrBtn setImage:IMAGE(@"shouDianTong1") forState:UIControlStateNormal];
-    [_scanTypeQrBtn setImage:IMAGE(@"shouDianTong2") forState:UIControlStateSelected];
+    [_scanTypeQrBtn setImage:IMAGE(@"shouDianTong1.png") forState:UIControlStateNormal];
+    [_scanTypeQrBtn setImage:IMAGE(@"shouDianTong2.png") forState:UIControlStateSelected];
     [_scanTypeQrBtn setSelected:NO];
     //  [_scanTypeQrBtn setTitle:@"二维码" forState:UIControlStateNormal];
-  //  _scanTypeQrBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
-   // _scanTypeQrBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    //  _scanTypeQrBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
+    // _scanTypeQrBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
     [_scanTypeQrBtn addTarget:self action:@selector(openFlash:) forControlEvents:UIControlEventTouchUpInside];
     
-
+    
+    UIButton *changeButton = [[UIButton alloc]init];
+    changeButton.frame = CGRectMake((ScreenWidth*0.5-buttonW)*0.5+ScreenWidth*0.5, 0, size.width, size.height);
+    
+    [changeButton setTitleColor:[UIColor colorWithRed:0.165 green:0.663 blue:0.886 alpha:1.00] forState:UIControlStateSelected];
+    [changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [changeButton setImage:[UIImage imageNamed:@"tiaoxingma"] forState:UIControlStateNormal];
+    [changeButton setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateSelected];
+    [changeButton setSelected:NO];
+    [changeButton addTarget:self action:@selector(changeButton:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     [_toolsView addSubview:_scanTypeQrBtn];
-    [_toolsView addSubview:_scanTypeBarBtn];
+    [_toolsView addSubview:changeButton];
     [self.view addSubview:_toolsView];
 }
 
@@ -290,36 +307,81 @@
 
 
 #pragma mark -底部功能项事件
+
+- (void)changeButton:(UIButton *)button{
+    
+    if (delayQRAction) return;
+    if (delayBarAction) return;
+    
+    button.selected = !button.selected;
+    if (button.selected) {
+        [self barBtnClicked];
+    }else{
+        [self qrBtnClicked];
+    }
+}
+
+
 //修改扫码类型 【二维码  || 条形码】
-- (void)qrBtnClicked:(UIButton *)sender {
-    if (sender.selected) return;
+- (void)qrBtnClicked{
+    
     if (delayQRAction) return;
     
-    [sender setSelected:YES];
     [_scanTypeBarBtn setSelected:NO];
     [self changeScanCodeType:MMScanTypeQrCode];
-    [self setNavItem:MMScanTypeQrCode];
+    //    [self setNavItem:MMScanTypeQrCode];
     delayQRAction = YES;
-    [self performTaskWithTimeInterval:3.0f action:^{
+    [self performTaskWithTimeInterval:2.0f action:^{
         delayQRAction = NO;
     }];
     
 }
 
-- (void)barBtnClicked:(UIButton *)sender {
-    if (sender.selected) return;
+- (void)barBtnClicked{
+    
     if (delayBarAction) return;
     
-    [sender setSelected:YES];
     [_scanTypeQrBtn setSelected:NO];
     [self.scanRectView stopAnimating];
     [self changeScanCodeType:MMScanTypeBarCode];
-    [self setNavItem:MMScanTypeBarCode];
+    //    [self setNavItem:MMScanTypeBarCode];
     delayBarAction = YES;
-    [self performTaskWithTimeInterval:3.0f action:^{
+    [self performTaskWithTimeInterval:2.0f action:^{
         delayBarAction = NO;
     }];
 }
+
+////修改扫码类型 【二维码  || 条形码】
+//- (void)qrBtnClicked:(UIButton *)sender {
+//    if (sender.selected) return;
+//    if (delayQRAction) return;
+//
+//    [sender setSelected:YES];
+//    [_scanTypeBarBtn setSelected:NO];
+//    [self changeScanCodeType:MMScanTypeQrCode];
+//    [self setNavItem:MMScanTypeQrCode];
+//    delayQRAction = YES;
+//    [self performTaskWithTimeInterval:3.0f action:^{
+//        delayQRAction = NO;
+//    }];
+//
+//}
+//
+//- (void)barBtnClicked:(UIButton *)sender {
+//    if (sender.selected) return;
+//
+//    if (delayBarAction) return;
+//
+//    [sender setSelected:YES];
+//    [_scanTypeQrBtn setSelected:NO];
+//    [self.scanRectView stopAnimating];
+//    [self changeScanCodeType:MMScanTypeBarCode];
+//    [self setNavItem:MMScanTypeBarCode];
+//    delayBarAction = YES;
+//    [self performTaskWithTimeInterval:3.0f action:^{
+//        delayBarAction = NO;
+//    }];
+//}
 
 #pragma mark - 修改扫码类型 【二维码  || 条形码】
 - (void)changeScanCodeType:(MMScanType)type {
@@ -330,7 +392,7 @@
         self.output.metadataObjectTypes = @[AVMetadataObjectTypeEAN13Code,
                                             AVMetadataObjectTypeEAN8Code,
                                             AVMetadataObjectTypeCode128Code];
-        self.title = @"条码";
+        //        self.title = @"条码";
         _scanRect = CGRectFromString([weakSelf scanRectWithScale:3][0]);
         scanSize = CGSizeFromString([self scanRectWithScale:3][1]);
     } else {
@@ -338,7 +400,7 @@
                                             AVMetadataObjectTypeEAN13Code,
                                             AVMetadataObjectTypeEAN8Code,
                                             AVMetadataObjectTypeCode128Code];
-        self.title = @"二维码";
+        //        self.title = @"二维码";
         _scanRect = CGRectFromString([weakSelf scanRectWithScale:1][0]);
         scanSize = CGSizeFromString([self scanRectWithScale:1][1]);
     }
@@ -372,9 +434,15 @@
 - (void)openPhotoLibrary
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
     picker.delegate = self;
+    
+    
     picker.allowsEditing = YES;
+    
+    
     [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -621,6 +689,17 @@
     CGImageRelease(cgImage);
     
     return codeImage;
+}
+
+- (UIImage *)createImageWithColor:(UIColor *)color rect:(CGRect)rect {
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return theImage;
 }
 
 #pragma mark - 延时操作器

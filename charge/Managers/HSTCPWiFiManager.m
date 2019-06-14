@@ -247,6 +247,9 @@ static HSTCPWiFiManager *instance = nil;
     [bytesData appendData:randomData];// 加密ID 4
     
     Byte *Payload = (Byte *)[bytesData bytes];// 有效数据
+    if (!self.devType) {
+        return;
+    }
     NSData *sendData = [HSBluetoochHelper wifiSendDataProtocol:self.devType Cmd:@"0xA0" DataLenght:38 Payload:Payload Mask:loginMask2
                                                        Useless:nil];
     [_socket writeData:sendData withTimeout:-1 tag:201];
@@ -257,6 +260,9 @@ static HSTCPWiFiManager *instance = nil;
     NSLog(@"退出命令 2");
     NSData *TimeData = [HSBluetoochHelper getCurrentTimeType:@"1"];// 时间 14
     Byte *Payload = (Byte *)[TimeData bytes];
+    if (!self.devType) {
+        return;
+    }
     NSData *sendData = [HSBluetoochHelper wifiSendDataProtocol:self.devType Cmd:@"0xA1" DataLenght:14 Payload:Payload Mask:randomMask2
                                                        Useless:nil];
     [_socket writeData:sendData withTimeout:-1 tag:201];

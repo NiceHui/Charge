@@ -56,7 +56,7 @@
 // 返回值主要分成四种情况  普通定时， 金额定时， 电量定时， 分段定时
 - (NSDictionary *)getReserveNow{
     
-    if (_LastAction && [[_LastAction class] isKindOfClass:[NSDictionary class]]) {
+    if (_LastAction && [_LastAction isKindOfClass:[NSDictionary class]]) {
         NSString *action = _LastAction[@"action"];
         if([action isEqualToString:@"remoteStopTransaction"]){// 远程控制
             
@@ -67,7 +67,7 @@
             
         }else if([action isEqualToString:@"ReserveNow"]){// 预订模式
             
-            if ([[self.ReserveNow class] isKindOfClass:[NSArray class]] && self.ReserveNow.count > 0) {
+            if ([_ReserveNow isKindOfClass:[NSArray class]] && _ReserveNow.count > 0) {
                 NSDictionary *dict = _ReserveNow[0];
                 
                 if ([dict[@"cKey"] isEqualToString:@"G_SetAmount"]) { // 金额

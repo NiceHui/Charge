@@ -90,6 +90,7 @@
 
 - (void)goToWiFiSetting{
     HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
+    vc.ChargeId = [NSString stringWithFormat:@"%@", self->_deviceModel.chargeId];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -97,7 +98,7 @@
     
     self.scrollView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
         [self getChargingpileList];
-        [self getChargingPileInfomation:_deviceModel];
+        [self getChargingPileInfomation:self->_deviceModel];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.scrollView.mj_header endRefreshing];
         });
@@ -412,7 +413,7 @@
 - (void)setTimingCkey:(NSString *)cKey action:(NSString *)action cValue:(NSInteger)cValue Time:(NSString *)time isLoopType:(BOOL)isLoopType{
     // 获取日期
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *currentDate = [formatter stringFromDate:[NSDate date]];
     
     NSMutableDictionary *parms = [[NSMutableDictionary alloc]init];
@@ -546,11 +547,11 @@
                 weakSelf.dataSource = [GRTChargingPileModel objectArrayWithKeyValuesArray:dict];
                 [weakSelf.devCollectView reloadData];
                 if (weakSelf.dataSource.count != 0) {// 获取当前设备获取详细信息
-                    weakSelf.deviceModel = weakSelf.dataSource[currentDevIndex];
+                    weakSelf.deviceModel = weakSelf.dataSource[self->currentDevIndex];
                     self->currentConnectorId = 1;// 获取的充电枪编码默认为1
-                    [weakSelf getChargingPileInfomation:weakSelf.dataSource[currentDevIndex]];
+                    [weakSelf getChargingPileInfomation:weakSelf.dataSource[self->currentDevIndex]];
                     weakSelf.solarButton.selected = [weakSelf.deviceModel.solar boolValue];
-                    [weakSelf setButtonBackgroundColor:_solarButton.isSelected];
+                    [weakSelf setButtonBackgroundColor:self->_solarButton.isSelected];
                 }
             }
         });
@@ -570,6 +571,9 @@
                 if (self->isRefreshOrder && [weakSelf.InfoModel.LastAction[@"action"] isEqualToString:@"ReserveNow"] && ([obj[@"data"][@"status"] isEqualToString:@"Available"] || [obj[@"data"][@"status"] isEqualToString:@"Preparing"] || [obj[@"data"][@"status"] isEqualToString:@"Reserved"]) ) {// 判断是否允许刷新,并且上次操作为预定操作
                     [weakSelf getChargingPileReserveNow:model type:@"ReserveNow"];// 获取预设信息
                 }
+                if (![weakSelf.InfoModel.LastAction isKindOfClass:[NSDictionary class]] || weakSelf.InfoModel.LastAction == NULL) {
+                    [weakSelf getChargingPileReserveNow:model type:@"ReserveNow"];// 在第一次登陆的时候缺少操作记录，获取预设信息
+                }
                 [weakSelf getChargingPileReserveNow:model type:@"LastAction"];// 获取最后一次操作信息
             }
         });
@@ -584,13 +588,21 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([obj[@"code"] isEqualToNumber:@0]) {
                 if ([type isEqualToString:@"ReserveNow"]) {
-                    weakSelf.InfoModel.ReserveNow = obj[@"data"];
-                    self.ReserveNowArray = obj[@"data"];
-                    weakSelf.stateView.model = weakSelf.InfoModel;
+                    weakSelf.ReserveNowArray = obj[@"data"];
+                    if ([weakSelf.ReserveNowArray isKindOfClass:[NSArray class]]) {
+                        if(weakSelf.ReserveNowArray.count > 0){
+                            weakSelf.InfoModel.ReserveNow = weakSelf.ReserveNowArray;
+                            weakSelf.stateView.model = weakSelf.InfoModel;
+                        }
+                    }
                 }else if ([type isEqualToString:@"LastAction"]){
-                    weakSelf.InfoModel.LastAction = obj[@"data"];
-                    self.LastActionDict = obj[@"data"];
-                    weakSelf.stateView.model = weakSelf.InfoModel;
+                    weakSelf.LastActionDict = obj[@"data"];
+                    if ([weakSelf.LastActionDict isKindOfClass:[NSDictionary class]]) { // 保护判断
+                        if(weakSelf.LastActionDict.allKeys.count > 0){
+                            weakSelf.InfoModel.LastAction = weakSelf.LastActionDict;
+                            weakSelf.stateView.model = weakSelf.InfoModel;
+                        }
+                    }
                 }
             }
         });
@@ -607,7 +619,7 @@
                 if(isRemote){
                     [weakSelf Refresh_frequency_Times_Action:isRemote];
                 }else{
-                    [weakSelf getChargingPileInfomation:_deviceModel];
+                    [weakSelf getChargingPileInfomation:self->_deviceModel];
                 }
             }else{
                 [weakSelf hideProgressView];
@@ -665,14 +677,14 @@
     NSDictionary *dict = [dict0[@"data"] mutableCopy];
     ChargingpileInfoModel *model = [ChargingpileInfoModel objectWithKeyValues:dict];
     if(!model)return;
-    if ([[self.LastActionDict class] isKindOfClass:[NSDictionary class]]) {
+    if ([self.LastActionDict isKindOfClass:[NSDictionary class]]) {
         if(self.LastActionDict.allKeys.count > 0){
             model.LastAction = self.LastActionDict;
         }
     } else{
         model.LastAction = NULL;
     }
-    if ([[self.ReserveNowArray class] isKindOfClass:[NSArray class]]) {
+    if ([self.ReserveNowArray isKindOfClass:[NSArray class]]) {
         if(self.ReserveNowArray.count > 0){
             model.ReserveNow = self.ReserveNowArray;
         }

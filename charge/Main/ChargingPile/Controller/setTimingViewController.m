@@ -167,7 +167,7 @@
     
     // 获取日期
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *currentDate = [formatter stringFromDate:[NSDate date]];
     
     NSString *startTime = _startBotton.titleLabel.text;

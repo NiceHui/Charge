@@ -169,36 +169,11 @@
 
 #pragma mark -- 点击事件
 
-//- (void)getChargeIP{
-//    // 刷新最新的wifi信息
-//    [self getWiFiName];
-//    if([self.lblWiFiName.text isEqualToString:root_weilianjie]){
-//        [self showToastViewWithTitle:root_weilianjie_wifi];
-//        return;
-//    }
-//    isSuccess = NO;
-//    self.progressLabel.text = @"0 s";
-//    // timer 要在主线程中开启才有效
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        __block int sec = 1;
-//        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-//            // 发送udp, 获取可设置的电桩地址和名称
-//            [[HSUDPWiFiManager shareUDPManage] broadcast:@"www.usr.cn"];
-//            self.progressLabel.text = [NSString stringWithFormat:@"%d s", sec];
-//            sec ++;
-//            if (sec >60) {
-//                [self showToastViewWithTitle:root_Networking];
-//                [self stopSendData];
-//            }
-//        }] ;
-//        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-//    });
-//    self.bgView.hidden = NO;
-//    // 开启旋转动画
-//    [self rotate];
-//}
-
 - (void)getChargeIP{
+//    HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
+//    vc.devData = @{@"ip": @"192.168.1.1", @"devName": self.ChargeId};
+//    [self.navigationController pushViewController:vc animated:YES];
+//    return;
     // 刷新最新的wifi信息
     [self getWiFiName];
     if([self.lblWiFiName.text isEqualToString:root_weilianjie]){
@@ -265,39 +240,6 @@
 }
 
 
-#pragma mark -- HSUDPWiFiManagerDelegate
-
-// 客户端发送过来的消息
-- (void)serverSocketDidReceiveMessage:(NSString *)message{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->isSuccess) {
-            return ;
-        }
-        self->isSuccess = YES;
-        // 停止定时
-        [self stopSendData];
-        
-        // 192.168.0.32,9CA52512AC13,CP1111,2.18.06
-        NSArray *array = [message componentsSeparatedByString:@","];
-        
-        NSMutableDictionary *devData = [[NSMutableDictionary alloc]init];
-        [devData setObject:array[0] forKey:@"ip"];
-        [devData setObject:array[2] forKey:@"devName"];
-        
-        HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
-        vc.devData = devData;
-        [self.navigationController pushViewController:vc animated:YES];
-    });
-}
-
-// 失败回调
-- (void)serverSocketError:(NSString *)error{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"获取失败");
-        [self showToastViewWithTitle:root_lianjieshibai];
-    });
-}
-
 #pragma mark -- HSTCPWiFiManagerDelegate
 - (void)SocketConnectIsSucces:(BOOL)isSucces{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -309,6 +251,12 @@
             NSMutableDictionary *devData = [[NSMutableDictionary alloc]init];
             [devData setObject:@"192.168.1.1" forKey:@"ip"];  // 固定连接ip
             [devData setObject:self.lblWiFiName.text forKey:@"devName"]; // 使用wifi名称
+            
+            // 判断直连SN号是否是自己选中的那个
+            if(![self.lblWiFiName.text isEqualToString:self.ChargeId]){
+                [self showToastViewWithTitle:root_dianzhuanweixuanze];
+                return ;
+            }
             
             HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
             vc.devData = devData;
@@ -346,6 +294,27 @@
     }
     return info[@"SSID"];
 }
+
+// 电桩切换至AP模式
+- (void)switch_ap_mode{
+    __weak typeof(self) weakSelf = self;
+    [self showProgressView];
+    [[DeviceManager shareInstenced]switchAPModeWithSn:self.ChargeId userId:[UserInfo defaultUserInfo].userName success:^(id obj) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf hideProgressView];
+            if ([obj[@"code"] isEqualToNumber:@0]) {
+                HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            } else{
+                [weakSelf showToastViewWithTitle:[NSString stringWithFormat:@"%@", obj[@"data"]]];
+            }
+        });
+    } failure:^(NSError *error) {
+        [weakSelf hideProgressView];
+    }];
+}
+
+
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];

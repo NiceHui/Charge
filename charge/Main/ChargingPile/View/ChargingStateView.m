@@ -373,7 +373,7 @@
 #pragma mark -- 准备中
 - (void)charingInPreparation{
     
-    NSDictionary *dict = [_model getReserveNow];
+    NSDictionary *dict = [_model getReserveNow];// 获取预定信息
     
     if (![self.userType isEqualToNumber:@0]) { // 非桩主不显示预约信息
         dict = @{@"cKey": @"",@"value": @[@"--", @"-- kWh", @"- h - min"],@"value2": @"--"};
@@ -498,7 +498,7 @@
     [looptypeBtn addTarget:self action:@selector(touchSelectLooptype:) forControlEvents:UIControlEventTouchUpInside];
     [orderView addSubview:looptypeBtn];
     _looptypeBtn = looptypeBtn;
-    if ([[_model.LastAction class] isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
+    if ([_model.LastAction isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
         if ([dict[@"looptype"] isEqualToNumber:@0] && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {// 判断最后一次操作
             looptypeBtn.selected = YES;// 循环
         }
@@ -513,7 +513,7 @@
     [switchButton addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [orderView addSubview:switchButton];
     _switchButton = switchButton;
-    if ([[_model.LastAction class] isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
+    if ([_model.LastAction isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
         if (_model.ReserveNow.count > 0 && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {
             _switchButton.on = YES;
         }

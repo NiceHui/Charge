@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HSWiFiChargeTipsVC : BaseViewController
 
+@property (nonatomic, strong) NSString *ChargeId;
+
 @end
 
 NS_ASSUME_NONNULL_END

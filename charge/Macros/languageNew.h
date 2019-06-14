@@ -308,7 +308,7 @@
 #define  root_taiwen NSLocalizedString(@"262泰文", nil)
 #define  root_yingwen NSLocalizedString(@"263英文", nil)
 #define  root_dukaiqi_miyao NSLocalizedString(@"264读卡器秘钥", nil)
-#define  root_rcd_baohuzhi NSLocalizedString(@"265RCD保护值", nil)
+#define  root_rcd_baohuzhi NSLocalizedString(@"265保护等级", nil)
 
 #define  root_wifi_ssid NSLocalizedString(@"266wifi名称", nil)
 #define  root_wifi_key NSLocalizedString(@"267wifi密码", nil)
@@ -343,6 +343,15 @@
 #define  HEM_SuspendedEVSE NSLocalizedString(@"292桩拒绝充电",nil)
 #define  root_charge_state_SuspendedEV NSLocalizedString(@"293车拒绝充电,车辆已充满或者未锁车",nil)
 #define  root_charge_state_SuspendedEVSE NSLocalizedString(@"294桩拒绝充电,请切换使用其他充电桩",nil)
+
+// 未翻译
+#define  root_dianzhuanweixuanze NSLocalizedString(@"295该电桩热点不是已选择的电桩",nil)
+#define  root_banbenhao NSLocalizedString(@"296版本号",nil)
+#define  root_fengguchongdianshineng NSLocalizedString(@"297峰谷充电使能",nil)
+#define  root_gonglvfengpeishineng NSLocalizedString(@"298功率分配使能",nil)
+#define  root_shineng NSLocalizedString(@"299使能",nil)
+#define  root_jinzhi NSLocalizedString(@"300禁止",nil)
+#define  root_zhixing NSLocalizedString(@"301执行",nil)
 
 
 #endif /* languageNew_h */

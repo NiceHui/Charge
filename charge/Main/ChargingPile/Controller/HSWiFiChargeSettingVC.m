@@ -13,10 +13,16 @@
 #import "InputSettingAlert.h"
 #import "HSBluetoochHelper.h"
 #import "SelectTimeAlert.h"
+#import "ZJBLStoreShopTypeAlert.h"
 
 @interface HSWiFiChargeSettingVC ()<InputSettingDelegate, HSTCPWiFiManagerDelegate>{
     NSInteger tryNum; // 尝试重连次数
     BOOL isSucc;
+    BOOL isEdit1; // 判断哪些项进行过修改的
+    BOOL isEdit2;
+    BOOL isEdit3;
+    BOOL isEdit4;
+    BOOL isEdit5;
 }
 
 @property (nonatomic, strong) HSTCPWiFiManager *wifiManager;
@@ -27,11 +33,12 @@
 @property (nonatomic, strong) EWOptionArrowItem *lan_item; // 语言
 @property (nonatomic, strong) EWOptionArrowItem *secret_item; // 读卡器秘钥
 @property (nonatomic, strong) EWOptionArrowItem *rcd_item; // RCD保护值 mA
+@property (nonatomic, strong) EWOptionItem *version_item; // 版本号
 // 设备以太网参数
 @property (nonatomic, strong) EWOptionArrowItem *ip_item; // IP地址
 @property (nonatomic, strong) EWOptionArrowItem *gateway_item; // 网关
 @property (nonatomic, strong) EWOptionArrowItem *mask_item; // 掩码
-@property (nonatomic, strong) EWOptionArrowItem *mac_item; // MAC
+@property (nonatomic, strong) EWOptionItem *mac_item; // MAC
 @property (nonatomic, strong) EWOptionArrowItem *dns_item; // DNS
 // 设备账号密码参数
 @property (nonatomic, strong) EWOptionArrowItem *ssid_item; // WIFI SSID
@@ -54,6 +61,8 @@
 @property (nonatomic, strong) EWOptionArrowItem *protection_temp_item; // 保护温度，℃
 @property (nonatomic, strong) EWOptionArrowItem *max_input_power_item; // 外部监测最大输入功率，KW
 @property (nonatomic, strong) EWOptionArrowItem *allow_time_item; // 允许充电时间“22:00-03:30”
+@property (nonatomic, strong) EWOptionArrowItem *peak_enable_item; // 峰谷充电使能
+@property (nonatomic, strong) EWOptionArrowItem *power_enable_item; // 功率分配使能
 
 @property (nonatomic, strong) InputSettingAlert *inputAlert;
 @property (nonatomic, strong) SelectTimeAlert *timeAlert;
@@ -90,11 +99,27 @@
         [[HSTCPWiFiManager instance] connectToDev:[HSBluetoochHelper dataWithString:self.devData[@"devName"] length:20]];
     });
     
+    isEdit1 = NO;
+    isEdit2 = NO;
+    isEdit3 = NO;
+    isEdit4 = NO;
+    isEdit5 = NO;
+    
     [self setupAlert];
     [self createUIView];
-    
+    [self createRightItem];
     tryNum = 0;
     
+}
+
+- (void)createRightItem{
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50*XLscaleW, 30*XLscaleH)];
+    [button setTitle:root_zhixing forState:UIControlStateNormal];
+    [button setTitleColor:mainColor forState:UIControlStateNormal];
+    button.titleLabel.font = FontSize([NSString getFontWithText:root_zhixing size:CGSizeMake(50*XLscaleW, 30*XLscaleH) currentFont:16*XLscaleH]);
+    [button addTarget:self action:@selector(touchSendComAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 // alert
@@ -147,13 +172,15 @@
     _name_item = name_item;
     // 语言
     EWOptionArrowItem *lan_item = [EWOptionArrowItem arrowItemWithTitle:root_yuyan detailTitle:@"--" didClickBlock:^{
+        /*
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:root_zhongwen style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
                 [self showToastViewWithTitle:root_shezhi_shibai];
                 return;
             }
             [self.baseInfo setObject:@"1" forKey:@"lan"];
-            [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+//            [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+            self->isEdit1 = YES;
         }];
         UIAlertAction *action2 = [UIAlertAction actionWithTitle:root_taiwen style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
@@ -161,7 +188,8 @@
                 return;
             }
             [self.baseInfo setObject:@"2" forKey:@"lan"];
-            [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+//            [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+            self->isEdit1 = YES;
         }];
         UIAlertAction *action3 = [UIAlertAction actionWithTitle:root_yingwen style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
@@ -169,7 +197,8 @@
                 return;
             }
             [self.baseInfo setObject:@"3" forKey:@"lan"];
-            [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+//            [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+            self->isEdit1 = YES;
         }];
         UIAlertAction *action4 = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
         
@@ -179,6 +208,18 @@
         [actionSheet addAction:action3];
         [actionSheet addAction:action4];
         [self presentViewController:actionSheet animated:YES completion:nil];
+        */
+        NSArray *actionArray = @[root_zhongwen, root_taiwen, root_yingwen];
+        [ZJBLStoreShopTypeAlert showWithTitle:root_yuyan titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.baseInfo setObject:[NSString stringWithFormat:@"%ld", SelectIndexNum+1] forKey:@"lan"];
+            self->isEdit1 = YES;
+        } selectValue:^(NSString* valueString){
+            
+        } showCloseButton:YES];
     }];
     _lan_item = lan_item;
     // 读卡器秘钥
@@ -193,8 +234,8 @@
     _secret_item = secret_item;
     // RCD保护值 mA
     EWOptionArrowItem *rcd_item = [EWOptionArrowItem arrowItemWithTitle:root_rcd_baohuzhi detailTitle:@"--" didClickBlock:^{
+        /*
         UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:root_rcd_baohuzhi message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-        
         for (int i = 1 ; i <= 9; i++) {
             UIAlertAction *action1 = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%d %@",i ,root_dengji] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
@@ -202,17 +243,39 @@
                     return;
                 }
                 [self.baseInfo setObject:[NSString stringWithFormat:@"%d",i] forKey:@"rcd"];
-                [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+//                [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+                self->isEdit1 = YES;
             }];
             [actionSheet addAction:action1];
         }
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
         [actionSheet addAction:cancel];
         [self presentViewController:actionSheet animated:YES completion:nil];
+        */
+        
+        NSMutableArray *actionArray = [NSMutableArray array];
+        for (int i = 1 ; i <= 9; i++) {
+            [actionArray addObject:[NSString stringWithFormat:@"%d %@",i ,root_dengji]];
+        }
+        [ZJBLStoreShopTypeAlert showWithTitle:root_rcd_baohuzhi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.baseInfo setObject:[NSString stringWithFormat:@"%ld",SelectIndexNum+1] forKey:@"rcd"];
+            self->isEdit1 = YES;
+        } selectValue:^(NSString* valueString){
+            
+        } showCloseButton:YES];
+        
     }];
     _rcd_item = rcd_item;
+    // 版本号
+    EWOptionItem *version_item = [EWOptionItem itemWithTitle:root_banbenhao detailTitle:self.devData[@"version"]];
+    _version_item = version_item;
+    
     group1.headerTitle = root_canshushezhi_1;
-    group1.items = @[IDItem, lan_item, secret_item, rcd_item];
+    group1.items = @[IDItem, lan_item, secret_item, rcd_item, version_item];
     
     
 #pragma mark -- 设备以太网参数设置
@@ -249,15 +312,7 @@
     }];
     _mask_item = mask_item;
     
-    EWOptionArrowItem *mac_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_mac detailTitle:@"--" didClickBlock:^{
-        [weakSelf.inputAlert show];
-        if (self.netWorkInfo[@"mac"]) {
-            weakSelf.inputAlert.currentText = [NSString stringWithFormat:@"%@", self.netWorkInfo[@"mac"]];
-        }
-        weakSelf.inputAlert.itemText = @"mac";
-        weakSelf.inputAlert.titleText = HEM_charge_mac;
-        
-    }];
+    EWOptionItem *mac_item = [EWOptionItem itemWithTitle:HEM_charge_mac detailTitle:self.devData[@"mac"]];
     _mac_item = mac_item;
     
     EWOptionArrowItem *dns_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_dns detailTitle:@"--" didClickBlock:^{
@@ -415,13 +470,15 @@
     
     
     EWOptionArrowItem *mode_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_moshi detailTitle:@"--" didClickBlock:^{
+        /*
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:HEM_charge_model1 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
                 [self showToastViewWithTitle:root_shezhi_shibai];
                 return;
             }
             [self.chargeInfo setObject:@"1" forKey:@"mode"];
-            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
         }];
         UIAlertAction *action2 = [UIAlertAction actionWithTitle:HEM_charge_model2 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
@@ -429,7 +486,8 @@
                 return;
             }
             [self.chargeInfo setObject:@"2" forKey:@"mode"];
-            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
         }];
         UIAlertAction *action3 = [UIAlertAction actionWithTitle:HEM_charge_model3 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
@@ -437,7 +495,8 @@
                 return;
             }
             [self.chargeInfo setObject:@"3" forKey:@"mode"];
-            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
         }];
         UIAlertAction *action4 = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
         
@@ -447,6 +506,19 @@
         [actionSheet addAction:action3];
         [actionSheet addAction:action4];
         [self presentViewController:actionSheet animated:YES completion:nil];
+        */
+        
+        NSArray *actionArray = @[HEM_charge_model1, HEM_charge_model2, HEM_charge_model3];
+        [ZJBLStoreShopTypeAlert showWithTitle:HEM_charge_moshi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.chargeInfo setObject:[NSString stringWithFormat:@"%ld", SelectIndexNum+1] forKey:@"mode"];
+            self->isEdit5 = YES;
+        } selectValue:^(NSString* valueString){
+            
+        } showCloseButton:YES];
     }];
     _mode_item = mode_item;
     
@@ -501,9 +573,103 @@
         weakSelf.timeAlert.titleText = root_allow_time;
     }];
     _allow_time_item = allow_time_item;
+    // 峰谷充电使能
+    EWOptionArrowItem *peak_enable_item = [EWOptionArrowItem arrowItemWithTitle:root_fengguchongdianshineng detailTitle:@"--" didClickBlock:^{
+        /*
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"使能" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.chargeInfo setObject:@"1" forKey:@"peak_enable"];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
+        }];
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"禁止" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.chargeInfo setObject:@"0" forKey:@"peak_enable"];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
+        }];
+        UIAlertAction *action4 = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
+        
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:root_fengguchongdianshineng message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionSheet addAction:action1];
+        [actionSheet addAction:action2];
+        [actionSheet addAction:action4];
+        [self presentViewController:actionSheet animated:YES completion:nil];
+        */
+        
+        NSArray *actionArray = @[root_shineng, root_jinzhi];
+        [ZJBLStoreShopTypeAlert showWithTitle:root_fengguchongdianshineng titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            if (SelectIndexNum == 0) {
+                [self.chargeInfo setObject:@"1" forKey:@"peak_enable"]; // 使能
+            } else if (SelectIndexNum == 1){
+                [self.chargeInfo setObject:@"0" forKey:@"peak_enable"]; // 禁止
+            }
+            self->isEdit5 = YES;
+        } selectValue:^(NSString* valueString){
+            
+        } showCloseButton:YES];
+    }];
+    _peak_enable_item = peak_enable_item;
+    // 功率分配使能
+    EWOptionArrowItem *power_enable_item = [EWOptionArrowItem arrowItemWithTitle:root_gonglvfengpeishineng detailTitle:@"--" didClickBlock:^{
+        /*
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"使能" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.chargeInfo setObject:@"1" forKey:@"power_enable"];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
+        }];
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"禁止" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            [self.chargeInfo setObject:@"0" forKey:@"power_enable"];
+//            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+            self->isEdit5 = YES;
+        }];
+        UIAlertAction *action4 = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
+        
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:root_gonglvfengpeishineng message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionSheet addAction:action1];
+        [actionSheet addAction:action2];
+        [actionSheet addAction:action4];
+        [self presentViewController:actionSheet animated:YES completion:nil];
+         */
+        
+        NSArray *actionArray = @[root_shineng, root_jinzhi];
+        [ZJBLStoreShopTypeAlert showWithTitle:root_gonglvfengpeishineng titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+            if (self->isSucc == NO) { // 连接命令失败， 获取值失败，不让用户进行设置
+                [self showToastViewWithTitle:root_shezhi_shibai];
+                return;
+            }
+            if (SelectIndexNum == 0) {
+                [self.chargeInfo setObject:@"1" forKey:@"power_enable"]; // 使能
+            } else if (SelectIndexNum == 1){
+                [self.chargeInfo setObject:@"0" forKey:@"power_enable"]; // 禁止
+            }
+            self->isEdit5 = YES;
+        } selectValue:^(NSString* valueString){
+            
+        } showCloseButton:YES];
+    }];
+    _power_enable_item = power_enable_item;
     
     group5.headerTitle = root_canshushezhi_5;
-    group5.items = @[mode_item, max_current_item, rate_item, protection_temp_item, max_input_power_item, allow_time_item];
+    group5.items = @[mode_item, max_current_item, rate_item, protection_temp_item, max_input_power_item, allow_time_item, peak_enable_item, power_enable_item];
     
     
     [self.groups addObject:group1];
@@ -600,31 +766,36 @@
     // 设备信息参数设置  4
     if([key isEqualToString:@"name"] || [key isEqualToString:@"secret"] || [key isEqualToString:@"rcd"]){
         [self.baseInfo setObject:prams[key] forKey:key];
-        [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+//        [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+        isEdit1 = YES;
     }
     
     // 设置设备以太网参数  6
     if([key isEqualToString:@"IP"] || [key isEqualToString:@"gateway"] || [key isEqualToString:@"mask"] || [key isEqualToString:@"mac"] || [key isEqualToString:@"dns"]){
         [self.netWorkInfo setObject:prams[key] forKey:key];
-        [[HSTCPWiFiManager instance] setDeviceNetWorkInfo:self.netWorkInfo];
+//        [[HSTCPWiFiManager instance] setDeviceNetWorkInfo:self.netWorkInfo];
+        isEdit2 = YES;
     }
     
     // wifi设置  8
     if([key isEqualToString:@"wifi_ssid"] || [key isEqualToString:@"wifi_key"] || [key isEqualToString:@"buletouch_ssid"] || [key isEqualToString:@"buletouch_key"] || [key isEqualToString:@"fourG_ssid"] || [key isEqualToString:@"fourG_key"] || [key isEqualToString:@"fourG_apn"]){
         [self.accountInfo setObject:prams[key] forKey:key];
-        [[HSTCPWiFiManager instance] setDevicePassInfo:self.accountInfo];
+//        [[HSTCPWiFiManager instance] setDevicePassInfo:self.accountInfo];
+        isEdit3 = YES;
     }
 
     // 服务器参数设置  10
     if([key isEqualToString:@"url"] || [key isEqualToString:@"login_key"] || [key isEqualToString:@"heartbeat_time"] || [key isEqualToString:@"ping_time"] || [key isEqualToString:@"upload_time"]){
         [self.serverInfo setObject:prams[key] forKey:key];
-        [[HSTCPWiFiManager instance] setDeviceServerInfo:self.serverInfo];
+//        [[HSTCPWiFiManager instance] setDeviceServerInfo:self.serverInfo];
+        isEdit4 = YES;
     }
     
     // 设备充电参数设置  12
     if([key isEqualToString:@"mode"] || [key isEqualToString:@"max_current"] || [key isEqualToString:@"rate"] || [key isEqualToString:@"protection_temp"] || [key isEqualToString:@"max_input_power"] || [key isEqualToString:@"allow_time"]){
         [self.chargeInfo setObject:prams[key] forKey:key];
-        [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+//        [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+        isEdit5 = YES;
     }
 }
 
@@ -661,7 +832,7 @@
 
             self.baseInfo = [[NSMutableDictionary alloc]initWithDictionary:dataDic];
             [self.baseInfo removeObjectForKey:@"cmd"];
-            
+            self->isEdit1 = NO; // 重置标志
         } else if(cmd == 0x02){// 获取设备以太网参数 5
             
             self.ip_item.detailTitle = [NSString stringWithFormat:@"%@", dataDic[@"IP"] ? dataDic[@"IP"] : @"--"];
@@ -672,7 +843,7 @@
             
             self.netWorkInfo = [[NSMutableDictionary alloc]initWithDictionary:dataDic];
             [self.netWorkInfo removeObjectForKey:@"cmd"];
-            
+            self->isEdit2 = NO; // 重置标志
         } else if(cmd == 0x03){// 获取设备以太网参数 7
             
             self.ssid_item.detailTitle = [NSString stringWithFormat:@"%@", dataDic[@"wifi_ssid"] ? dataDic[@"wifi_ssid"] : @"--"];
@@ -685,7 +856,7 @@
             
             self.accountInfo = [[NSMutableDictionary alloc]initWithDictionary:dataDic];
             [self.accountInfo removeObjectForKey:@"cmd"];
-            
+            self->isEdit3 = NO; // 重置标志
         } else if(cmd == 0x04){// 获取服务器参数 9
             
             self.url_item.detailTitle = [NSString stringWithFormat:@"%@", dataDic[@"url"] ? dataDic[@"url"] : @"--"];
@@ -696,7 +867,7 @@
             
             self.serverInfo = [[NSMutableDictionary alloc]initWithDictionary:dataDic];
             [self.serverInfo removeObjectForKey:@"cmd"];
-
+            self->isEdit4 = NO; // 重置标志
         } else if(cmd == 0x05){// 设备充电参数 11
             
             self.mode_item.detailTitle = [NSString stringWithFormat:@"%@", dataDic[@"mode"] ? dataDic[@"mode"] : @"--"];
@@ -716,6 +887,7 @@
             
             self.chargeInfo = [[NSMutableDictionary alloc]initWithDictionary:dataDic];
             [self.chargeInfo removeObjectForKey:@"cmd"];
+            self->isEdit5 = NO; // 重置标志
             
             [self hideProgressView];
             self->isSucc = YES;
@@ -816,6 +988,35 @@
         }
     }
 }
+
+
+// TODO: 点击执行发送指令
+- (void)touchSendComAction{
+    if (isEdit1) {// 设备信息参数设置  4
+        [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];
+    }
+    if (isEdit2) {// 设置设备以太网参数  6
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[HSTCPWiFiManager instance] setDeviceNetWorkInfo:self.netWorkInfo];
+        });
+    }
+    if (isEdit3) {// wifi设置  8
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[HSTCPWiFiManager instance] setDevicePassInfo:self.accountInfo];
+        });
+    }
+    if (isEdit4) {// 服务器参数设置  10
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[HSTCPWiFiManager instance] setDeviceServerInfo:self.serverInfo];
+        });
+    }
+    if (isEdit5) {// 设备充电参数设置  12
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[HSTCPWiFiManager instance] setDeviceChargeInfo:self.chargeInfo];
+        });
+    }
+}
+
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];

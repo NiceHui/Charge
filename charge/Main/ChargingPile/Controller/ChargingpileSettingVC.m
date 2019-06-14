@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) EWOptionItem *IDItem;
 @property (nonatomic, strong) EWOptionItem *SercetItem;
+@property (nonatomic, strong) EWOptionItem *version_item;
 
 @property (nonatomic, strong) EWOptionArrowItem *name_item;
 @property (nonatomic, strong) EWOptionArrowItem *city_item;
@@ -28,7 +29,7 @@
 @property (nonatomic, strong) EWOptionArrowItem *ip_item;
 @property (nonatomic, strong) EWOptionArrowItem *gateway_item;
 @property (nonatomic, strong) EWOptionArrowItem *mask_item;
-@property (nonatomic, strong) EWOptionArrowItem *mac_item;
+@property (nonatomic, strong) EWOptionItem *mac_item;
 @property (nonatomic, strong) EWOptionArrowItem *url_item;
 @property (nonatomic, strong) EWOptionArrowItem *dns_item;
 
@@ -84,15 +85,20 @@
     EWOptionGroup *group1 = [[EWOptionGroup alloc]init];
     EWOptionGroup *group2 = [[EWOptionGroup alloc]init];
     EWOptionGroup *group3 = [[EWOptionGroup alloc]init];
-    EWOptionGroup *group4 = [[EWOptionGroup alloc]init];
     
     // ID
     EWOptionItem *IDItem = [EWOptionItem itemWithTitle:HEM_charge_id detailTitle:@"--"];
     _IDItem = IDItem;
     
+    // 密钥
     EWOptionItem *SercetItem = [EWOptionItem itemWithTitle:HEM_charge_miyao detailTitle:@"--"];
     _SercetItem = SercetItem;
-    group1.items = @[IDItem, SercetItem];
+    
+    // 版本号
+    EWOptionItem *version_item = [EWOptionItem itemWithTitle:root_banbenhao detailTitle:@"--"];
+    _version_item = version_item;
+    
+    group1.items = @[IDItem, SercetItem, version_item];
     
     
     EWOptionArrowItem *name_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_mingcheng detailTitle:@"--" didClickBlock:^{
@@ -211,14 +217,7 @@
     _mask_item = mask_item;
     
     
-    EWOptionArrowItem *mac_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_mac detailTitle:@"--" didClickBlock:^{
-        [weakSelf.inputAlert show];
-        if (self.dataDict[@"mac"]) {
-            weakSelf.inputAlert.currentText = [NSString stringWithFormat:@"%@", self.dataDict[@"mac"]];
-        }
-        weakSelf.inputAlert.itemText = @"mac";
-        weakSelf.inputAlert.titleText = HEM_charge_mac;
-    }];
+    EWOptionItem *mac_item = [EWOptionItem itemWithTitle:HEM_charge_mac detailTitle:@"--"];
     _mac_item = mac_item;
     
     
@@ -246,16 +245,9 @@
     group3.headerTitle = HEM_charge_gaojishezhi;
     group3.items = @[ip_item, gateway_item, mask_item, mac_item, url_item, dns_item];
     
-    // 切换ap模式
-    EWOptionArrowItem *switch_ap_item = [EWOptionArrowItem arrowItemWithTitle:root_qiehuan_ap detailTitle:@"" didClickBlock:^{
-        [weakSelf switch_ap_mode];
-    }];
-    group4.items = @[switch_ap_item];
-    
     [self.groups addObject:group1];
     [self.groups addObject:group2];
     [self.groups addObject:group3];
-    [self.groups addObject:group4];
     
     [self.tableView reloadData];
     
@@ -308,6 +300,7 @@
     
     self.IDItem.detailTitle = [NSString stringWithFormat:@"%@", data[@"chargeId"] ? data[@"chargeId"] : @"--"];
     self.SercetItem.detailTitle = [NSString stringWithFormat:@"%@", data[@"G_Authentication"] ? data[@"G_Authentication"] : @"--"];
+    self.version_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"version"] ? data[@"version"] : @"--"];
     
     self.name_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"name"] ? data[@"name"] : @"--"];
     self.city_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"address"] ? data[@"address"] : @"--"];
@@ -380,25 +373,6 @@
     // 设置
     [self setChargeoConfigInfomation:prams2];
     
-}
-
-// 电桩切换至AP模式
-- (void)switch_ap_mode{
-    __weak typeof(self) weakSelf = self;
-    [self showProgressView];
-    [[DeviceManager shareInstenced]switchAPModeWithSn:self.sn userId:[UserInfo defaultUserInfo].userName success:^(id obj) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf hideProgressView];
-            if ([obj[@"code"] isEqualToNumber:@0]) {
-                HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            } else{
-                [weakSelf showToastViewWithTitle:[NSString stringWithFormat:@"%@", obj[@"data"]]];
-            }
-        });
-    } failure:^(NSError *error) {
-        [weakSelf hideProgressView];
-    }];
 }
 
 

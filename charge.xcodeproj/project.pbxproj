@@ -170,6 +170,7 @@
 		BC8A675621872B830018152A /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8A673F21872B820018152A /* MJRefreshAutoFooter.m */; };
 		BC8A675721872B830018152A /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8A674121872B820018152A /* MJRefreshComponent.m */; };
 		BC8AB91022A8F80F00590501 /* ZJBLStoreShopTypeAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8AB90E22A8F80F00590501 /* ZJBLStoreShopTypeAlert.m */; };
+		BCAEE20522B4F2080019DC2F /* HSWiFiOperationPromptVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAEE20422B4F2080019DC2F /* HSWiFiOperationPromptVC.m */; };
 		BCB0649B2179824D006AA647 /* OssMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB0649A2179824D006AA647 /* OssMessageViewController.m */; };
 		BCB0649E2179830D006AA647 /* QCCountdownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB0649C2179830D006AA647 /* QCCountdownButton.m */; };
 		BCB6D787224B667F00F4B039 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6D783224B667F00F4B039 /* GCDAsyncUdpSocket.m */; };
@@ -530,6 +531,8 @@
 		BC8A674321872B820018152A /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
 		BC8AB90E22A8F80F00590501 /* ZJBLStoreShopTypeAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJBLStoreShopTypeAlert.m; sourceTree = "<group>"; };
 		BC8AB90F22A8F80F00590501 /* ZJBLStoreShopTypeAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJBLStoreShopTypeAlert.h; sourceTree = "<group>"; };
+		BCAEE20322B4F2080019DC2F /* HSWiFiOperationPromptVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSWiFiOperationPromptVC.h; sourceTree = "<group>"; };
+		BCAEE20422B4F2080019DC2F /* HSWiFiOperationPromptVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiOperationPromptVC.m; sourceTree = "<group>"; };
 		BCB064992179824D006AA647 /* OssMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OssMessageViewController.h; sourceTree = "<group>"; };
 		BCB0649A2179824D006AA647 /* OssMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OssMessageViewController.m; sourceTree = "<group>"; };
 		BCB0649C2179830D006AA647 /* QCCountdownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCCountdownButton.m; sourceTree = "<group>"; };
@@ -847,6 +850,8 @@
 				BCE548682178A23A0022E0E3 /* setTimingViewController.m */,
 				BC246A072251F61B0009CFA7 /* HSWiFiChargeTipsVC.h */,
 				BC246A082251F61B0009CFA7 /* HSWiFiChargeTipsVC.m */,
+				BCAEE20322B4F2080019DC2F /* HSWiFiOperationPromptVC.h */,
+				BCAEE20422B4F2080019DC2F /* HSWiFiOperationPromptVC.m */,
 				BC6EE1FB224DAC9500743A3E /* HSWiFiChargeSettingVC.h */,
 				BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */,
 			);
@@ -1549,6 +1554,7 @@
 				BC1510E4217B09AE003F724A /* ChargeRecordModel.m in Sources */,
 				BC664C352176D77700CED085 /* MASViewConstraint.m in Sources */,
 				BC246A092251F61B0009CFA7 /* HSWiFiChargeTipsVC.m in Sources */,
+				BCAEE20522B4F2080019DC2F /* HSWiFiOperationPromptVC.m in Sources */,
 				BC664BF82176CB5700CED085 /* MJType.m in Sources */,
 				BCE5486521787A500022E0E3 /* TimingTableViewCell.m in Sources */,
 				BC28DEC721796EA1004E0094 /* ManagementController.m in Sources */,

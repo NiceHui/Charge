@@ -352,6 +352,9 @@
 #define  root_shineng NSLocalizedString(@"299使能",nil)
 #define  root_jinzhi NSLocalizedString(@"300禁止",nil)
 #define  root_zhixing NSLocalizedString(@"301执行",nil)
+#define  root_qingqiushibai NSLocalizedString(@"302请求失败",nil)
+#define  root_xuanzehuobi NSLocalizedString(@"303选择货币",nil)
+#define  root_weigenggai NSLocalizedString(@"304设置未做任何更改",nil)
 
 
 #endif /* languageNew_h */

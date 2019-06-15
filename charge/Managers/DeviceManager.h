@@ -387,4 +387,17 @@
                    success:(void (^)(id obj))success
                    failure:(void (^)(NSError *error))failure;
 
+
+/**
+ 31.api
+ 
+ @param parms 指令参数
+ @param success 成功
+ @param failure 失败
+ */
+- (void)sendCommandWithParms:(NSDictionary *)parms
+                     success:(void (^)(id obj))success
+                     failure:(void (^)(NSError *error))failure;
+
+
 @end

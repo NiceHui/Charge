@@ -85,6 +85,7 @@
     EWOptionGroup *group1 = [[EWOptionGroup alloc]init];
     EWOptionGroup *group2 = [[EWOptionGroup alloc]init];
     EWOptionGroup *group3 = [[EWOptionGroup alloc]init];
+    EWOptionGroup *group4 = [[EWOptionGroup alloc]init];
     
     // ID
     EWOptionItem *IDItem = [EWOptionItem itemWithTitle:HEM_charge_id detailTitle:@"--"];
@@ -245,9 +246,16 @@
     group3.headerTitle = HEM_charge_gaojishezhi;
     group3.items = @[ip_item, gateway_item, mask_item, mac_item, url_item, dns_item];
     
+    // 切换ap模式
+    EWOptionArrowItem *switch_ap_item = [EWOptionArrowItem arrowItemWithTitle:root_qiehuan_ap detailTitle:@"" didClickBlock:^{
+        [weakSelf switch_ap_mode];
+    }];
+    group4.items = @[switch_ap_item];
+    
     [self.groups addObject:group1];
     [self.groups addObject:group2];
     [self.groups addObject:group3];
+    [self.groups addObject:group4];
     
     [self.tableView reloadData];
     
@@ -373,6 +381,26 @@
     // 设置
     [self setChargeoConfigInfomation:prams2];
     
+}
+
+// 电桩切换至AP模式
+- (void)switch_ap_mode{
+    __weak typeof(self) weakSelf = self;
+    [self showProgressView];
+    [[DeviceManager shareInstenced]switchAPModeWithSn:self.sn userId:[UserInfo defaultUserInfo].userName success:^(id obj) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf hideProgressView];
+            if ([obj[@"code"] isEqualToNumber:@0]) {
+                HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
+                vc.ChargeId = self.sn;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else{
+                [weakSelf showToastViewWithTitle:[NSString stringWithFormat:@"%@", obj[@"data"]]];
+            }
+        });
+    } failure:^(NSError *error) {
+        [weakSelf hideProgressView];
+    }];
 }
 
 

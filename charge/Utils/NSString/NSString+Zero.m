@@ -75,6 +75,10 @@
     if([str isEqualToString:@"."]) {// 最后一位不能为小数点
         return NO;
     }
+    str = [checkedNumString substringWithRange:NSMakeRange(0, 1)];
+    if([str isEqualToString:@"."]) {// 首位不能为小数点
+        return NO;
+    }
     checkedNumString = [checkedNumString stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]];// 过滤数字字符
     if([checkedNumString isEqualToString:@"."]) {// 剩下小数点则表明是个带小数的数字
         return YES;

@@ -76,7 +76,7 @@
     [self.leftButton addTarget:self action:@selector(goToAddTime:) forControlEvents:UIControlEventTouchUpInside];
     [self.bouncedView  addSubview:self.leftButton];
     
-    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(bouncedView_Width-110*XLscaleW, 100*XLscaleH, buttonW, buttonH)];
+    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(bouncedView_Width*XLscaleW-110*XLscaleW, 100*XLscaleH, buttonW, buttonH)];
     [self.rightButton setTitle:root_jieshushijian forState:UIControlStateNormal];
     self.rightButton.titleLabel.font = FontSize(14*XLscaleH);
     self.rightButton.tag=3000;
@@ -88,7 +88,7 @@
     [self.bouncedView  addSubview:self.rightButton];
     
     float lableW=10*XLscaleW;
-    UILabel *titleLable=[[UILabel alloc] initWithFrame:CGRectMake((bouncedView_Width-lableW)/2, 100*XLscaleH, lableW, buttonH)];
+    UILabel *titleLable=[[UILabel alloc] initWithFrame:CGRectMake((bouncedView_Width*XLscaleW-lableW)/2, 100*XLscaleH, lableW, buttonH)];
     titleLable.textAlignment=NSTextAlignmentCenter;
     titleLable.adjustsFontSizeToFitWidth=YES;
     titleLable.font = FontSize(18*XLscaleH);

@@ -862,4 +862,31 @@
     }];
 }
 
+
+/**
+ 31.api
+ 
+ @param parms 指令参数
+ @param success 成功
+ @param failure 失败
+ */
+- (void)sendCommandWithParms:(NSDictionary *)parms
+                     success:(void (^)(id obj))success
+                     failure:(void (^)(NSError *error))failure{
+    
+    [BaseRequest myJsonPost:@"/ocpp/api" parameters:parms Method:formal_Method success:^(id responseObject) {
+        if (responseObject) {
+            id jsonObj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            
+            NSLog(@"%@/ocpp/api/%@: %@",formal_Method, [NSString stringWithFormat:@"%@", parms[@"cmd"]] ,jsonObj);
+            success(jsonObj);
+        }
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error: %@", error);
+        failure(error);
+    }];
+}
+
+
 @end

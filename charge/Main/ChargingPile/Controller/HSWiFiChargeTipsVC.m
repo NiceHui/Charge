@@ -13,6 +13,7 @@
 #import "SelectTimeAlert.h"
 #import "CGXPickerView.h"
 #import "HSTCPWiFiManager.h"
+#import "HSWiFiOperationPromptVC.h"
 
 @interface HSWiFiChargeTipsVC ()<HSUDPWiFiManagerDelegate,HSTCPWiFiManagerDelegate>{
     __block BOOL isSuccess;
@@ -47,6 +48,22 @@
     
     [self setUpUIView];
     
+    [self createRightItem];
+}
+
+- (void)createRightItem{
+    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    addBtn.frame = CGRectMake(0, 0, 40, 24);
+    [addBtn setImage:[IMAGE(@"prompt_icon") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(showWiFiOperationPrompt) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem=[[UIBarButtonItem alloc]initWithCustomView:addBtn];
+    self.navigationItem.rightBarButtonItem=rightItem;
+}
+
+// 进入操作提示页面
+- (void)showWiFiOperationPrompt{
+    HSWiFiOperationPromptVC *vc = [[HSWiFiOperationPromptVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 // set up view
@@ -64,14 +81,14 @@
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
     /// tips2
-    UILabel *lblTips2 = [[UILabel alloc]initWithFrame:CGRectMake(10*XLscaleW, 60*XLscaleH, ScreenWidth-20*XLscaleW, 25*XLscaleH)];
+    UILabel *lblTips2 = [[UILabel alloc]initWithFrame:CGRectMake(10*XLscaleW, 130*XLscaleH, ScreenWidth-20*XLscaleW, 25*XLscaleH)];
     lblTips2.text = root_shoujilianjie_wifi;
     lblTips2.textColor = colorblack_154;
     lblTips2.textAlignment = NSTextAlignmentCenter;
     lblTips2.font = FontSize([NSString getFontWithText:lblTips2.text size:lblTips2.xmg_size currentFont:17*XLscaleH]);
     [whiteView addSubview:lblTips2];
     // wifi名称
-    self.lblWiFiName = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth/2-75*XLscaleW, 90*XLscaleH, 150*XLscaleW, 25*XLscaleH)];
+    self.lblWiFiName = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth/2-75*XLscaleW, 160*XLscaleH, 150*XLscaleW, 25*XLscaleH)];
     self.lblWiFiName.textColor = colorblack_51;
     self.lblWiFiName.textAlignment = NSTextAlignmentCenter;
     self.lblWiFiName.font = [UIFont boldSystemFontOfSize:18*XLscaleH];
@@ -91,7 +108,7 @@
     [self.btnRefresh addTarget:self action:@selector(getWiFiName) forControlEvents:UIControlEventTouchUpInside];
     [whiteView addSubview:self.btnRefresh];
     /// next
-    UIButton *btnNext = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-90*XLscaleW, 350*XLscaleH, 180*XLscaleW, 45*XLscaleH)];
+    UIButton *btnNext = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-90*XLscaleW, 370*XLscaleH, 180*XLscaleW, 45*XLscaleH)];
     [btnNext setTitle:root_yilianjie_xiayibu forState:UIControlStateNormal];
     [btnNext setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     CAGradientLayer *gradientLayer0 = [[CAGradientLayer alloc] init];
@@ -223,7 +240,7 @@
     CGSize size = [SSID boundingRectWithSize:CGSizeMake(MAXFLOAT, 25*XLscaleH) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSMutableDictionary dictionaryWithObject:[UIFont boldSystemFontOfSize:18*XLscaleH] forKey:NSFontAttributeName] context:nil].size;
     
     self.lblWiFiName.text = SSID;
-    self.lblWiFiName.frame = CGRectMake(ScreenWidth/2-size.width/2, 90*XLscaleH, size.width, 25*XLscaleH);
+    self.lblWiFiName.frame = CGRectMake(ScreenWidth/2-size.width/2, 160*XLscaleH, size.width, 25*XLscaleH);
     self.wifiImageV.frame = CGRectMake(ScreenWidth/2-size.width/2-30*XLscaleW, self.lblWiFiName.center.y-7*XLscaleW, 18*XLscaleW, 14*XLscaleW);
     self.btnRefresh.frame = CGRectMake(ScreenWidth/2+size.width/2+20*XLscaleW, self.lblWiFiName.frame.origin.y, 50*XLscaleW, 25*XLscaleH);
 }

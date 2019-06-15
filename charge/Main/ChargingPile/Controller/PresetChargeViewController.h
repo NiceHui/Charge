@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *programme;
 
-@property (nonatomic, copy) void(^returnPresetValueAndprogramme)(NSString *value, NSString *vluae2 ,NSString*programme);
+@property (nonatomic, copy) void(^returnPresetValueAndprogramme)(NSString *value, NSString *vluae2 ,NSString*programme ,NSString*unit);
 @end
 
 NS_ASSUME_NONNULL_END

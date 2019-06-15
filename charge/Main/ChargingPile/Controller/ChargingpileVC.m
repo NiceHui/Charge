@@ -34,6 +34,7 @@
     __block NSInteger currentConnectorId; // 当前选择的充电枪号
     __block NSString *setValue1; // 设定值1, 用来记录预定金额，电量时长等设定值
     __block NSString *setValue2; // 设定值2
+    __block NSString *moneyUnit; // 货币单位
     __block BOOL isRefreshOrder; // 是否刷新预约状态UI
     
     __block NSString *orderType; // 指令类型
@@ -328,7 +329,7 @@
                 
                 if (![setValue1 isEqualToString:@"0"] && ![setValue1 isEqualToString:@""] && (setValue1 != nil))
                 {
-                    [self setTimingCkey:@"G_SetAmount" action:@"ReserveNow" cValue:[setValue1 integerValue] Time:timeButtonTitle isLoopType:YES];
+                    [self setTimingCkey:@"G_SetAmount" action:@"ReserveNow" cValue:[setValue1 floatValue] Time:timeButtonTitle isLoopType:YES];
                 }else{
                     [self showToastViewWithTitle:HEM_setAmount_buweiling];
                     return;
@@ -338,7 +339,7 @@
                 
                 if (![setValue1 isEqualToString:@"0"] && ![setValue1 isEqualToString:@""] && (setValue1 != nil) )
                 {
-                    [self setTimingCkey:@"G_SetEnergy" action:@"ReserveNow" cValue:[setValue1 integerValue] Time:timeButtonTitle isLoopType:YES];
+                    [self setTimingCkey:@"G_SetEnergy" action:@"ReserveNow" cValue:[setValue1 floatValue] Time:timeButtonTitle isLoopType:YES];
                 }else{
                     [self showToastViewWithTitle:HEM_setEnergy_buweiling];
                     return;
@@ -374,7 +375,7 @@
             
             if (![setValue1 isEqualToString:@"0"] && ![setValue1 isEqualToString:@""] && (setValue1 != nil) )
             {
-                [self setTimingCkey:@"G_SetAmount" action:@"remoteStartTransaction" cValue:[setValue1 integerValue] Time:@"" isLoopType:NO];
+                [self setTimingCkey:@"G_SetAmount" action:@"remoteStartTransaction" cValue:[setValue1 floatValue] Time:@"" isLoopType:NO];
             }else{
                 [self showToastViewWithTitle:HEM_setAmount_buweiling];
                 return;
@@ -384,7 +385,7 @@
             
             if (![setValue1 isEqualToString:@"0"] && ![setValue1 isEqualToString:@""] && (setValue1 != nil) )
             {
-                [self setTimingCkey:@"G_SetEnergy" action:@"remoteStartTransaction" cValue:[setValue1 integerValue] Time:@"" isLoopType:NO];
+                [self setTimingCkey:@"G_SetEnergy" action:@"remoteStartTransaction" cValue:[setValue1 floatValue] Time:@"" isLoopType:NO];
             }else{
                 [self showToastViewWithTitle:HEM_setEnergy_buweiling];
                 return;
@@ -410,7 +411,7 @@
 
 }
 // 预设充电
-- (void)setTimingCkey:(NSString *)cKey action:(NSString *)action cValue:(NSInteger)cValue Time:(NSString *)time isLoopType:(BOOL)isLoopType{
+- (void)setTimingCkey:(NSString *)cKey action:(NSString *)action cValue:(float)cValue Time:(NSString *)time isLoopType:(BOOL)isLoopType{
     // 获取日期
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
@@ -431,11 +432,15 @@
     }
 
     if (cValue) {
-        [parms setObject:@(cValue) forKey:@"cValue"];
+        [parms setObject:[NSNumber numberWithFloat:cValue] forKey:@"cValue"];
     }
     
     if (![time isEqualToString:@""]) {// 不设置定时就会立即开始
         [parms setObject:[NSString stringWithFormat:@"%@T%@:00.000Z",currentDate,time] forKey:@"expiryDate"];
+    }
+    
+    if ([cKey isEqualToString:@"G_SetAmount"]) { // 金额预约充电要添加一个货币单位
+        [parms setObject:moneyUnit forKey:@"unit"];
     }
     
     if ([time isEqualToString:@""]) {
@@ -677,14 +682,14 @@
     NSDictionary *dict = [dict0[@"data"] mutableCopy];
     ChargingpileInfoModel *model = [ChargingpileInfoModel objectWithKeyValues:dict];
     if(!model)return;
-    if ([self.LastActionDict isKindOfClass:[NSDictionary class]]) {
+    if ([self.LastActionDict isKindOfClass:[NSDictionary class]]) { // 最后一次操作
         if(self.LastActionDict.allKeys.count > 0){
             model.LastAction = self.LastActionDict;
         }
     } else{
         model.LastAction = NULL;
     }
-    if ([self.ReserveNowArray isKindOfClass:[NSArray class]]) {
+    if ([self.ReserveNowArray isKindOfClass:[NSArray class]]) { // 预约信息
         if(self.ReserveNowArray.count > 0){
             model.ReserveNow = self.ReserveNowArray;
         }
@@ -828,11 +833,12 @@
     
     __weak typeof(self) weakSelf = self;
     // 返回预设值
-    presetVC.returnPresetValueAndprogramme = ^(NSString * _Nonnull value, NSString * _Nonnull vluae2, NSString * _Nonnull programme) {
+    presetVC.returnPresetValueAndprogramme = ^(NSString * _Nonnull value, NSString * _Nonnull vluae2, NSString * _Nonnull programme ,NSString*unit) {
         // 设置方案预设值
         [weakSelf.stateView setProgrammeWithValue:value Value2:vluae2 programme:programme];
         self->setValue1 = value; // 记录预设值
         self->setValue2 = vluae2;
+        self->moneyUnit = unit; // 货币单位
     };
 }
 

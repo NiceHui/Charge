@@ -8,6 +8,8 @@
 
 #import "PresetChargeViewController.h"
 #import "PickerViewAlert.h"
+#import "DeviceManager.h"
+#import "ZJBLStoreShopTypeAlert.h"
 
 @interface PresetChargeViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>{
     NSInteger leftNumber;
@@ -17,6 +19,9 @@
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) NSString *tips;
 
+@property (nonatomic, strong) NSArray *unitArray;
+@property (nonatomic, assign) NSInteger unitNum;
+
 @end
 
 @implementation PresetChargeViewController
@@ -24,10 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupSubview];
-    
     leftNumber = 0;
     rightNumber = 0;
+    _unitNum = 0;
+    
+    [self setupSubview];
 }
 
 - (void)setupSubview{
@@ -111,6 +117,26 @@
     }else{
         timeView.hidden = YES;
     }
+    
+    if ([_programme isEqualToString:@"Amount"]) {// 金额
+        presetValueTF.frame = CGRectMake(15*XLscaleW, 180*XLscaleH, ScreenWidth-100*XLscaleW, 45*XLscaleH);
+        
+        UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(presetValueTF.frame), CGRectGetMinY(presetValueTF.frame)+10*XLscaleH, 1, 25*XLscaleH)];
+        lineView2.backgroundColor = colorblack_222;
+        [self.view addSubview:lineView2];
+        
+        UIButton *moneyUnitBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(presetValueTF.frame), CGRectGetMinY(presetValueTF.frame), 70*XLscaleW, 45*XLscaleH)];
+        [moneyUnitBtn setTitle:@"£" forState:UIControlStateNormal];
+        [moneyUnitBtn setImage:IMAGE(@"country_drop") forState:UIControlStateNormal];
+        [moneyUnitBtn setTitleColor:colorblack_51 forState:UIControlStateNormal];
+        [self.view addSubview:moneyUnitBtn];
+        [moneyUnitBtn addTarget:self action:@selector(selectMoneyUnitAction:) forControlEvents:UIControlEventTouchUpInside];
+        CGFloat img_W = moneyUnitBtn.imageView.frame.size.width;
+        CGFloat tit_W = moneyUnitBtn.titleLabel.frame.size.width;
+        CGFloat Spacing = 8*XLscaleW;
+        [moneyUnitBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, - (img_W + Spacing / 2), 0, (img_W + Spacing / 2))];
+        [moneyUnitBtn setImageEdgeInsets:UIEdgeInsetsMake(0, (tit_W + Spacing / 2), 0, - (tit_W + Spacing / 2))];
+    }
 }
 
 - (void)setProgramme:(NSString *)programme{
@@ -142,7 +168,7 @@
                 return;
             }
             
-            if(self.presetValueTF.text.length >0 && [self.presetValueTF.text integerValue] > 0){// 判断输入是否大于零
+            if(self.presetValueTF.text.length >0 && [self.presetValueTF.text floatValue] > 0){// 判断输入是否大于零
                 
                 value1 = self.presetValueTF.text;
                 
@@ -163,7 +189,15 @@
             }
         }
         
-        self.returnPresetValueAndprogramme(value1,value2,_programme);
+        NSDictionary *dict = @{@"unit": @"pound"}; // 默认英镑
+        if ([self.unitArray isKindOfClass:[NSArray class]]) {
+            if (self.unitArray.count > 0) {
+                dict = self.unitArray[_unitNum];
+            }
+        }
+        NSString *unitString = dict[@"unit"];
+        
+        self.returnPresetValueAndprogramme(value1,value2,_programme, unitString);
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -206,6 +240,65 @@
         rightNumber = row;
     }
     
+}
+
+
+// 选择货币单位
+- (void)selectMoneyUnitAction:(UIButton *)button{
+    
+    // 判断是否已经获取到列表
+    if ([self.unitArray isKindOfClass:[NSArray class]]) {
+        if (self.unitArray.count > 0) {
+            NSMutableArray *actionArray = [[NSMutableArray alloc]init];
+            for (int i = 0; i < self.unitArray.count; i++) {
+                NSDictionary *dict = self.unitArray[i];
+                [actionArray addObject:[NSString stringWithFormat:@"%@(%@)",dict[@"unit"],dict[@"symbol"]]];
+            }
+            // 打开控件
+            [ZJBLStoreShopTypeAlert showWithTitle:root_xuanzehuobi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+                self.unitNum = SelectIndexNum;
+                NSDictionary *dict = self.unitArray[SelectIndexNum];
+                [button setTitle:dict[@"symbol"] forState:UIControlStateNormal];
+            } selectValue:^(NSString* valueString){
+                
+            } showCloseButton:YES];
+            
+            return;
+        }
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [self showProgressView];
+    [[DeviceManager shareInstenced] sendCommandWithParms:@{@"cmd":@"selectMoneyUnit"} success:^(id obj) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([obj[@"code"] isEqualToNumber:@0]) {
+                
+                self.unitArray = obj[@"data"];
+                if ([self.unitArray isKindOfClass:[NSArray class]]) {
+                 
+                    NSMutableArray *actionArray = [[NSMutableArray alloc]init];
+                    for (int i = 0; i < self.unitArray.count; i++) {
+                        NSDictionary *dict = self.unitArray[i];
+                        [actionArray addObject:[NSString stringWithFormat:@"%@(%@)",dict[@"unit"],dict[@"symbol"]]];
+                    }
+                    // 打开控件
+                    [ZJBLStoreShopTypeAlert showWithTitle:root_xuanzehuobi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+                        weakSelf.unitNum = SelectIndexNum;
+                        NSDictionary *dict = self.unitArray[SelectIndexNum];
+                        [button setTitle:dict[@"symbol"] forState:UIControlStateNormal];
+                    } selectValue:^(NSString* valueString){
+                        
+                    } showCloseButton:YES];
+                }
+            }else{
+                [self showToastViewWithTitle:root_qingqiushibai];
+            }
+            [weakSelf hideProgressView];
+        });
+    } failure:^(NSError *error) {
+        [weakSelf hideProgressView];
+        [self showToastViewWithTitle:root_qingqiushibai];
+    }];
 }
 
 @end

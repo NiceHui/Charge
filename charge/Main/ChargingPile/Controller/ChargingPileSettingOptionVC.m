@@ -36,6 +36,8 @@
         
         ChargingpileSettingVC *SettingVC = [[ChargingpileSettingVC alloc] init];
         SettingVC.sn = self.sn;
+        SettingVC.title = HEM_canshu_shezhi;
+        SettingVC.priceConf = self.priceConf;
         [self.navigationController pushViewController:SettingVC animated:YES];
     }];
     

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^touchAlertEnter)(NSString *text);
 
-@property (nonatomic, copy) void (^touchAlertCancel)();
+@property (nonatomic, copy) void (^touchAlertCancel)(void);
 
 
 /**

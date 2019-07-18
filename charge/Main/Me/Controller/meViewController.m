@@ -115,7 +115,7 @@
     XLViewBorderRadius(registerUser, 22*XLscaleH, 0, kClearColor);
     registerUser.backgroundColor = mainColor;
     registerUser.titleLabel.font=[UIFont systemFontOfSize: 16*XLscaleH];
-    [registerUser setTitle:root_WO_zhuxiao_zhanhao forState:UIControlStateNormal];
+    [registerUser setTitle:root_tuichudenglu forState:UIControlStateNormal];
     [registerUser setTitleColor: [UIColor whiteColor]forState:UIControlStateNormal];
     [registerUser addTarget:self action:@selector(registerUserAlert) forControlEvents:UIControlEventTouchUpInside];
     

@@ -23,7 +23,7 @@
         return HEM_Preparing;
     }else if([_status isEqualToString:@"Reserved"]){// 预约准备中
         
-        return HEM_Preparing;
+        return root_yuyue;//HEM_Preparing;
     }else if([_status isEqualToString:@"Finishing"]){
         
         return HEM_Finishing;
@@ -44,10 +44,13 @@
         return HEM_expiry;
     }else if ([_status isEqualToString:@"Accepted"]){
         
-        return HEM_Accepted;
+        return root_yuyue;//HEM_Accepted;
     }else if ([_status isEqualToString:@"work"]){
         
         return HEM_work;
+    }else if ([_status isEqualToString:@"ReserveNow"]){// 预约
+        
+        return root_yuyue;
     }
     return HEM_Unavailable;
 }
@@ -55,6 +58,11 @@
 
 // 返回值主要分成四种情况  普通定时， 金额定时， 电量定时， 分段定时
 - (NSDictionary *)getReserveNow{
+    // 因为添加了预约状态，不在准备中页面显示定时有关数据
+    return @{@"cKey": @"",
+             @"value": @[@"--", @"-- kWh", @"- h - min"],
+             @"value2": @"--"
+             };
     
     if (_LastAction && [_LastAction isKindOfClass:[NSDictionary class]]) {
         NSString *action = _LastAction[@"action"];
@@ -153,6 +161,80 @@
     NSArray *array = [time1 componentsSeparatedByString:@":"];// @"2018-10-20:11:30:27.666"
     
     return array;
+}
+
+- (NSDictionary *)getReserveNow2{
+    
+    if ([_ReserveNow isKindOfClass:[NSArray class]] && _ReserveNow.count > 0) {
+        NSDictionary *dict = _ReserveNow[0];
+        
+        if ([dict[@"cKey"] isEqualToString:@"G_SetAmount"]) { // 金额
+            
+            NSString *expiryDate = dict[@"expiryDate"];
+            NSArray *expiryArray = [self separateTime:expiryDate];
+            NSString *time = [NSString stringWithFormat:@"%@:%@",expiryArray[1],expiryArray[2]];
+            return @{@"cKey": [NSString stringWithFormat:@"%@", dict[@"cKey"]] ,
+                     @"rate": [NSString stringWithFormat:@"%@",dict[@"rate"]] ,
+                     @"value": [NSString stringWithFormat:@"%@",dict[@"cValue"]] ,
+                     @"value2": time
+                     };
+            
+        }else if([dict[@"cKey"] isEqualToString:@"G_SetEnergy"]){// 电量
+            
+            NSString *expiryDate = dict[@"expiryDate"];
+            NSArray *expiryArray = [self separateTime:expiryDate];
+            NSString *time = [NSString stringWithFormat:@"%@:%@",expiryArray[1],expiryArray[2]];
+            return @{@"cKey": [NSString stringWithFormat:@"%@",dict[@"cKey"]] ,
+                     @"rate": [NSString stringWithFormat:@"%@",dict[@"rate"]] ,
+                     @"value":[NSString stringWithFormat:@"%@ kWh",dict[@"cValue"]],
+                     @"value2": time
+                     };
+            
+        }else if([dict[@"cKey"] isEqualToString:@"G_SetTime"]){// 时长
+            
+            
+            NSMutableArray *timeRateArray = [NSMutableArray array];
+            for (int i = 0; i < _ReserveNow.count; i++) {
+                
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                
+                NSDictionary *reserveDic = _ReserveNow[i];
+                NSString *expiryDate = reserveDic[@"expiryDate"];
+                NSArray *expiryArray = [self separateTime:expiryDate];
+                
+                NSInteger cValue = [reserveDic[@"cValue"] integerValue]; // 通过开始时间和时长计算结束时间
+                NSInteger endValue = cValue + [expiryArray[1] integerValue]*60 + [expiryArray[2] integerValue];
+                NSString *end_hour = [NSString SupplementZero:[NSString stringWithFormat:@"%ld",endValue/60]];
+                NSString *end_min = [NSString SupplementZero:[NSString stringWithFormat:@"%ld",endValue%60]];
+                NSString *time = [NSString stringWithFormat:@"%@:%@~%@:%@",expiryArray[1],expiryArray[2],end_hour,end_min];
+                
+                [dict setObject:time forKey:@"time"]; // 时间
+                [dict setObject:reserveDic[@"rate"] forKey:@"rate"]; // 费率
+                [dict setObject:reserveDic[@"cost"] forKey:@"cost"]; // 花费
+                [timeRateArray addObject:dict];
+            }
+            
+            return @{@"cKey": dict[@"cKey"],
+                     @"timeRateArray": timeRateArray
+                     };
+        }else{// 普通定时
+            
+            NSString *expiryDate = dict[@"expiryDate"];
+            NSArray *expiryArray = [self separateTime:expiryDate];
+            return @{@"cKey":@"" ,
+                     @"rate": [NSString stringWithFormat:@"%@",dict[@"rate"]] ,
+                     @"value": @"",
+                     @"value2": [NSString stringWithFormat:@"%@:%@",expiryArray[1],expiryArray[2]]
+                     };
+        }
+    }
+    
+    return @{@"cKey":@"" ,
+             @"rate": @"" ,
+             @"value": @"",
+             @"value2": @"",
+             @"timeRateArray":@[]
+             };
 }
 
 // 获取充电结束状态下的数据

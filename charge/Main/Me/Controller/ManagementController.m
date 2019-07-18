@@ -13,7 +13,9 @@
 #import "OssMessageViewController.h"
 
 
-@interface ManagementController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ManagementController ()<UITableViewDataSource,UITableViewDelegate>{
+    NSInteger numberOfExecutions; // 执行次数
+}
 @property (nonatomic, strong) UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *dataArray;
 @property(nonatomic,strong)NSMutableArray *dataArray1;
@@ -64,46 +66,124 @@
     }
     [self.view addSubview:_tableView];
     
-    UIButton *registerUser =  [UIButton buttonWithType:UIButtonTypeCustom];
-    registerUser.frame=CGRectMake((ScreenWidth-150*XLscaleW)/2,320*XLscaleH, 150*XLscaleW, 40*XLscaleH);
-    XLViewBorderRadius(registerUser, 20*XLscaleH, 0, kClearColor);
-    registerUser.backgroundColor = mainColor;
-    registerUser.titleLabel.font=[UIFont systemFontOfSize: 16*XLscaleH];
-    [registerUser setTitle:root_WO_zhuxiao_zhanhao forState:UIControlStateNormal];
-    [registerUser setTitleColor: [UIColor whiteColor]forState:UIControlStateNormal];
-    [registerUser addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
-    
-//    [self.view addSubview:registerUser];
+    UIButton *LogoutUser =  [UIButton buttonWithType:UIButtonTypeCustom];
+    LogoutUser.frame=CGRectMake((ScreenWidth-150*XLscaleW)/2,320*XLscaleH, 150*XLscaleW, 40*XLscaleH);
+    XLViewBorderRadius(LogoutUser, 20*XLscaleH, 0, kClearColor);
+    LogoutUser.backgroundColor = mainColor;
+    LogoutUser.titleLabel.font=[UIFont systemFontOfSize: 16*XLscaleH];
+    [LogoutUser setTitle:root_zhuxiaozhanghu forState:UIControlStateNormal];
+    [LogoutUser setTitleColor: [UIColor whiteColor]forState:UIControlStateNormal];
+    [LogoutUser addTarget:self action:@selector(LogoutUserAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:LogoutUser];
 
 }
 
-
-//-(void)initCoredata{
-//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GetDevice" inManagedObjectContext:_manager.managedObjContext];
-//    [request setEntity:entity];
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"deviceSN" ascending:NO];
-//    NSArray *sortDescriptions = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-//    [request setSortDescriptors:sortDescriptions];
-//    NSError *error = nil;
-//    NSArray *fetchResult = [_manager.managedObjContext executeFetchRequest:request error:&error];
-//    for (NSManagedObject *obj in fetchResult)
-//    {
-//        [_manager.managedObjContext deleteObject:obj];
-//    }
-//    BOOL isSaveSuccess = [_manager.managedObjContext save:&error];
-//    if (!isSaveSuccess) {
-//        NSLog(@"Error: %@,%@",error,[error userInfo]);
-//    }else
-//    {
-//        NSLog(@"Save successFull");
-//    }
-//
-//}
+// 注销提示
+- (void)LogoutUserAction{
+    UIAlertController *removeAlert = [UIAlertController alertControllerWithTitle:root_shifouzhuxiaozhaohu message:root_zhuxiaohoubeishanchu preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *enter = [UIAlertAction actionWithTitle:root_OK style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self LogoutUser];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
+    [removeAlert addAction:enter];
+    [removeAlert addAction:cancel];
+    [self presentViewController:removeAlert animated:YES completion:nil];
+}
 
 
+// 注销账户
+-(void)LogoutUser{
+    
+    if ([[NSString stringWithFormat:@"%@",[UserInfo defaultUserInfo].userName] isEqualToString:@"guest"]) { // 浏览账户不能注销
+        [self showToastViewWithTitle:root_zhanghu_meiyou_quanxian];
+        return;
+    }
+    
+    [self showProgressView];// 调用server的接口注销用户
+    [BaseRequest requestWithMethodResponseStringResult:HEAD_URL paramars:@{@"accountName":[UserInfo defaultUserInfo].userName} paramarsSite:@"/newUserAPI.do?op=cancellationUser" sucessBlock:^(id content) {
+        [self hideProgressView];
+        id jsonObj = [NSJSONSerialization JSONObjectWithData:content options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"/newUserAPI.do?op=cancellationUser: %@", jsonObj);
+        if (jsonObj) {
+            if ([jsonObj[@"result"] intValue]==1) {
+                if ((jsonObj[@"obj"]==nil)||(jsonObj[@"obj"]==NULL)||([jsonObj[@"obj"] isEqual:@""])) {
+                    NSLog(@"返回值为空");
+                }else{
 
+                }
+            }else{
 
+                if ([jsonObj[@"msg"] intValue]==200) {
+                    [self showToastViewWithTitle:root_zhuxiaochenggong];
+                    
+                    self->numberOfExecutions = 0;
+                    [self unbindingEquipment]; // 通知电桩服务器
+                    
+                }else if ([jsonObj[@"msg"] intValue]==500) {
+                    [self showAlertViewWithTitle:root_Alet_user message:root_zhuxiaoshibai cancelButtonTitle:root_Yes];
+                }else if ([jsonObj[@"msg"] intValue]==501) {
+                    [self showAlertViewWithTitle:root_Alet_user message:root_xitongcuowu cancelButtonTitle:root_Yes];
+                }else if ([jsonObj[@"msg"] intValue]==502) {
+                    [self showAlertViewWithTitle:root_Alet_user message:root_yonghubucunzai cancelButtonTitle:root_Yes];
+                }else if ([jsonObj[@"msg"] intValue]==503) {
+                    [self showAlertViewWithTitle:root_Alet_user message:root_cunzailiulanzhanghu cancelButtonTitle:root_Yes];
+                }else if ([jsonObj[@"msg"] intValue]==504) {
+                    [self showAlertViewWithTitle:root_Alet_user message:root_adminbunengzhuxiao cancelButtonTitle:root_Yes];
+                }else if ([jsonObj[@"msg"] intValue]==701) {
+                    [self showAlertViewWithTitle:root_Alet_user message:root_zhanghu_meiyou_quanxian cancelButtonTitle:root_Yes];
+                }
+            }
+        }
+
+    } failure:^(NSError *error) {
+        [self hideProgressView];
+    }];
+}
+
+// 通知电桩服务器账户已被注销，执行解绑设备等操作
+- (void)unbindingEquipment{
+    
+    numberOfExecutions ++;
+    
+    [self showProgressView];// 注销用户接口
+    [[DeviceManager shareInstenced] sendCommandWithParms:@{@"cmd":@"deleteUser", @"userId":[UserInfo defaultUserInfo].userID} success:^(id obj) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[NSString stringWithFormat:@"%@", obj[@"code"]] isEqualToString:@"0"]) {
+                NSLog(@"通知成功");
+                [self signOut]; // 退出
+            }else{
+                if (self->numberOfExecutions < 3) { // 如果失败了就继续尝试发送
+                    [self unbindingEquipment];
+                }else{
+                    [self signOut]; // 退出
+                }
+            }
+            [self hideProgressView];
+        });
+    } failure:^(NSError *error) {
+        [self hideProgressView];
+        if (self->numberOfExecutions < 3) {
+            [self unbindingEquipment];
+        }else{
+            [self signOut]; // 退出
+        }
+    }];
+    
+}
+
+// 退出登录
+- (void)signOut{
+    [[NSUserDefaults standardUserDefaults] setValue:@"F" forKey:@"LoginType"];
+    [[UserInfo defaultUserInfo] setUserPassword:nil];
+    [[UserInfo defaultUserInfo] setUserName:nil];
+    [[UserInfo defaultUserInfo] setServer:nil];
+    LoginViewController *login =[[LoginViewController alloc]init];
+    login.oldName=nil;
+    login.oldPassword=nil;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+    [[UIApplication sharedApplication].keyWindow makeKeyAndVisible];
+}
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -120,32 +200,6 @@
         
     }
 }
-
--(void)registerUser{
-    
-    NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
-    NSString *reUsername=[ud objectForKey:@"userName"];
-    NSString *rePassword=[ud objectForKey:@"userPassword"];
-    
-    [[NSUserDefaults standardUserDefaults] setValue:@"F" forKey:@"LoginType"];
-    [[UserInfo defaultUserInfo] setUserPassword:nil];
-    [[UserInfo defaultUserInfo] setUserName:nil];
-      [[UserInfo defaultUserInfo] setServer:nil];
-    LoginViewController *login =[[LoginViewController alloc]init];
-    if ([reUsername isEqualToString:@"guest"]) {
-        login.oldName=nil;
-        login.oldPassword=nil;
-    }else{
-    login.oldName=reUsername;
-    login.oldPassword=rePassword;
-    }
-
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-    [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-    [[UIApplication sharedApplication].keyWindow makeKeyAndVisible];
-    
-}
-
 
 #pragma mark - Table view data source
 

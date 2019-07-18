@@ -32,6 +32,8 @@
 @property (nonatomic, strong) UILabel *progressLabel;
 
 @property (nonatomic,strong) NSTimer *timer ;
+
+@property (nonatomic, strong) UIButton *btnAP;
 @end
 
 @implementation HSWiFiChargeTipsVC
@@ -80,6 +82,36 @@
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 70*XLscaleH, ScreenWidth, ScreenHeight-kNavBarHeight-kBottomBarHeight-70*XLscaleH)];
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
+    
+    CGFloat lblW = ScreenWidth-140*XLscaleW ,lblH = 20*XLscaleH;
+    UILabel *lblID = [[UILabel alloc]initWithFrame:CGRectMake(20*XLscaleW, 20*XLscaleH, lblW, lblH)];
+    lblID.font = [UIFont boldSystemFontOfSize:15*XLscaleH];
+    lblID.text = self.ChargeId;
+    lblID.textColor = colorblack_51;
+    [whiteView addSubview:lblID];
+    
+    UILabel *lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(20*XLscaleW, CGRectGetMaxY(lblID.frame), lblW, lblH)];
+    lblTitle.text = root_AP_dangqianxuliehao;
+    lblTitle.textColor = colorblack_102;
+    lblTitle.font = FontSize([NSString getFontWithText:lblTitle.text size:lblTitle.xmg_size currentFont:12*XLscaleH]);
+    [whiteView addSubview:lblTitle];
+    
+    float btnW = 100*XLscaleW, btnH = 25*XLscaleH;
+    UIButton *btnAP = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth-120*XLscaleW, 20*XLscaleH+(40-25)/2*XLscaleH, btnW, btnH)];
+    [btnAP setImage:IMAGE(@"ap_on") forState:UIControlStateNormal];
+    [btnAP setImage:IMAGE(@"ap_off") forState:UIControlStateSelected];
+    [btnAP setTitle:root_AP_moshi forState:UIControlStateNormal];
+    [btnAP setTitleColor:mainColor forState:UIControlStateNormal];
+    [btnAP setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [btnAP setImageEdgeInsets:UIEdgeInsetsMake(5*XLscaleH, 0, 5*XLscaleH, 10*XLscaleW)];
+    btnAP.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    btnAP.titleLabel.font = FontSize(12*XLscaleH);
+    [btnAP setBackgroundColor:[UIColor whiteColor]];
+    [btnAP addTarget:self action:@selector(switch_ap_mode:) forControlEvents:UIControlEventTouchUpInside];
+    XLViewBorderRadius(btnAP, btnH/2, 1, mainColor);
+    [whiteView addSubview:btnAP];
+    _btnAP = btnAP;
+    
     /// tips2
     UILabel *lblTips2 = [[UILabel alloc]initWithFrame:CGRectMake(10*XLscaleW, 130*XLscaleH, ScreenWidth-20*XLscaleW, 25*XLscaleH)];
     lblTips2.text = root_shoujilianjie_wifi;
@@ -187,16 +219,19 @@
 #pragma mark -- 点击事件
 
 - (void)getChargeIP{
-//    HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
-//    vc.devData = @{@"ip": @"192.168.1.1", @"devName": self.ChargeId};
-//    [self.navigationController pushViewController:vc animated:YES];
-//    return;
     // 刷新最新的wifi信息
     [self getWiFiName];
     if([self.lblWiFiName.text isEqualToString:root_weilianjie]){
         [self showToastViewWithTitle:root_weilianjie_wifi];
         return;
     }
+    
+    // 判断直连SN号是否是自己选中的那个
+    if(![self.lblWiFiName.text isEqualToString:self.ChargeId]){
+        [self showToastViewWithTitle:root_dianzhuanweixuanze];
+        return ;
+    }
+    
     isSuccess = NO;
     self.progressLabel.text = @"0 s";
     // timer 要在主线程中开启才有效
@@ -269,12 +304,6 @@
             [devData setObject:@"192.168.1.1" forKey:@"ip"];  // 固定连接ip
             [devData setObject:self.lblWiFiName.text forKey:@"devName"]; // 使用wifi名称
             
-            // 判断直连SN号是否是自己选中的那个
-            if(![self.lblWiFiName.text isEqualToString:self.ChargeId]){
-                [self showToastViewWithTitle:root_dianzhuanweixuanze];
-                return ;
-            }
-            
             HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
             vc.devData = devData;
             [self.navigationController pushViewController:vc animated:YES];
@@ -313,17 +342,21 @@
 }
 
 // 电桩切换至AP模式
-- (void)switch_ap_mode{
+- (void)switch_ap_mode:(UIButton *)button{
     __weak typeof(self) weakSelf = self;
     [self showProgressView];
     [[DeviceManager shareInstenced]switchAPModeWithSn:self.ChargeId userId:[UserInfo defaultUserInfo].userName success:^(id obj) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf hideProgressView];
             if ([obj[@"code"] isEqualToNumber:@0]) {
-                HSWiFiChargeTipsVC *vc = [[HSWiFiChargeTipsVC alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
+                button.selected = YES;
+                [self setButtonBackgroundColor:YES];
+                [self showToastViewWithTitle:root_qiehuanchenggong];
             } else{
-                [weakSelf showToastViewWithTitle:[NSString stringWithFormat:@"%@", obj[@"data"]]];
+//                [weakSelf showToastViewWithTitle:[NSString stringWithFormat:@"%@", obj[@"data"]]];
+                button.selected = NO;
+                [self setButtonBackgroundColor:NO];
+                [weakSelf showToastViewWithTitle:root_qiehuanshibai];
             }
         });
     } failure:^(NSError *error) {
@@ -331,6 +364,14 @@
     }];
 }
 
+- (void)setButtonBackgroundColor:(BOOL)isSelected{
+    
+    if (isSelected) {
+        [_btnAP setBackgroundColor:mainColor];
+    }else{
+        [_btnAP setBackgroundColor:[UIColor whiteColor]];
+    }
+}
 
 
 - (void)viewDidDisappear:(BOOL)animated{

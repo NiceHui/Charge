@@ -24,8 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *status; // 状态
 @property (nonatomic, strong) NSNumber *energy; // 已充电量
 @property (nonatomic, strong) NSNumber *voltage; // 电压
-@property (nonatomic, strong) NSDictionary *LastAction; // 最后一次操作
 @property (nonatomic, strong) NSArray *ReserveNow; // 预定
+@property (nonatomic, strong) NSDictionary *LastAction; // 最后一次操作
+@property (nonatomic, strong) NSString *symbol; // 单位
 
 
 - (NSString *)getCurrentStatus; // 获取当前状态
@@ -35,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)getChargingData; // 获取充电中的数据
 
 - (NSArray *)getSupendData; // 获取充电结束状态下的数据
+
+- (NSDictionary *)getReserveNow2;  // 获取准备中状态的预设信息
 
 @end
 

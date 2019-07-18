@@ -36,7 +36,7 @@
 // 0-空闲  1-准备中  2-充电中  3-暂停充电  4-充电结束  5-故障  6-不可用
 - (void)createUIWithType:(NSString *)type
 {
-//    type = @"Charging";
+//    type = @"ReserveNow";
     if([type isEqualToString:@"Available"]){// 空闲
         
         if([self.userType isEqualToNumber:@0]){
@@ -46,10 +46,6 @@
         }
         
     }else if ([type isEqualToString:@"Preparing"]){// 准备中
-        
-        [self charingInPreparation];
-        
-    }else if ([type isEqualToString:@"Reserved"]){// 预约等待中
         
         [self charingInPreparation];
         
@@ -77,7 +73,16 @@
         
         [self chargingTips:root_charge_state_unavailable isShowImageType:@"Unavailable"];
         
-    }else if ([type isEqualToString:@"6"]){// 既插既冲
+    }else if ([type isEqualToString:@"ReserveNow"] || [type isEqualToString:@"Accepted"] || [type isEqualToString:@"Reserved"]){// 预约
+        
+        [self charingInReserveNow];
+    }
+//    else if ([type isEqualToString:@"Reserved"]){// 预约等待中
+//
+//        [self charingInPreparation];
+//
+//    }
+    else if ([type isEqualToString:@"6"]){// 既插既冲
         
         [self currectCharging];
     }
@@ -383,14 +388,12 @@
     UILabel *tipsLabel = [[UILabel alloc]initWithFrame:CGRectMake(marginLF, 5, 100*XLscaleW, 17*XLscaleH)];
     tipsLabel.text = root_yushe_fangan;
     tipsLabel.textColor = colorblack_51;
-//    tipsLabel.font = FontSize(13*XLscaleH);
     tipsLabel.adjustsFontSizeToFitWidth = YES;
     [self.bgView addSubview:tipsLabel];
     
     UILabel *tipsLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(tipsLabel.frame), 5*XLscaleH, ScreenWidth-CGRectGetMaxX(tipsLabel.frame)-marginLF, 15*XLscaleH)];
     tipsLabel2.text = root_yushe_tips;
     tipsLabel2.textColor = colorblack_154;
-//    tipsLabel2.font = FontSize(10*XLscaleH);
     tipsLabel2.adjustsFontSizeToFitWidth = YES;
     [self.bgView addSubview:tipsLabel2];
     
@@ -423,7 +426,6 @@
         UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(buttonX, marginLF2, buttonW, buttonH)];
         [button setImage:[UIImage imageNamed:@"prepare_weixuan"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"prepare_yixuan"] forState:UIControlStateSelected];
-//        button.transform = CGAffineTransformMakeScale(1*XLscaleW, 1*XLscaleW);
         button.tag = 1500 + i;
         [button addTarget:self action:@selector(selectorCharingProgramme:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:button];
@@ -498,13 +500,14 @@
     [looptypeBtn addTarget:self action:@selector(touchSelectLooptype:) forControlEvents:UIControlEventTouchUpInside];
     [orderView addSubview:looptypeBtn];
     _looptypeBtn = looptypeBtn;
-    if ([_model.LastAction isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
-        if ([dict[@"looptype"] isEqualToNumber:@0] && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {// 判断最后一次操作
-            looptypeBtn.selected = YES;// 循环
-        }
-    }else{
-        looptypeBtn.selected = NO;// 不循环
-    }
+    // 因为添加了预约状态，不在准备中页面显示定时有关数据
+//    if ([_model.LastAction isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
+//        if ([dict[@"looptype"] isEqualToNumber:@0] && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {// 判断最后一次操作
+//            looptypeBtn.selected = YES;// 循环
+//        }
+//    }else{
+//        looptypeBtn.selected = NO;// 不循环
+//    }
 
     float switchW = 51*XLscaleH, switchH = 21*XLscaleH, switchX = self.xmg_width - 2*marginLF - switchW;
     UISwitch *switchButton = [[UISwitch alloc]initWithFrame:CGRectMake(switchX, 5*XLscaleH, switchW, switchH)];
@@ -513,11 +516,12 @@
     [switchButton addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [orderView addSubview:switchButton];
     _switchButton = switchButton;
-    if ([_model.LastAction isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
-        if (_model.ReserveNow.count > 0 && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {
-            _switchButton.on = YES;
-        }
-    }
+    // 因为添加了预约状态，不在准备中页面显示定时有关数据
+//    if ([_model.LastAction isKindOfClass:[NSDictionary class]]) { // 判断是否为NSDictionary
+//        if (_model.ReserveNow.count > 0 && [_model.LastAction[@"action"] isEqualToString:@"ReserveNow"]) {
+//            _switchButton.on = YES;
+//        }
+//    }
     if(![self.userType isEqualToNumber:@0]){
         _switchButton.on = NO;
     }
@@ -544,6 +548,172 @@
     // 刷新方案勾选
     [self reloadCurrentProgramme:programme];
 }
+
+#pragma mark -- 预约状态
+- (void)charingInReserveNow{
+    
+    NSDictionary *dict = [_model getReserveNow2];// 获取预定信息
+    
+    CGFloat marginLF = 10*XLscaleH, marginTop = 5*XLscaleH;
+    CGFloat lblW = (self.xmg_width-2*marginLF)/2, lblH = 20*XLscaleH;
+    CGFloat viewW = self.xmg_width-2*marginLF, viewH = (self.xmg_height-4*marginTop-lblH);
+    
+    NSArray *titleArray = @[root_yuyueshijian, HEM_charge_feilv];
+    for (int i = 0; i < 2; i++) {
+        UILabel *lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(marginLF+i*lblW, marginTop, lblW, lblH)];
+        lblTitle.text = titleArray[i];
+        lblTitle.textColor = colorblack_51;
+        lblTitle.textAlignment = NSTextAlignmentCenter;
+        lblTitle.font = FontSize([NSString getFontWithText:lblTitle.text size:lblTitle.xmg_size currentFont:14*XLscaleH]);
+        [self.bgView addSubview:lblTitle];
+    }
+    
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(marginLF, 2*marginTop+lblH, viewW, viewH*3/5)];
+    scrollView.backgroundColor = [UIColor whiteColor];
+    XLViewBorderRadius(scrollView, 5, 0, kClearColor);
+    [self.bgView addSubview:scrollView];
+    
+    if ([dict[@"cKey"] isEqualToString:@"G_SetTime"]) { // 时间
+        NSArray *timeRateArray = dict[@"timeRateArray"];
+        // 预约时间， 充电费率
+        CGFloat lblH2 = viewH*3/20;
+        for (int i = 0; i < timeRateArray.count; i++) {
+            NSDictionary *dic1 = timeRateArray[i];
+            UILabel *lblTime = [[UILabel alloc]initWithFrame:CGRectMake(0, i*lblH2, lblW, lblH2)];
+            lblTime.text = dic1[@"time"];
+            lblTime.textColor = colorblack_102;
+            lblTime.textAlignment = NSTextAlignmentCenter;
+            lblTime.font = FontSize([NSString getFontWithText:lblTime.text size:lblTime.xmg_size currentFont:15*XLscaleH]);
+            [scrollView addSubview:lblTime];
+            
+            UILabel *lblRate = [[UILabel alloc]initWithFrame:CGRectMake(lblW, i*lblH2, lblW, lblH2)];
+            lblRate.text = [NSString stringWithFormat:@"%@ %@/h",_model.symbol, dic1[@"rate"]];
+            lblRate.textColor = colorblack_102;
+            lblRate.textAlignment = NSTextAlignmentCenter;
+            lblRate.font = FontSize([NSString getFontWithText:lblRate.text size:lblRate.xmg_size currentFont:15*XLscaleH]);
+            [scrollView addSubview:lblRate];
+        }
+        scrollView.contentSize = CGSizeMake(viewW, timeRateArray.count*lblH2);
+    }else{ // 其他情况
+        
+        CGFloat lblH2 = viewH*3/20;
+        UILabel *lblTime = [[UILabel alloc]initWithFrame:CGRectMake(0, viewH*9/40, lblW, lblH2)];
+        lblTime.text = [NSString stringWithFormat:@"%@", dict[@"value2"]];
+        lblTime.textColor = colorblack_51;
+        lblTime.textAlignment = NSTextAlignmentCenter;
+        lblTime.font = FontSize([NSString getFontWithText:lblTime.text size:lblTime.xmg_size currentFont:lblH2-4]);
+        [scrollView addSubview:lblTime];
+        
+        UILabel *lblRate = [[UILabel alloc]initWithFrame:CGRectMake(lblW, viewH*9/40, lblW, lblH2)];
+        lblRate.text = [NSString stringWithFormat:@"%@ %@/h", _model.symbol,dict[@"rate"]];
+        lblRate.textColor = colorblack_51;
+        lblRate.textAlignment = NSTextAlignmentCenter;
+        lblRate.font = FontSize([NSString getFontWithText:lblRate.text size:lblRate.xmg_size currentFont:lblH2-4]);
+        [scrollView addSubview:lblRate];
+        
+    }
+    
+    
+    NSString *titleString = root_yushechongdian;
+    NSString *titleString2 = root_chongdianfangan;
+    
+    if([dict[@"cKey"] isEqualToString:@"G_SetAmount"]){// 金额
+        titleString = [NSString stringWithFormat:@"%@%@",root_yushechongdian,root_jine];
+    }else if([dict[@"cKey"] isEqualToString:@"G_SetEnergy"]){// 电量
+        titleString = [NSString stringWithFormat:@"%@%@",root_yushechongdian,root_dianliang];
+    }else if([dict[@"cKey"] isEqualToString:@"G_SetTime"]){// 时间
+        titleString = [NSString stringWithFormat:@"%@%@",root_yushechongdian,root_shichang];
+    }
+    
+    // 预设方案 显示
+    CGFloat viewW2 = (viewW-marginLF)/2, viewH2 = viewH*2/5;
+    UIView *view1 = [[UIView alloc]initWithFrame:CGRectMake(marginLF, CGRectGetMaxY(scrollView.frame)+marginTop, viewW2, viewH2)];
+    view1.backgroundColor = [UIColor whiteColor];
+    XLViewBorderRadius(view1, 5, 0, kClearColor);
+    [self.bgView addSubview:view1];
+    
+    CGFloat marginTop2 = viewH2/9, lblTH = viewH2/3;
+    UILabel *lblTitle2 = [[UILabel alloc]initWithFrame:CGRectMake(2*marginLF, marginTop2, viewW2-4*marginLF, lblTH)];
+    lblTitle2.text = titleString;
+    lblTitle2.textColor = colorblack_51;
+    lblTitle2.font = FontSize([NSString getFontWithText:lblTitle2.text size:lblTitle2.xmg_size currentFont:15*XLscaleH]);
+    [view1 addSubview:lblTitle2];
+    // 预设方案
+    UILabel *lblTitle3 = [[UILabel alloc]initWithFrame:CGRectMake(2*marginLF, CGRectGetMaxY(lblTitle2.frame)+marginTop2, viewW2-4*marginLF, lblTH)];
+    lblTitle3.text = titleString2;
+    lblTitle3.textColor = colorblack_102;
+    lblTitle3.font = FontSize([NSString getFontWithText:lblTitle3.text size:lblTitle3.xmg_size currentFont:13*XLscaleH]);
+    [view1 addSubview:lblTitle3];
+    
+    
+    NSString *imageName = @"";
+    NSString *valueString = @"0";
+    NSString *infoNameString = root_yuji;
+    
+    if([dict[@"cKey"] isEqualToString:@"G_SetAmount"]){// 金额
+        imageName = @"Charging_qian";
+        infoNameString = [NSString stringWithFormat:@"%@%@",root_yushe,root_jine];
+        valueString = [NSString stringWithFormat:@"%@kWh",dict[@"value"]];
+    }else if([dict[@"cKey"] isEqualToString:@"G_SetEnergy"]){// 电量
+        imageName = @"Charging_dianliang";
+        infoNameString = [NSString stringWithFormat:@"%@%@",root_yushe,root_dianliang];
+        valueString = [NSString stringWithFormat:@"%@",dict[@"value"]];
+    }else if([dict[@"cKey"] isEqualToString:@"G_SetTime"]){// 时间
+        imageName = @"Charging_qian";
+        infoNameString = [NSString stringWithFormat:@"%@%@",root_yuji,root_jine];
+        CGFloat sum = 0;
+        NSArray *timeRateArray = dict[@"timeRateArray"];
+        for (int i = 0; i < timeRateArray.count; i++) {
+            CGFloat cost = [timeRateArray[i][@"cost"] doubleValue];
+            sum += cost;
+        }
+        valueString = [NSString stringWithFormat:@"%.1f",sum]; // 计算花费总和,其实后台返回的也是很大概的一个数据
+    }
+    
+    // 预计金额
+    UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(2*marginLF+viewW2, CGRectGetMaxY(scrollView.frame)+marginTop, viewW2, viewH2)];
+    view2.backgroundColor = [UIColor whiteColor];
+    XLViewBorderRadius(view2, 5, 0, kClearColor);
+    [self.bgView addSubview:view2];
+    
+    float imageW = 18*XLscaleH, imageH = 18*XLscaleH, imageX = 24*XLscaleW, imageY = (viewH2-imageH)/2;
+    UIImageView *infoTypeImgView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageW, imageH)];
+    infoTypeImgView.image = [UIImage imageNamed:imageName];
+    [view2 addSubview:infoTypeImgView];
+    
+    float detaW = view2.xmg_width-imageW-imageX, detaH = 16*XLscaleH, detaX = CGRectGetMaxX(infoTypeImgView.frame)+20*XLscaleW, detaY = (viewH2-2*detaH-11)/2;
+    UILabel *detailLB = [[UILabel alloc] initWithFrame:CGRectMake(detaX, detaY, detaW, detaH)];
+    detailLB.textAlignment = NSTextAlignmentLeft;
+    detailLB.textColor = colorblack_51;
+    detailLB.adjustsFontSizeToFitWidth = YES;
+    detailLB.font = [UIFont systemFontOfSize:15*XLscaleH];
+    NSMutableAttributedString *attribute = [self changeAttributeWithString:valueString number:colorblack_51 letter:colorblack_154];
+    detailLB.attributedText = attribute;
+    [view2 addSubview:detailLB];
+    
+    UILabel *infoNameLB = [[UILabel alloc] initWithFrame:CGRectMake(detailLB.xmg_x, CGRectGetMaxY(detailLB.frame)+11, detaW, detaH)];
+    infoNameLB.textAlignment = NSTextAlignmentLeft;
+    infoNameLB.textColor = COLOR(153, 153, 153, 1);
+    infoNameLB.font = [UIFont systemFontOfSize:15*XLscaleH];
+    infoNameLB.adjustsFontSizeToFitWidth = YES;
+    infoNameLB.text = infoNameString;
+    [view2 addSubview:infoNameLB];
+    
+    
+    if ([dict[@"cKey"] isEqualToString:@""]) { // 普通定时
+        view1.hidden = YES;
+        view2.hidden = YES;
+
+        UILabel *lblTips = [[UILabel alloc]initWithFrame:CGRectMake(marginLF, CGRectGetMaxY(scrollView.frame)+marginTop2, viewW, viewH2)];
+        lblTips.text = root_chongmantizhi;
+        lblTips.textColor = colorblack_102;// 充满自动停止充电
+        lblTips.font = FontSize(16*XLscaleH);
+        lblTips.numberOfLines = 0;
+        lblTips.textAlignment = NSTextAlignmentCenter;
+        [self.bgView addSubview:lblTips];
+    }
+}
+
 
 #pragma mark -- 点击事件
 

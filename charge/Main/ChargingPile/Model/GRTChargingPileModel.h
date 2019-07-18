@@ -21,7 +21,7 @@
 @property (nonatomic, copy) NSString *userId; // 用户ID
 @property (nonatomic, strong) NSArray *status; // 充电桩枪状态列表
 @property (nonatomic, strong) NSNumber *solar; // solar值
-
+@property (nonatomic, strong) NSArray *priceConf; // 费率数组
 
 - (NSString *)getmodel;// 获取充电桩枪模式名称
 

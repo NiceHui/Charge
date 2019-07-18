@@ -23,6 +23,7 @@
     BOOL isEdit3;
     BOOL isEdit4;
     BOOL isEdit5;
+    BOOL isTouchCarried; // 是否点击执行下发
 }
 
 @property (nonatomic, strong) HSTCPWiFiManager *wifiManager;
@@ -104,6 +105,7 @@
     isEdit3 = NO;
     isEdit4 = NO;
     isEdit5 = NO;
+    isTouchCarried = NO;
     
     [self setupAlert];
     [self createUIView];
@@ -813,6 +815,14 @@
             [self hideProgressView];
             self->isSucc = YES;
             [self.tableView.mj_header endRefreshing];
+            
+            // 确认点击了执行下发按键，并且全部设置成功
+            if (self->isTouchCarried && !self->isEdit1 && !self->isEdit2 && !self->isEdit3 && !self->isEdit4 && !self->isEdit5) {
+                // 重置标志
+                self->isTouchCarried = NO;
+                // 退出该设置页面，退出时发送退出命令
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
         [self.tableView reloadData];
     });
@@ -916,7 +926,11 @@
     
     if(!isEdit1 && !isEdit2 && !isEdit3 && !isEdit4 && !isEdit5){ // 未更改任何设置
         [self showToastViewWithTitle:root_weigenggai];
+        return;
     }
+    
+    // 点击了执行下发按键
+    isTouchCarried = YES;
     
     if (isEdit1) {// 设备信息参数设置  4
         [[HSTCPWiFiManager instance] setDeviceBaseInfo:self.baseInfo];

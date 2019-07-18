@@ -12,4 +12,6 @@
 
 @property (nonatomic, copy) NSString *sn;
 
+@property (nonatomic, strong) NSArray *priceConf;
+
 @end

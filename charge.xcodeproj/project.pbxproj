@@ -96,6 +96,7 @@
 		BC664C5A2177368400CED085 /* PresetChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC664C592177368400CED085 /* PresetChargeViewController.m */; };
 		BC6EE1FD224DAC9500743A3E /* HSWiFiChargeSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */; };
 		BC6EE200224DC1E300743A3E /* HSTCPWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6EE1FF224DC1E300743A3E /* HSTCPWiFiManager.m */; };
+		BC75826F22BA39FE00E5BE53 /* SetTimeRateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75826E22BA39FE00E5BE53 /* SetTimeRateVC.m */; };
 		BC811038217F418D00A9DEFB /* XLCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC811037217F418D00A9DEFB /* XLCircle.m */; };
 		BC873CA6217D627D002C70A3 /* MMScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC873CA0217D627D002C70A3 /* MMScanView.m */; };
 		BC873CA7217D627D002C70A3 /* MMScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC873CA2217D627D002C70A3 /* MMScanViewController.m */; };
@@ -176,6 +177,7 @@
 		BCB6D787224B667F00F4B039 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6D783224B667F00F4B039 /* GCDAsyncUdpSocket.m */; };
 		BCB6D788224B667F00F4B039 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6D784224B667F00F4B039 /* GCDAsyncSocket.m */; };
 		BCC4904C224A3F7300AA975A /* HSWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4904B224A3F7300AA975A /* HSWiFiManager.m */; };
+		BCC8717622B8FC5B00F02FF7 /* SetTimeRateAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC8717522B8FC5B00F02FF7 /* SetTimeRateAlert.m */; };
 		BCE5485E21782BDB0022E0E3 /* PickerViewAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5485C21782BDB0022E0E3 /* PickerViewAlert.m */; };
 		BCE54861217876220022E0E3 /* TimingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE54860217876220022E0E3 /* TimingListViewController.m */; };
 		BCE5486521787A500022E0E3 /* TimingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5486321787A500022E0E3 /* TimingTableViewCell.m */; };
@@ -383,6 +385,8 @@
 		BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiChargeSettingVC.m; sourceTree = "<group>"; };
 		BC6EE1FE224DC1E300743A3E /* HSTCPWiFiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSTCPWiFiManager.h; sourceTree = "<group>"; };
 		BC6EE1FF224DC1E300743A3E /* HSTCPWiFiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSTCPWiFiManager.m; sourceTree = "<group>"; };
+		BC75826D22BA39FE00E5BE53 /* SetTimeRateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetTimeRateVC.h; sourceTree = "<group>"; };
+		BC75826E22BA39FE00E5BE53 /* SetTimeRateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetTimeRateVC.m; sourceTree = "<group>"; };
 		BC811036217F418D00A9DEFB /* XLCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCircle.h; sourceTree = "<group>"; };
 		BC811037217F418D00A9DEFB /* XLCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCircle.m; sourceTree = "<group>"; };
 		BC873C9F217D627D002C70A3 /* MMScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMScanView.h; sourceTree = "<group>"; };
@@ -543,6 +547,8 @@
 		BCB6D786224B667F00F4B039 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		BCC4904A224A3F7300AA975A /* HSWiFiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSWiFiManager.h; sourceTree = "<group>"; };
 		BCC4904B224A3F7300AA975A /* HSWiFiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiManager.m; sourceTree = "<group>"; };
+		BCC8717422B8FC5B00F02FF7 /* SetTimeRateAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetTimeRateAlert.h; sourceTree = "<group>"; };
+		BCC8717522B8FC5B00F02FF7 /* SetTimeRateAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetTimeRateAlert.m; sourceTree = "<group>"; };
 		BCE5485C21782BDB0022E0E3 /* PickerViewAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewAlert.m; sourceTree = "<group>"; };
 		BCE5485D21782BDB0022E0E3 /* PickerViewAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewAlert.h; sourceTree = "<group>"; };
 		BCE5485F217876220022E0E3 /* TimingListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimingListViewController.h; sourceTree = "<group>"; };
@@ -832,6 +838,8 @@
 				BC664B9C2176C56D00CED085 /* ChargingPileSettingOptionVC.m */,
 				BC664B9D2176C56D00CED085 /* ChargingpileSettingVC.h */,
 				BC664B9E2176C56D00CED085 /* ChargingpileSettingVC.m */,
+				BC75826D22BA39FE00E5BE53 /* SetTimeRateVC.h */,
+				BC75826E22BA39FE00E5BE53 /* SetTimeRateVC.m */,
 				BC664B952176C56D00CED085 /* AuthorizationVC.h */,
 				BC664B962176C56D00CED085 /* AuthorizationVC.m */,
 				BC664B912176C56D00CED085 /* AddAuthorizationVC.h */,
@@ -885,6 +893,8 @@
 				BC594B6C225DDBBB002643D3 /* SelectTimeAlert.m */,
 				BC8AB90F22A8F80F00590501 /* ZJBLStoreShopTypeAlert.h */,
 				BC8AB90E22A8F80F00590501 /* ZJBLStoreShopTypeAlert.m */,
+				BCC8717422B8FC5B00F02FF7 /* SetTimeRateAlert.h */,
+				BCC8717522B8FC5B00F02FF7 /* SetTimeRateAlert.m */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -1541,6 +1551,7 @@
 				BC664C0B2176CE2B00CED085 /* HSBluetoochManager.m in Sources */,
 				BC8A675421872B830018152A /* MJRefreshHeader.m in Sources */,
 				BC594B6D225DDBBB002643D3 /* SelectTimeAlert.m in Sources */,
+				BCC8717622B8FC5B00F02FF7 /* SetTimeRateAlert.m in Sources */,
 				BC8A674721872B830018152A /* UIScrollView+MJExtension.m in Sources */,
 				BC899AF62179D13B007DCBC5 /* ChargingpileInfoModel.m in Sources */,
 				BC664BD32176C87700CED085 /* TabLeftRightButton.m in Sources */,
@@ -1617,6 +1628,7 @@
 				BCB6D787224B667F00F4B039 /* GCDAsyncUdpSocket.m in Sources */,
 				BC8A674F21872B830018152A /* MJRefreshAutoNormalFooter.m in Sources */,
 				BC8A50FE2175FF5500C02F42 /* protocol.m in Sources */,
+				BC75826F22BA39FE00E5BE53 /* SetTimeRateVC.m in Sources */,
 				BC664BC42176C56D00CED085 /* RegistrationUserVC.m in Sources */,
 				BCB0649E2179830D006AA647 /* QCCountdownButton.m in Sources */,
 				BC8A50682175799400C02F42 /* main.m in Sources */,

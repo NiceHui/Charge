@@ -12,8 +12,11 @@
 #import "EWOptionArrowItem.h"
 #import "InputSettingAlert.h"
 #import "HSWiFiChargeTipsVC.h"
+#import "ZJBLStoreShopTypeAlert.h"
+#import "SetTimeRateAlert.h"
+#import "SetTimeRateVC.h"
 
-@interface ChargingpileSettingVC ()<InputSettingDelegate>
+@interface ChargingpileSettingVC ()<InputSettingDelegate,setTimeRateDelegate>
 
 @property (nonatomic, strong) EWOptionItem *IDItem;
 @property (nonatomic, strong) EWOptionItem *SercetItem;
@@ -23,6 +26,8 @@
 @property (nonatomic, strong) EWOptionArrowItem *city_item;
 @property (nonatomic, strong) EWOptionArrowItem *station_item;
 @property (nonatomic, strong) EWOptionArrowItem *rate_item;
+@property (nonatomic, strong) EWOptionArrowItem *unit_item;
+@property (nonatomic, strong) EWOptionArrowItem *current_item;
 @property (nonatomic, strong) EWOptionArrowItem *power_item;
 @property (nonatomic, strong) EWOptionArrowItem *mode_item;
 
@@ -33,9 +38,17 @@
 @property (nonatomic, strong) EWOptionArrowItem *url_item;
 @property (nonatomic, strong) EWOptionArrowItem *dns_item;
 
+@property (nonatomic, strong) EWOptionGroup *group1;
+@property (nonatomic, strong) EWOptionGroup *group2;
+@property (nonatomic, strong) EWOptionGroup *group3;
+@property (nonatomic, strong) EWOptionGroup *group4;
+
 @property (nonatomic, strong) NSMutableDictionary *dataDict;
 
 @property (nonatomic, strong) InputSettingAlert *inputAlert;
+
+@property (nonatomic, strong) NSArray *unitArray;
+@property (nonatomic, strong) NSString *symbol;
 
 @end
 
@@ -82,10 +95,10 @@
     }];
     self.tableView.mj_header = header;
     
-    EWOptionGroup *group1 = [[EWOptionGroup alloc]init];
-    EWOptionGroup *group2 = [[EWOptionGroup alloc]init];
-    EWOptionGroup *group3 = [[EWOptionGroup alloc]init];
-    EWOptionGroup *group4 = [[EWOptionGroup alloc]init];
+    self.group1 = [[EWOptionGroup alloc]init];
+    self.group2 = [[EWOptionGroup alloc]init];
+    self.group3 = [[EWOptionGroup alloc]init];
+    self.group4 = [[EWOptionGroup alloc]init];
     
     // ID
     EWOptionItem *IDItem = [EWOptionItem itemWithTitle:HEM_charge_id detailTitle:@"--"];
@@ -99,7 +112,7 @@
     EWOptionItem *version_item = [EWOptionItem itemWithTitle:root_banbenhao detailTitle:@"--"];
     _version_item = version_item;
     
-    group1.items = @[IDItem, SercetItem, version_item];
+    self.group1.items = @[IDItem, SercetItem, version_item];
     
     
     EWOptionArrowItem *name_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_mingcheng detailTitle:@"--" didClickBlock:^{
@@ -135,54 +148,80 @@
     }];
     _station_item = station_item;
     
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:_name_item];
+    [array addObject:_city_item];
+    [array addObject:_station_item];
+    NSString *name = HEM_charge_feilv;
+    if (self.priceConf.count == 0) self.priceConf = @[@{@"time": @"00:00-23:59", @"price": @"0"}];
+    for (int i = 0; i < self.priceConf.count; i++) {
+        if (i > 0) name = @"";
+        NSDictionary *timeRate = self.priceConf[i];
+        NSString *title = [NSString stringWithFormat:@"%@:%@ %@:%@",root_shijianduan, timeRate[@"time"], root_feilv, timeRate[@"price"]];
+        EWOptionArrowItem *rate_item_1 = [EWOptionArrowItem arrowItemWithTitle:name detailTitle:title didClickBlock:^{
+            SetTimeRateVC *vc = [[SetTimeRateVC alloc]init];
+            vc.delegate = self;
+            vc.sn = self.sn;
+            vc.symbol = self.symbol;
+            vc.timeRateArray = self.priceConf;
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+        [array addObject:rate_item_1];
+    }
     
-    EWOptionArrowItem *rate_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_feilv detailTitle:@"--" didClickBlock:^{
-        [weakSelf.inputAlert show];
-        if (self.dataDict[@"rate"]) {
-            weakSelf.inputAlert.currentText = [NSString stringWithFormat:@"%@", self.dataDict[@"rate"]];
-        }
-        weakSelf.inputAlert.itemText = @"rate";
-        weakSelf.inputAlert.titleText = HEM_charge_feilv;
+    EWOptionArrowItem *unit_item = [EWOptionArrowItem arrowItemWithTitle:root_huobidanwei detailTitle:@"--" didClickBlock:^{
+        [weakSelf selectMoneyUnit];
     }];
-    _rate_item = rate_item;
+    _unit_item = unit_item;
     
-    
-    EWOptionArrowItem *power_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_gonglv detailTitle:@"--" didClickBlock:^{
+    EWOptionArrowItem *current_item = [EWOptionArrowItem arrowItemWithTitle:root_dangqiandianliu detailTitle:@"--" didClickBlock:^{
         [weakSelf.inputAlert show];
-        if (self.dataDict[@"power"]) {
-            weakSelf.inputAlert.currentText = [NSString stringWithFormat:@"%@", self.dataDict[@"power"]];
+        if (weakSelf.dataDict[@"G_MaxCurrent"]) {
+            weakSelf.inputAlert.currentText = [NSString stringWithFormat:@"%@", self.dataDict[@"G_MaxCurrent"]];
         }
-        weakSelf.inputAlert.itemText = @"power";
-        weakSelf.inputAlert.titleText = HEM_charge_gonglv;
+        weakSelf.inputAlert.itemText = @"G_MaxCurrent";
+        weakSelf.inputAlert.titleText = root_dangqiandianliu;
+    }];
+    _current_item = current_item;
+    
+    EWOptionArrowItem *power_item = [EWOptionArrowItem arrowItemWithTitle:root_zhinenggonglvfenpei detailTitle:@"--" didClickBlock:^{
+        [weakSelf.inputAlert show];
+        if (weakSelf.dataDict[@"G_ExternalLimitPower"]) {
+            weakSelf.inputAlert.currentText = [NSString stringWithFormat:@"%@", weakSelf.dataDict[@"G_ExternalLimitPower"]];
+        }
+        weakSelf.inputAlert.itemText = @"G_ExternalLimitPower";
+        weakSelf.inputAlert.titleText = root_zhinenggonglvfenpei;
     }];
     _power_item = power_item;
     
     
     EWOptionArrowItem *mode_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_moshi detailTitle:@"--" didClickBlock:^{
-
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:HEM_charge_model1 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self selectModel:1];
-        }];
-        UIAlertAction *action2 = [UIAlertAction actionWithTitle:HEM_charge_model2 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self selectModel:2];
-        }];
-        UIAlertAction *action3 = [UIAlertAction actionWithTitle:HEM_charge_model3 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self selectModel:3];
-        }];
-        UIAlertAction *action4 = [UIAlertAction actionWithTitle:root_cancel style:UIAlertActionStyleCancel handler:nil];
         
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:HEM_charge_moshi message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionSheet addAction:action1];
-        [actionSheet addAction:action2];
-        [actionSheet addAction:action3];
-        [actionSheet addAction:action4];
-        [self presentViewController:actionSheet animated:YES completion:nil];
+        NSArray *actionArray = @[HEM_charge_model1, HEM_charge_model2, HEM_charge_model3];
+        [ZJBLStoreShopTypeAlert showWithTitle:HEM_charge_moshi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+            
+            NSMutableDictionary *prams2 = [[NSMutableDictionary alloc]init];
+            [prams2 setObject:@(SelectIndexNum+1) forKey:@"G_ChargerMode"];
+            [prams2 setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
+            [prams2 setObject:self.sn forKey:@"chargeId"];
+            NSLog(@"prams: %@",prams2);
+            // 设置
+            [weakSelf setChargeoConfigInfomation:prams2];
+            
+        } selectValue:^(NSString* valueString){
+            
+        } showCloseButton:YES];
         
     }];
     _mode_item = mode_item;
     
-    group2.headerTitle = HEM_charge_jichucanshu;
-    group2.items = @[name_item, city_item,station_item, rate_item, power_item, mode_item];
+    self.group2.headerTitle = HEM_charge_jichucanshu;
+    [array addObject:_unit_item];
+    [array addObject:_current_item];
+    [array addObject:_power_item];
+    [array addObject:_mode_item];
+    self.group2.items = array.copy;
+//    self.group2.items = @[name_item, city_item,station_item, rate_item, unit_item, current_item, power_item, mode_item];
     
     
     EWOptionArrowItem *ip_item = [EWOptionArrowItem arrowItemWithTitle:HEM_charge_ip detailTitle:@"--" didClickBlock:^{
@@ -243,19 +282,19 @@
     }];
     _dns_item = dns_item;
     
-    group3.headerTitle = HEM_charge_gaojishezhi;
-    group3.items = @[ip_item, gateway_item, mask_item, mac_item, url_item, dns_item];
+    self.group3.headerTitle = HEM_charge_gaojishezhi;
+    self.group3.items = @[ip_item, gateway_item, mask_item, mac_item, url_item, dns_item];
     
     // 切换ap模式
     EWOptionArrowItem *switch_ap_item = [EWOptionArrowItem arrowItemWithTitle:root_qiehuan_ap detailTitle:@"" didClickBlock:^{
         [weakSelf switch_ap_mode];
     }];
-    group4.items = @[switch_ap_item];
+    self.group4.items = @[switch_ap_item];
     
-    [self.groups addObject:group1];
-    [self.groups addObject:group2];
-    [self.groups addObject:group3];
-    [self.groups addObject:group4];
+    [self.groups addObject:self.group1];
+    [self.groups addObject:self.group2];
+    [self.groups addObject:self.group3];
+    [self.groups addObject:self.group4];
     
     [self.tableView reloadData];
     
@@ -306,6 +345,8 @@
     
     [self.dataDict setDictionary:data];
     
+    self.symbol = [NSString stringWithFormat:@"%@", data[@"symbol"]]; // 货币符号
+    
     self.IDItem.detailTitle = [NSString stringWithFormat:@"%@", data[@"chargeId"] ? data[@"chargeId"] : @"--"];
     self.SercetItem.detailTitle = [NSString stringWithFormat:@"%@", data[@"G_Authentication"] ? data[@"G_Authentication"] : @"--"];
     self.version_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"version"] ? data[@"version"] : @"--"];
@@ -314,7 +355,9 @@
     self.city_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"address"] ? data[@"address"] : @"--"];
     self.station_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"site"] ? data[@"site"] : @"--"];
     self.rate_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"rate"] ? data[@"rate"] : @"--"];
-    self.power_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"power"] ? data[@"power"] : @"--"];
+    self.unit_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"unit"] ? data[@"unit"] : @"--"];
+    self.current_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"G_MaxCurrent"] ? data[@"G_MaxCurrent"] : @"--"];
+    self.power_item.detailTitle = [NSString stringWithFormat:@"%@", data[@"G_ExternalLimitPower"] ? data[@"G_ExternalLimitPower"] : @"--"];
     
     if ([data[@"G_ChargerMode"] integerValue] == 1) {
         self.mode_item.detailTitle = HEM_charge_model1;
@@ -351,7 +394,7 @@
         }
     }
     
-    if ([key isEqualToString:@"rate"] || [key isEqualToString:@"power"]) {
+    if ([key isEqualToString:@"rate"] || [key isEqualToString:@"G_MaxCurrent"] || [key isEqualToString:@"G_ExternalLimitPower"]) {
         // 判断是否为数字
         if(![NSString isNum:prams[key]]){
             [self showToastViewWithTitle:root_geshi_cuowu];
@@ -362,6 +405,13 @@
     NSMutableDictionary *prams2 = [[NSMutableDictionary alloc]initWithDictionary:prams];
     [prams2 setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
     [prams2 setObject:self.sn forKey:@"chargeId"];
+    if([key isEqualToString:@"G_MaxCurrent"]){ // 电桩最大输出电流
+        [prams2 setObject:prams[key] forKey:@"G_MaxCurrent"];
+        [prams2 removeObjectForKey:key];
+    } else if ([key isEqualToString:@"G_ExternalLimitPower"]){ // 智能分配功率
+        [prams2 setObject:prams[key] forKey:@"G_ExternalLimitPower"];
+        [prams2 removeObjectForKey:key];
+    }
     
     NSLog(@"prams: %@",prams2);
     // 设置
@@ -383,6 +433,47 @@
     
 }
 
+
+
+#pragma mark -- 设置费率成功的回调
+- (void)setTimeRateWithArray:(NSArray *)timeRateArray{
+    
+    if (timeRateArray.count > 0) {
+        NSMutableArray *array = [NSMutableArray array];
+        [array addObject:_name_item];
+        [array addObject:_city_item];
+        [array addObject:_station_item];
+        NSString *name = HEM_charge_feilv;
+        for (int i = 0; i < timeRateArray.count; i++) {
+            if (i > 0) name = @"";
+            NSDictionary *timeRate = timeRateArray[i];
+            NSString *title = [NSString stringWithFormat:@"%@:%@ %@:%@",root_shijianduan, timeRate[@"time"], root_feilv, timeRate[@"price"]];
+            EWOptionArrowItem *rate_item_1 = [EWOptionArrowItem arrowItemWithTitle:name detailTitle:title didClickBlock:^{
+                SetTimeRateVC *vc = [[SetTimeRateVC alloc]init];
+                vc.delegate = self;
+                vc.sn = self.sn;
+                vc.symbol = self.symbol;
+                vc.timeRateArray = self.priceConf;
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+            [array addObject:rate_item_1];
+        }
+        [array addObject:_unit_item];
+        [array addObject:_current_item];
+        [array addObject:_power_item];
+        [array addObject:_mode_item];
+        self.group2.items = array.copy;
+        [self.groups removeObjectAtIndex:1];
+        [self.groups insertObject:self.group2 atIndex:1];
+        [self.tableView reloadData];
+        self.priceConf = timeRateArray;
+    }
+}
+
+
+
+
+#pragma mark -- 网络请求
 // 电桩切换至AP模式
 - (void)switch_ap_mode{
     __weak typeof(self) weakSelf = self;
@@ -402,6 +493,77 @@
         [weakSelf hideProgressView];
     }];
 }
+
+
+// 选择货币单位
+- (void)selectMoneyUnit{
+    
+    __weak typeof(self) weakSelf = self;
+    // 判断是否已经获取到列表
+    if ([weakSelf.unitArray isKindOfClass:[NSArray class]]) {
+        if (weakSelf.unitArray.count > 0) {
+            NSMutableArray *actionArray = [[NSMutableArray alloc]init];
+            for (int i = 0; i < weakSelf.unitArray.count; i++) {
+                NSDictionary *dict = weakSelf.unitArray[i];
+                [actionArray addObject:[NSString stringWithFormat:@"%@(%@)",dict[@"unit"],dict[@"symbol"]]];
+            }
+            // 打开控件
+            [ZJBLStoreShopTypeAlert showWithTitle:root_xuanzehuobi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+                NSDictionary *dict = weakSelf.unitArray[SelectIndexNum];
+                
+                NSMutableDictionary *prams = [[NSMutableDictionary alloc]init];
+                [prams setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
+                [prams setObject:weakSelf.sn forKey:@"chargeId"];
+                [prams setObject:dict[@"unit"] forKey:@"unit"];
+                [prams setObject:dict[@"symbol"] forKey:@"symbol"]; // 符号
+                [weakSelf setChargeoConfigInfomation:prams];// 设置
+                
+            } selectValue:^(NSString* valueString){
+                
+            } showCloseButton:YES];
+            return;
+        }
+    }
+    
+    [self showProgressView];
+    [[DeviceManager shareInstenced] sendCommandWithParms:@{@"cmd":@"selectMoneyUnit"} success:^(id obj) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([obj[@"code"] isEqualToNumber:@0]) {
+                
+                weakSelf.unitArray = obj[@"data"];
+                if ([weakSelf.unitArray isKindOfClass:[NSArray class]]) {
+                    
+                    NSMutableArray *actionArray = [[NSMutableArray alloc]init];
+                    for (int i = 0; i < weakSelf.unitArray.count; i++) {
+                        NSDictionary *dict = weakSelf.unitArray[i];
+                        [actionArray addObject:[NSString stringWithFormat:@"%@(%@)",dict[@"unit"],dict[@"symbol"]]];
+                    }
+                    // 打开控件
+                    [ZJBLStoreShopTypeAlert showWithTitle:root_xuanzehuobi titles:actionArray selectIndex:^(NSInteger SelectIndexNum){
+                        NSDictionary *dict = weakSelf.unitArray[SelectIndexNum];
+                        
+                        NSMutableDictionary *prams = [[NSMutableDictionary alloc]init];
+                        [prams setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
+                        [prams setObject:self.sn forKey:@"chargeId"];
+                        [prams setObject:dict[@"unit"] forKey:@"unit"];
+                        [prams setObject:dict[@"symbol"] forKey:@"symbol"]; // 符号
+                        [weakSelf setChargeoConfigInfomation:prams];// 设置
+                        
+                    } selectValue:^(NSString* valueString){
+                        
+                    } showCloseButton:YES];
+                }
+            }else{
+                [self showToastViewWithTitle:root_qingqiushibai];
+            }
+            [weakSelf hideProgressView];
+        });
+    } failure:^(NSError *error) {
+        [weakSelf hideProgressView];
+        [self showToastViewWithTitle:root_qingqiushibai];
+    }];
+}
+
 
 
 - (void)viewWillDisappear:(BOOL)animated{

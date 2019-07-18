@@ -343,6 +343,7 @@
         
         self.backgroundView.alpha = 0;
     } completion:^(BOOL finished) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CGXSTRING_TOUCH_CANCEL" object:@{}];// 隐藏
         [self removeFromSuperview];
     }];
 }
@@ -376,8 +377,8 @@
 - (UIPickerView *)pickerView {
     if (!_pickerView) {
         _pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, self.manager.kTopViewH + 0.5, SCREEN_WIDTH, self.manager.kPickerViewH)];
-        _pickerView.backgroundColor = COLOR(1, 31, 40, 1);
-        [_pickerView setValue:COLOR(5,142,240,1) forKey:@"textColor"];
+        _pickerView.backgroundColor = [UIColor whiteColor];//COLOR(1, 31, 40, 1);
+        [_pickerView setValue:mainColor forKey:@"textColor"];//COLOR(5,142,240,1)
         _pickerView.dataSource = self;
         _pickerView.delegate = self;
         
@@ -456,7 +457,7 @@
     {
         if (singleLine.frame.size.height < 1)
         {
-            singleLine.backgroundColor = COLOR(5,142,240,1);
+            singleLine.backgroundColor = mainColor;//COLOR(5,142,240,1);
         }
     }
     //可以通过自定义label达到自定义pickerview展示数据的方式
@@ -472,12 +473,12 @@
         pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, self.manager.rowHeight)];
         pickerLabel.adjustsFontSizeToFitWidth = YES;
         pickerLabel.textAlignment = NSTextAlignmentCenter;
-        pickerLabel.backgroundColor = COLOR(1, 31, 40, 1);
+        pickerLabel.backgroundColor = [UIColor whiteColor];//COLOR(1, 31, 40, 1);
       
         
 //        [pickerLabel setBackgroundColor:[UIColor whiteColor]];
         [pickerLabel setFont:[UIFont systemFontOfSize:self.manager.pickerTitleSize]];
-        [pickerLabel setTextColor:COLOR(5,142,240,1)];
+        [pickerLabel setTextColor:mainColor];//COLOR(5,142,240,1)
     }
     pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];//调用上一个委托方法，获得要展示的title
     return pickerLabel;

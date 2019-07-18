@@ -75,7 +75,7 @@
 
 #define FontSize(size) [UIFont systemFontOfSize:(size)]// 字号
 #define KEYWINDOW [UIApplication sharedApplication].keyWindow// keyWindow层
-#define kStringIsEmpty(str) ([str isKindOfClass:[NSNull class]] || str == nil || [str length] < 1 ? YES : NO ) //字符串判空
+#define kStringIsEmpty(str) ([str isKindOfClass:[NSNull class]] || [str isEqualToString:@"(null)"] || str == nil || [str length] < 1 ? YES : NO ) //字符串判空
 #define HexRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0  \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0     \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

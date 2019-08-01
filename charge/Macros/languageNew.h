@@ -392,4 +392,13 @@
 #define  root_yuyue NSLocalizedString(@"339预约",nil)
 #define  root_quxiaoyuyue NSLocalizedString(@"340取消预约",nil)
 
+// new
+#define  root_dianbiao NSLocalizedString(@"341电表",nil)
+#define  root_waibudianliu NSLocalizedString(@"342外部电流采样接线方式",nil)
+#define  root_solar_mode NSLocalizedString(@"343Solar模式",nil)
+#define  root_eco_current_limit NSLocalizedString(@"344ECO+电流限制",nil)
+#define  root_dianbiaodizhi NSLocalizedString(@"345电表设备地址",nil)
+#define  root_tuichutishi NSLocalizedString(@"346退出设置提示",nil)
+
+
 #endif /* languageNew_h */

@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSArray *status; // 充电桩枪状态列表
 @property (nonatomic, strong) NSNumber *solar; // solar值
 @property (nonatomic, strong) NSArray *priceConf; // 费率数组
+@property (nonatomic, strong) NSString *G_SolarMode; // solar模式
+@property (nonatomic, strong) NSString *G_SolarLimitPower; // solar的ECO+光伏充电限制
 
 - (NSString *)getmodel;// 获取充电桩枪模式名称
 

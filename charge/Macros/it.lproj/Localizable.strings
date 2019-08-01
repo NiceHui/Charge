@@ -1,0 +1,399 @@
+/* 
+  Localizable.strings
+  charge
+
+  Created by growatt007 on 2018/10/30.
+  Copyright © 2018 hshao. All rights reserved.
+*/
+
+
+
+
+
+// 登录
+"1立即体验" = "Prova ora";
+"2下一步" = "Prossimo";
+"3完成" = "Fatto";
+"4服务器错误" = "Errore del Server";
+"5拍照" = "Scatta una foto";
+"6从相册选取" = "Scegli tra le foto";
+"7取消" = "Annulla";
+"8警告" = "Attenzione";
+"9确定" = "Inserisci";
+"10删除" = "Elimina";
+"11扫描结果" = "Risultato della scansione";
+"12配置" = "Configurazione";
+"13控制提示" = "Controllo";
+"14添加问题提示" = "Aggiungi domande";
+"15控制密码" = "Password";
+"16返回" = "Indietro";
+"17停止配置" = "Interrompi Comfigurazione";
+"18注册失败" = "Registrazione fallita";
+"19是否退出当前账户" = "Disconnettersi?";
+
+
+//
+"20用户名密码错误" = "Nome Utente o Password errata";
+"21用户名密码为空" = "Nome Utente o Password mancanti";
+"22Enter your username" = "Inserisci il tuo Nome Utente";
+"23Enter your pwd" = "Inserisci la tua PW";
+"24忘记密码?" = "Password dimenticata?";
+"25注册" = "Registrati";
+"26登录" = "Accedi";
+"27请输入用户名" = "Inserisci Nome Utente";
+"28请输入密码" = "Inserisci Password";
+"29温馨提示" = "Nota";
+"30原密码" = "Vecchia Password";
+"30UID为空" = "UID mancante";
+"30浏览账户" = "Demo";
+
+//注册,忘记密码
+"31成功后将发送新密码到账号绑定的邮箱" = "Al termine, la nuova password verrà inviata alla cassetta postale associata all'account";
+"32请输入正确的用户名" = "Inserisci il Nome Utente corretto";
+"33发送邮件失败" = "Invio Email fallito";
+"34填写资料注册新用户" = "Inserisci le informazioni";
+"35同意本公司各项用户条款及隐私政策" = "Contratto Utenti";
+"36选择用户协议" = "Spunta il Contratto Utente";
+"37请输入正确邮箱格式" = "Inserisci email nella forma corretta";
+"38超出版本限制注册用户数量" = "Il numero Utenti supera il limite massimo";
+"39服务器错误" = "Errore del Server";
+"40注册错误" = "Errore di Registrazione";
+"41采集器序列号或校验码错误" = "SN del Datalogger o Codice di Controllo errato";
+"42用户名已被使用" = "Nome Utente registrato";
+"43代理商编码错误" = "ID Agenzia errato";
+"44注册成功" = "Registrato con successo";
+"45采集器序列号已经存在" = "SN Datalogger esistente";
+"46服务器错误提示" = "Errore del Server";
+"47服务器错误提示2" = "Errore2 del Server";
+"48采集器10位提示（应该为错误提示）" = "Errore del Datalogger";
+"49不能找到用户名" = "Nome Utente non trovato";
+"50打开定位开关" = "Servizio di localizzazione disabilitato";
+"51定位提示跳转" = "Torna a Pagina\"Impostazioni\"?";
+// 我的
+"52我的" = "Me";
+"53账号管理" = "Gestione dell'Account";
+"54消息中心" = "Centro Messaggi";
+"55关于" = "di";
+"56用户协议" = "Contratto Utenti";
+"57注销账号" = "Disconnettersi";
+"58暂未开放" = "La funzione non è pronta";
+"59修改密码" = "Cambia Password";
+"60修改手机号" = "Cambia numero di Cellulare";
+"61修改邮箱" = "Cambia indirizzo email";
+"62填入不带国家代码的手机号" = "Inserisci il numero telefono senza prefisso del paese";
+"63输入邮箱地址" = "Inserisci indirizzo E-Mail";
+"64输入代理商编号" = "Inserisci ID Agenzia";
+"65系统错误" = "Errore di Sistema";
+"66原密码错误" = "Password errata";
+"67用户不存在" = "L'Utente non esiste";
+"68你的账号没有操作权限" = "Il tuo account non dispone dell'autorizzazione per operare";
+"69参数设置成功" = "Parametro impostato con successo";
+"70请验证注册时填写的手机号码" = "Verifica il numero di telefono";
+"71验证用户手机号码" = "Verifica il numero di telefono dell'Utente";
+"72验证用户邮箱" = "Verifica l'indirizzo email";
+"73您注册时填写的手机号是" = "Il tuo numero telefono registrato è";
+"74请输入短信验证码" = "Inserisci il codice di verifica";
+"76验证码错误" = "Codice di verifica errato";
+"77发送验证码" = "Invia codice di verifica";
+"78国际区号错误" = "Prefisso telefonata internazionale errato";
+"79手机号格式错误" = "Formato del numero di telefono è errato";
+"80发送短信验证码不成功" = "Invio messaggio del codice di verifica  non riuscito";
+"81该手机号没有注册用户" = "Nessun account correlato a questo numero di telefono";
+"82短信验证码请求已经失效" = "Timeout richiesta codice di verifica";
+"83请输入正确的手机校验码" = "Inserisci il codice di verifica del telefono corretto";
+
+"84是否更新" = "Aggiorna o no";
+"85立即更新" = "Aggiorna adesso";
+"86最新版本为" = "Ultima versione";
+"87暂不" = "Aggiorna più tardi";
+"88您使用的是最新版本" = "La versione attuale è l'ultima";
+"89请求苹果服务器失败" = "Errore del Server Apple";
+"90拨打电话" = "Devi fare un chiamata?";
+"91当前版本:" = "Versione attuale:";
+
+
+"92用户名" = "Nome Utente";
+"93密码" = "Password";
+"94重复密码" = "Ripeti password";
+"95重复输入密码" = "Ripeti password";
+"96电子邮箱" = "Email";
+"97联系电话" = "Telefono";
+"98代理商编号" = "ID Agenzia";
+"99输入代理商编号" = "Inserisci l'ID Agenzia";
+"100请输入相同的密码" = "Inserisci la stessa Password";
+"101用户名必须大于3位" = "Nome Utente deve essere minimo 3 caratteri";
+"102密码必须大于6位" = "Password deve essere minimo 6 caratteri";
+"103输入邮箱" = "Inserisci email";
+"104输入电话号码" = "Inserisci numero di telefono";
+"105请求超时" = "Timeout di rete";
+"106Yes" = "Inserisci";
+
+
+// 充电桩
+"107添加设备" = "Aggiungi dispositivo";
+"108充电桩" = "Stazione di Ricarica";
+"109充电" = "Acceso";
+"110充电记录" = "Registra";
+"111桩体设置" = "Impostazione";
+"112选择充电桩" = "Seleziona Stazione di Ricarica";
+"113连接" = "Connetti";
+"114停止充电" = "Spento";
+"115输入充电桩序列号添加充电桩" = "Inserire l'ID della Stazione di Ricarica per aggiungerla";
+"116您暂时还没有设备呢" = "Nessun dispositivo";
+"117您暂时还没有充电记录呢" = "Non è stato ancora registrato alcun addebito";
+"118暂时还没有定时,请点击右上角进行添加" = "Per il momento, fai clic sull'angolo in alto a destra per aggiungere";
+
+"119A枪" = "Uscita A";
+"120B枪" = "Uscita B";
+"121C枪" = "Uscita C";
+"122交流" = "AC";
+"123直流" = "DC";
+"124单枪" = "Singola Uscita";
+"125双枪" = "Doppia Uscita";
+"126无" = "Nulla";
+
+"127空闲" = "Disponibile";
+"128充电中" = "In Carica";
+"129准备中" = "In Preparazione";
+"130充电结束" = "Fine";
+"131故障" = "Guasto";
+"132通讯异常" = "Non disponibile";
+"133车拒绝充电" = "EV Sospeso";
+"134已经注销" = "Annullato";
+"135启用中" = "Partenza";
+"136已经工作过" = "Ho lavorato";
+
+"137设置金额不能为0" = "Impostazioni dei costi non possono essere 0";
+"138设置电量不能为0" = "Impostazioni della energia non possono essere 0";
+"139时长设置不能为空" = "Impostazione dell'ora non può essere vuota";
+"140未设置开始时间" = "Non è stata impostata l'ora di inizio";
+"141空闲状态无法直接开始充电，请先连接车辆与充电桩" = "Non è possibile iniziare a caricare direttamente. Collegare prima il veicolo al punto di ricarica.";
+
+"142切换" = "Commuta";
+"143添加" = "Aggiungi";
+"144是否确定删除设备" = "Sei sicuro di voler eliminare il dispositivo?";
+"145是否确定删除授权用户" = "Sei sicuro di voler eliminare l'Utente Autorizzato?";
+"146删除成功" = "Eliminato correttamente";
+"147请输入充电桩ID" = "Inserisci l'ID della Stazione di Ricarica";
+"148扫码添加" = "Scansiona il codice per aggiungere";
+"149添加充电桩" = "Aggiungi Stazione di Ricarica";
+"150添加成功" = "Aggiunto correttamente";
+"151不能为空" = "Non può essere vuota";
+// 设置
+"152参数设置" = "Impostazione parametri";
+"153授权管理" = "Autorizzazione";
+"154基本参数" = "Parametri Base";
+"155重要数据" = "Dati importanti";
+"156其他数据" = "Altri Dati";
+"157输入更改的设置" = "Inserisci nuove impostazioni";
+
+"158充电桩ID" = "ID Stazione di Ricarica";
+"159授权认证秘钥" = "Chiave di autorizzazione";
+"160基础参数" = "Parametri Base";
+"161电桩名称" = "Modello Stazione di Ricarica";
+"162国家城市" = "Nazione e Città";
+"163站点" = "Ubicazione";
+"164充电费率" = "Tariffa";
+"165功率设置" = "Impostazione potenza";
+"166充电模式" = "Modalità di ricarica";
+"167高级设置" = "Impostazioni avanzate";
+"168充电桩IP" = "Indirizzo IP Stazione di Ricarica";
+"169网关" = "Gateway preimpostato";
+"170子网掩码" = "Subnet mask";
+"171网络MAC地址" = "MAC";
+"172服务器URL" = "URL del Server";
+"173DNS地址" = "DNS";
+
+"174扫码/刷卡" = "APP/RFID";
+"175仅刷卡充电" = "Solo RFID";
+"176插枪充电" = "Plug&Charge";
+"177添加授权" = "Aggiungi autorizzato";
+"178输入用户名添加授权用户" = "Inserisci un nome utente per aggiungere un utente autorizzato";
+"179注册新用户" = "Registrati";
+"180填写资料注册新用户" = "Inserisci le informazioni";
+"181请输入用户名/车牌/电话/邮箱" = "Inserisci il Nome Utente";
+"182现在正处于时段预约状态，如需立即开始充电，请关闭预约按键，并重新设置时长!" = "Se è necessario iniziare immediatamente la ricarica, annullare l'impostazione di prenotazione corrente e reimpostare l'ora!";
+"183不能删除桩主" = "Impossibile eliminare il proprietario del punto di ricarica";
+
+// 蓝牙
+"184搜索" = "Ricerca";
+"185连接成功!" = "Connessione OK";
+"186请将充电枪插入车辆!" = "Inserire la pistola di ricarica nel veicolo!";
+"187蓝牙" = "Bluetooth";
+"188连接充电桩需打开蓝牙" = "Apri bluetooth per connettersi alla Stazione di Ricarica";
+"189我的设备" = "La mia lista di dispositivi";
+"190可配对设备" = "Dispositivo abbinabile";
+"191配件" = "Accessori";
+
+// 定时
+"192确认" = "Conferma";
+"193输入格式不正确，请重新输入" = "Formato è errato, inserire di nuovo";
+"194定时" = "Timer";
+"195新增" = "Aggiumgi";
+"196预设充电方案-时长：" = "Lunghezza dello schema preimpostato:";
+"197设置定时" = "Imposta il Timer";
+"198保存" = "Salva";
+"199开启" = "Inizio";
+"200关闭" = "Fine";
+"201未设置" = "Non impostato";
+"202每天" = "Ogni Giorno";
+"203删除" = "Elimina";
+"204时" = "Ora";
+"205分" = "Minuti";
+"206预设" = " Preimpostato";
+"207请输入金额" = "Inserisci la quantità di denaro";
+"208请输入电量（kWh）" = "Inserisci la quantità di Energia(KWh)";
+"209时长设置有误" = "Impostazione errata della durata.";
+"210开始时间不能小于当前时间" = "L'ora di inizio non deve essere precedente all'ora corrente";
+
+// 状态
+"211过压" = "Sovratensione";
+
+"212已充电量" = "Energia";
+"213充电费率" = "Tariffa";
+"214已充时长" = "Ora";
+"215消费金额" = "Costo";
+"216当前电流" = "Corrente";
+"217当前电压" = "Tensione";
+"218预设金额" = "Importo preimpostato";
+"219预设电量" = "Quantità energia preimpostata";
+"220预设时长" = "Ora preimpostata";
+"221预设方案 -金额" = "Programma-Importo preimpostato";
+"222预设方案 -电量" = "Programma-Energia preimpostato";
+"223预设方案 -时长" = "Programma-Orario preimpostato";
+
+"224充电结束，请拔下充电枪，并将充电枪归位" = "Dopo la ricarica, scollegare la pistola di ricarica e rimetterla in posizione";
+"225请连接充电枪到车辆" = "Collegare la pistola di ricarica al veicolo.";
+"226电桩故障，请切换使用其他充电桩" = "Punto di ricarica guasto, passare ad un altro punto di ricarica.";
+"227桩体状态为不可用，请切换使用其他充电桩" = "Punto di ricarica non disponibile, passare ad un altro punto di ricarica.";
+"228预设" = "Preimpostato";
+"229当前" = "In questo momento";
+"230预设充电方案" = "Carica preimpostata";
+"231(达到预设金额、电量、时长后停止充电)" = "(Arresta la carica dopo aver raggiunto il valore preimpostato)";
+"232金额" = "Costo";
+"233电量" = "Energia";
+"234时长" = "Ora";
+"235预约充电" = "Prenotazione per la Ricarica";
+"236开始时间" = "Orario di inizio";
+"237已开启" = "Acceso";
+"238已关闭" = "Spento";
+
+"239登录失败" = "Login fallito";
+"240浏览账户验证" = "Validazione account di navigazione su web";
+"241验证失败" = "Validazione fallita";
+"242验证成功" = "Validazione riuscita";
+
+"243设置成功" = "Impostazione riuscita";
+"244设置失败" = "Impostazione fallita";
+"245将充电功率限制为1KW" = "Limite della potenza di ricarica a 1 kW";
+"246将关闭充电功率限制" = "Annulla il limite di potenza di ricarica";
+
+// wifi设置
+"247连接热点" = "Connessione a Hotspot";
+"248打开手机WLAN,将手机连接至电桩热点" = "Attiva la WLAN del telefono e collega il telefono all'hotspot della Stazione di Ricarica";
+"249当前手机连接WiFi" = "WiFi attualmente connesso";
+"250刷新" = "Rinfrescare";
+"251已连接,下一步" = "Connesso, procedi";
+"252连接充电桩中..." = "Stazione di Ricarica in connessione";
+"253手机暂未连接wifi" = "Telefono non connesso al WiFi";
+"254连接失败" = "Connessione fallita";
+
+"255设备信息参数设置" = "Impostazione parametri informativi dispositivo";
+"256设备以太网参数设置" = "Impostazione parametri Ethernet dispositivo";
+"257设备账号密码参数设置" = "Impostazione parametri password account dispositivo";
+"258设备服务器参数设置" = "Impostazione parametri server dispositivo";
+"259设备充电参数设置" = "Impostazione parametri Ricarica dispositivo";
+"260语言" = "Lingua";
+"261中文" = "Cinese";
+"262泰文" = "Thai";
+"263英文" = "Inglese";
+"264读卡器秘钥" = "PIN carta RFID";
+"265保护等级" = "Livello di protezione";
+
+"266wifi名称" = "Nome WiFi";
+"267wifi密码" = "Password WiFi";
+"268蓝牙名称" = "Nome Bluetooth";
+"269蓝牙密码" = "Password Bluetooth";
+"2704G用户名" = "Nome Utente 4G";
+"2714G密码" = "Password 4G";
+"2724G APN" = "APN 4G";
+
+"273握手登录授权秘钥" = "Chiave di autorizzazione accesso handshake";
+"274心跳间隔时间(秒)" = "Intervallo Heartbeat (s)";
+"275PING间隔时间(秒)" = "Intervallo PING (s)";
+"276表计上传间隔时间(秒)" = "Intervallo di upload del misuratore (s)";
+
+"277电桩最大输出电流(A)" = "Corrente Massima di uscita della Stazione di Ricarica (A)";
+"278保护温度(℃)" = "Temperatura di protezione (° C)";
+"279外部监测最大输入功率(KW)" = "Potenza di ingresso massima monitorata esternamente (kW)";
+"280允许充电时间" = "Consenti tempo di ricarica";
+
+"281电桩断开" = "Disconnessione Stazione di ricarica";
+"282结束时间" = "Fine carica";
+"283选择时间" = "Periodo di selezione";
+"284未设置结束时间" = "Ora di fine carica non impostata";
+"285开始时间不能大于结束时间" = "L'ora di inizio non può essere posteriore all'ora di fine carica";
+"286输入值超出规定长度" = "Il valore di input supera la lunghezza specificata";
+"287级" = "Livello";
+"288未连接" = "Non connesso";
+"289切换至AP模式" = "Commuta su modalità AP";
+"290超出设置范围" = "Fuori dal range impostato";
+"291设定值不能小于" = "Il valore non può essere inferiore a";
+
+"292桩拒绝充电" = "EVSE Sospeso";
+"293车拒绝充电,车辆已充满或者未锁车" = "L'auto si rifiuta di caricare, il veicolo è pieno o non bloccato";
+"294桩拒绝充电,请切换使用其他充电桩" = "Punto di ricarica si rifiuta di caricare, passare ad un altro punto di ricarica";
+
+"295该电桩热点不是已选择的电桩" = "L'hotspot di questo punto di ricarica non è il punto di ricarica selezionato";
+"296版本号" = "numero della versione";
+"297峰谷充电使能" = "Abilitazione ricarica Peak Valley";
+"298功率分配使能" = "Abilitazione allocazione energia";
+"299使能" = "Abilita";
+"300禁止" = "Proibito";
+"301执行" = "Eseguire";
+"302请求失败" = "Richiesta fallita";
+"303选择货币" = "Seleziona valuta";
+"304设置未做任何更改" = "Le impostazioni non sono state modificate";
+"305AP模式" = "Modalità AP";
+"306当前充电桩序列号" = "Numero di serie dell'attuale punto di ricarica";
+"307切换成功" = "commutazione riuscita";
+"308切换失败" = "commutazione fallita";
+"309操作引导1" = "Imposta il punto di ricarica in modalità AP come hotspot WiFi. Questo passaggio non è necessario per la configurazione iniziale del punto di ricarica appena installato.";
+"310操作引导2" = "Collega il telefono cellulare al WiFi del punto di ricarica, la password è 12345678. Se non è possibile trovare il WiFi del punto di ricarica, spegni e riaccendi il punto di ricarica che emetterà il segnale WiFi per 90 secondi dopo l'accensione.";
+"311操作引导3" = "Dopo aver effettuato correttamente la connessione all'hotspot, fare clic su Avanti per accedere alla pagina delle impostazioni per WiFi e impostazione dei parametri";
+"312WIFI直连操作指引" = "Istruzioni per la connessione WIFI";
+"313电桩最大输出电流" = "Impostazione Corrente Massima";
+"314智能功率分配" = "Impostazione gestione carico";
+"315货币单位" = "Unità monetaria";
+"316退出登录" = "Disconnettersi";
+"317注销账户" = "Eliminare l'account";
+"318是否注销账户" = "Sei sicuro di eliminare l'account?";
+"319注销后账户将被删除，无法再使用" = "L'account verrà eliminato e non potrà più essere utilizzato";
+"320注销成功" = "Eliminazione avvenuta correttamente";
+"321注销失败" = "Eliminazione fallita";
+"322系统错误" = "Errore di sistema";
+"323用户不存在" = "L'Utente non esiste";
+"324该用户下存在浏览账户" = "Esiste un account di navigazione sotto questo utente";
+"325admin账号不允许注销" = "non è possibile cancellare l'account admin";
+"326时间段" = "periodo";
+"327费率" = "Tariffa";
+"328设置不能超过6条" = "Max 6 impostazioni";
+"329最少要有1条" = "Deve essercene almeno uno";
+"330有时间段或费率未输入" = "Periodo di tempo o tariffa non inseriti";
+"331时间必须包含24小时" = "Il tempo deve contenere 24 ore";
+"332时间不能相同" = "Il tempo non può essere lo stesso";
+"333时间段不能重叠" = "I periodi di tempo non possono sovrapporsi";
+"334预约时间" = "Prenotazione";
+"335预设充电" = "Ricarica preimpostata";
+"336充电方案" = "Schema di ricarica";
+"337预计" = "Previsto";
+"338充满自动停止充电" = "Carica fino a batteria carica";
+"339预约" = "Prenotazione";
+"340取消预约" = "Cancella prenotazione";
+
+"341电表" = "metro";
+"342外部电流采样接线方式" = "Metodo di cablaggio di campionamento corrente esterno";
+"343Solar模式" = "Modalità solare";
+"344ECO+电流限制" = "ECO + Limite di corrente";
+"345电表设备地址" = "Indirizzo del dispositivo misuratore";
+"346退出设置提示" = "Ci sono ancora modifiche non salvate, se scartarle e uscire";

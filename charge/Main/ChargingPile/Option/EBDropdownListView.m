@@ -67,6 +67,7 @@ static CGFloat const kItemCellHeight = 30;
     _font = [UIFont systemFontOfSize:13*XLscaleH];
     _selectedIndex = 0;
     _textLabel.font = _font;
+    _textLabel.adjustsFontSizeToFitWidth = YES;
     _textLabel.textColor = _textColor;
     
     UITapGestureRecognizer *tapLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapViewExpand:)];
@@ -150,6 +151,7 @@ static CGFloat const kItemCellHeight = 30;
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.font = _font;
+    cell.textLabel.adjustsFontSizeToFitWidth=YES;
     cell.textLabel.textColor = _textColor;
     EBDropdownListItem *item = _dataSource[indexPath.row];
     cell.textLabel.text = item.itemName;
@@ -178,12 +180,12 @@ static CGFloat const kItemCellHeight = 30;
         [self selectedItemAtIndex:_selectedIndex];
         // 更新tableview大小
         dispatch_async(dispatch_get_main_queue(), ^{
-            CGFloat tableHeight = _dataSource.count * kItemCellHeight*XLscaleH;
+            CGFloat tableHeight = self->_dataSource.count * kItemCellHeight*XLscaleH;
             CGRect rect = self.tbView.frame;
             rect.size.height = tableHeight;
             self.tbView.frame = rect;
+            [self.tbView reloadData];
         });
-        
     }
 }
 

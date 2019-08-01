@@ -11,6 +11,7 @@
 #import "EWOptionArrowItem.h"
 #import "ChargingpileSettingVC.h"
 #import "AuthorizationVC.h"
+#import "ChargingplieSettingSecondVC.h"
 
 @interface ChargingPileSettingOptionVC ()
 
@@ -34,7 +35,13 @@
 
     EWOptionArrowItem *InfoSettingItem = [EWOptionArrowItem arrowItemWithIcon:@"setting_canshu" title:HEM_canshu_shezhi detailTitle:@"" didClickBlock:^{
         
-        ChargingpileSettingVC *SettingVC = [[ChargingpileSettingVC alloc] init];
+//        ChargingpileSettingVC *SettingVC = [[ChargingpileSettingVC alloc] init];
+//        SettingVC.sn = self.sn;
+//        SettingVC.title = HEM_canshu_shezhi;
+//        SettingVC.priceConf = self.priceConf;
+//        [self.navigationController pushViewController:SettingVC animated:YES];
+        
+        ChargingplieSettingSecondVC *SettingVC = [[ChargingplieSettingSecondVC alloc] init];
         SettingVC.sn = self.sn;
         SettingVC.title = HEM_canshu_shezhi;
         SettingVC.priceConf = self.priceConf;

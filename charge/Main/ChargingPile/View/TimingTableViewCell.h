@@ -12,17 +12,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TimingTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *openTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *closeTitleLabel;
+@property (strong, nonatomic) UILabel *openTitleLabel;
+@property (strong, nonatomic) UILabel *closeTitleLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lengthTImeLabel;
+@property (strong, nonatomic) UILabel *startTimeLabel;
+@property (strong, nonatomic) UILabel *endTimeLabel;
+@property (strong, nonatomic) UILabel *lengthTImeLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *loopTitleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *loopButton;
+@property (strong, nonatomic) UILabel *loopTitleLabel;
+@property (strong, nonatomic) UIButton *loopButton;
 
-@property (weak, nonatomic) IBOutlet UISwitch *controlSwitch;
+@property (strong, nonatomic) UISwitch *controlSwitch;
 
 @property (nonatomic, copy) void (^touchOpenOrCloseTiming)(BOOL isOpen, BOOL loopType, NSString *type);
 

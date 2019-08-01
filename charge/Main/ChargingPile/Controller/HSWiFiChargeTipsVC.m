@@ -14,6 +14,7 @@
 #import "CGXPickerView.h"
 #import "HSTCPWiFiManager.h"
 #import "HSWiFiOperationPromptVC.h"
+#import "HSWiFiChargeSettingSecondVC.h"
 
 @interface HSWiFiChargeTipsVC ()<HSUDPWiFiManagerDelegate,HSTCPWiFiManagerDelegate>{
     __block BOOL isSuccess;
@@ -304,9 +305,13 @@
             [devData setObject:@"192.168.1.1" forKey:@"ip"];  // 固定连接ip
             [devData setObject:self.lblWiFiName.text forKey:@"devName"]; // 使用wifi名称
             
-            HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
-            vc.devData = devData;
-            [self.navigationController pushViewController:vc animated:YES];
+//            HSWiFiChargeSettingVC *vc = [[HSWiFiChargeSettingVC alloc]init];
+//            vc.devData = devData;
+//            [self.navigationController pushViewController:vc animated:YES];
+            
+            HSWiFiChargeSettingSecondVC *secondVc = [[HSWiFiChargeSettingSecondVC alloc]init];
+            secondVc.devData = devData;
+            [self.navigationController pushViewController:secondVc animated:YES];
         }
     });
 }

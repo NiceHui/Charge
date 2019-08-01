@@ -178,13 +178,14 @@
 		BCB6D788224B667F00F4B039 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6D784224B667F00F4B039 /* GCDAsyncSocket.m */; };
 		BCC4904C224A3F7300AA975A /* HSWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4904B224A3F7300AA975A /* HSWiFiManager.m */; };
 		BCC8717622B8FC5B00F02FF7 /* SetTimeRateAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC8717522B8FC5B00F02FF7 /* SetTimeRateAlert.m */; };
+		BCC878A922EF0B5300ED3F9E /* ChargingplieSettingSecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC878A822EF0B5300ED3F9E /* ChargingplieSettingSecondVC.m */; };
 		BCE5485E21782BDB0022E0E3 /* PickerViewAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5485C21782BDB0022E0E3 /* PickerViewAlert.m */; };
 		BCE54861217876220022E0E3 /* TimingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE54860217876220022E0E3 /* TimingListViewController.m */; };
 		BCE5486521787A500022E0E3 /* TimingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5486321787A500022E0E3 /* TimingTableViewCell.m */; };
-		BCE5486621787A500022E0E3 /* TimingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE5486421787A500022E0E3 /* TimingTableViewCell.xib */; };
 		BCE548692178A23A0022E0E3 /* setTimingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE548682178A23A0022E0E3 /* setTimingViewController.m */; };
 		BCE5486E2178B0FC0022E0E3 /* meViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5486D2178B0FC0022E0E3 /* meViewController.m */; };
 		BCE548722178B10F0022E0E3 /* meTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE548702178B10F0022E0E3 /* meTableViewCell.m */; };
+		BCFBFAF522EAA06900986013 /* HSWiFiChargeSettingSecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFBFAF422EAA06900986013 /* HSWiFiChargeSettingSecondVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -549,19 +550,25 @@
 		BCC4904B224A3F7300AA975A /* HSWiFiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiManager.m; sourceTree = "<group>"; };
 		BCC8717422B8FC5B00F02FF7 /* SetTimeRateAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetTimeRateAlert.h; sourceTree = "<group>"; };
 		BCC8717522B8FC5B00F02FF7 /* SetTimeRateAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetTimeRateAlert.m; sourceTree = "<group>"; };
+		BCC878A722EF0B5300ED3F9E /* ChargingplieSettingSecondVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChargingplieSettingSecondVC.h; sourceTree = "<group>"; };
+		BCC878A822EF0B5300ED3F9E /* ChargingplieSettingSecondVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChargingplieSettingSecondVC.m; sourceTree = "<group>"; };
+		BCC878AB22F16FDC00ED3F9E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
+		BCC878AC22F16FE100ED3F9E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BCC878AD22F16FE200ED3F9E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BCE5485C21782BDB0022E0E3 /* PickerViewAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewAlert.m; sourceTree = "<group>"; };
 		BCE5485D21782BDB0022E0E3 /* PickerViewAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewAlert.h; sourceTree = "<group>"; };
 		BCE5485F217876220022E0E3 /* TimingListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimingListViewController.h; sourceTree = "<group>"; };
 		BCE54860217876220022E0E3 /* TimingListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimingListViewController.m; sourceTree = "<group>"; };
 		BCE5486221787A500022E0E3 /* TimingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimingTableViewCell.h; sourceTree = "<group>"; };
 		BCE5486321787A500022E0E3 /* TimingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimingTableViewCell.m; sourceTree = "<group>"; };
-		BCE5486421787A500022E0E3 /* TimingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimingTableViewCell.xib; sourceTree = "<group>"; };
 		BCE548672178A23A0022E0E3 /* setTimingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = setTimingViewController.h; sourceTree = "<group>"; };
 		BCE548682178A23A0022E0E3 /* setTimingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = setTimingViewController.m; sourceTree = "<group>"; };
 		BCE5486C2178B0FC0022E0E3 /* meViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meViewController.h; sourceTree = "<group>"; };
 		BCE5486D2178B0FC0022E0E3 /* meViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = meViewController.m; sourceTree = "<group>"; };
 		BCE548702178B10F0022E0E3 /* meTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = meTableViewCell.m; sourceTree = "<group>"; };
 		BCE548712178B10F0022E0E3 /* meTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meTableViewCell.h; sourceTree = "<group>"; };
+		BCFBFAF322EAA06900986013 /* HSWiFiChargeSettingSecondVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSWiFiChargeSettingSecondVC.h; sourceTree = "<group>"; };
+		BCFBFAF422EAA06900986013 /* HSWiFiChargeSettingSecondVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSWiFiChargeSettingSecondVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -709,7 +716,6 @@
 				BC811037217F418D00A9DEFB /* XLCircle.m */,
 				BCE5486221787A500022E0E3 /* TimingTableViewCell.h */,
 				BCE5486321787A500022E0E3 /* TimingTableViewCell.m */,
-				BCE5486421787A500022E0E3 /* TimingTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -838,6 +844,8 @@
 				BC664B9C2176C56D00CED085 /* ChargingPileSettingOptionVC.m */,
 				BC664B9D2176C56D00CED085 /* ChargingpileSettingVC.h */,
 				BC664B9E2176C56D00CED085 /* ChargingpileSettingVC.m */,
+				BCC878A722EF0B5300ED3F9E /* ChargingplieSettingSecondVC.h */,
+				BCC878A822EF0B5300ED3F9E /* ChargingplieSettingSecondVC.m */,
 				BC75826D22BA39FE00E5BE53 /* SetTimeRateVC.h */,
 				BC75826E22BA39FE00E5BE53 /* SetTimeRateVC.m */,
 				BC664B952176C56D00CED085 /* AuthorizationVC.h */,
@@ -862,6 +870,8 @@
 				BCAEE20422B4F2080019DC2F /* HSWiFiOperationPromptVC.m */,
 				BC6EE1FB224DAC9500743A3E /* HSWiFiChargeSettingVC.h */,
 				BC6EE1FC224DAC9500743A3E /* HSWiFiChargeSettingVC.m */,
+				BCFBFAF322EAA06900986013 /* HSWiFiChargeSettingSecondVC.h */,
+				BCFBFAF422EAA06900986013 /* HSWiFiChargeSettingSecondVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1422,6 +1432,7 @@
 				en,
 				Base,
 				"zh-Hans",
+				it,
 			);
 			mainGroup = BC8A504C2175799100C02F42;
 			productRefGroup = BC8A50562175799200C02F42 /* Products */;
@@ -1452,7 +1463,6 @@
 				BC8A674621872B830018152A /* MJRefresh.bundle in Resources */,
 				BC873CA9217D627D002C70A3 /* shouDianTong1.png in Resources */,
 				BC594B65225DD50A002643D3 /* CGXPickerView.bundle in Resources */,
-				BCE5486621787A500022E0E3 /* TimingTableViewCell.xib in Resources */,
 				BC873CA8217D627D002C70A3 /* resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1524,6 +1534,7 @@
 				BC8A50AE2175C32000C02F42 /* LoginButton.m in Sources */,
 				BC8A50E62175D25800C02F42 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				BC664BC22176C56D00CED085 /* EWOptionItem.m in Sources */,
+				BCC878A922EF0B5300ED3F9E /* ChargingplieSettingSecondVC.m in Sources */,
 				BC873CAE217D6EEC002C70A3 /* InputSettingAlert.m in Sources */,
 				BC594B64225DD50A002643D3 /* CGXAddressPcikerView.m in Sources */,
 				BC664C322176D77700CED085 /* MASConstraintMaker.m in Sources */,
@@ -1650,6 +1661,7 @@
 				BC664BB42176C56D00CED085 /* AddAuthorizationVC.m in Sources */,
 				BC8A50E82175D25800C02F42 /* UIAlertView+AFNetworking.m in Sources */,
 				BC8A675621872B830018152A /* MJRefreshAutoFooter.m in Sources */,
+				BCFBFAF522EAA06900986013 /* HSWiFiChargeSettingSecondVC.m in Sources */,
 				BC8AB91022A8F80F00590501 /* ZJBLStoreShopTypeAlert.m in Sources */,
 				BC664C5A2177368400CED085 /* PresetChargeViewController.m in Sources */,
 				BC873CB1217DC281002C70A3 /* ChargeTimingModel.m in Sources */,
@@ -1696,6 +1708,7 @@
 			children = (
 				BC4F26D22187EA4B00918157 /* en */,
 				BC4F26D52188097200918157 /* zh-Hans */,
+				BCC878AD22F16FE200ED3F9E /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1705,6 +1718,7 @@
 			children = (
 				BC8A505F2175799200C02F42 /* Base */,
 				BC4F26CD2187E9DA00918157 /* zh-Hans */,
+				BCC878AB22F16FDC00ED3F9E /* it */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1714,6 +1728,7 @@
 			children = (
 				BC8A50642175799400C02F42 /* Base */,
 				BC4F26CE2187E9DA00918157 /* zh-Hans */,
+				BCC878AC22F16FE100ED3F9E /* it */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

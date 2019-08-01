@@ -441,6 +441,11 @@ static HSTCPWiFiManager *instance = nil;
     NSData *allow_time_data = [HSBluetoochHelper dataWithString:dicInfo[@"allow_time"] length:11];// 允许充电时间“22:00-03:30”
     NSData *peak_enable_data = [HSBluetoochHelper dataWithString:dicInfo[@"peak_enable"] length:1];// 峰谷充电使能
     NSData *power_enable_data = [HSBluetoochHelper dataWithString:dicInfo[@"power_enable"] length:1];// 功率分配使能
+    NSData *external_current_data = [HSBluetoochHelper dataWithString:dicInfo[@"external_current"] length:1];// 外部电流采样接线方式
+    NSData *solar_mode_data = [HSBluetoochHelper dataWithString:dicInfo[@"solar_mode"] length:1];// solar模式
+    NSData *eco_current_limit_data = [HSBluetoochHelper dataWithString:dicInfo[@"eco_current_limit"] length:2];// ECO+电流限制
+    NSData *ammeter_address_data = [HSBluetoochHelper dataWithString:dicInfo[@"ammeter_address"] length:12];// 电表设备地址
+    
     
     if ([mode_data isEqualToData:[NSData data]] || [max_current_data isEqualToData:[NSData data]] || [rate_data isEqualToData:[NSData data]] || [protection_temp_data isEqualToData:[NSData data]] || [max_input_power_data isEqualToData:[NSData data]] || [allow_time_data isEqualToData:[NSData data]] || [peak_enable_data isEqualToData:[NSData data]] || [power_enable_data isEqualToData:[NSData data]]) {
         if ([self.delegate respondsToSelector:@selector(TCPSocketActionSuccess:data:)]) {
@@ -456,9 +461,13 @@ static HSTCPWiFiManager *instance = nil;
     [mode_data appendData:allow_time_data];
     [mode_data appendData:peak_enable_data];
     [mode_data appendData:power_enable_data];
+    [mode_data appendData:external_current_data];
+    [mode_data appendData:solar_mode_data];
+    [mode_data appendData:eco_current_limit_data];
+    [mode_data appendData:ammeter_address_data];
 
     Byte *Payload = (Byte *)[mode_data bytes];
-    NSData *sendData = [HSBluetoochHelper wifiSendDataProtocol:self.devType Cmd:@"0x15" DataLenght:26 Payload:Payload Mask:randomMask2
+    NSData *sendData = [HSBluetoochHelper wifiSendDataProtocol:self.devType Cmd:@"0x15" DataLenght:42 Payload:Payload Mask:randomMask2
                                                        Useless:nil];
     [_socket writeData:sendData withTimeout:-1 tag:201];
 }
@@ -617,6 +626,10 @@ static HSTCPWiFiManager *instance = nil;
         NSString *allow_time = [self getNSStringWithData:data Range:NSMakeRange(13, 11)];// 允许充电时间“22:00-03:30”
         NSString *peak_enable = [self getNSStringWithData:data Range:NSMakeRange(24, 1)];// 峰谷充电使能
         NSString *power_enable = [self getNSStringWithData:data Range:NSMakeRange(25, 1)];// 功率分配使能
+        NSString *external_current = [self getNSStringWithData:data Range:NSMakeRange(26, 1)];// 外部电流采样接线方式
+        NSString *solar_mode = [self getNSStringWithData:data Range:NSMakeRange(27, 1)];// solar模式
+        NSString *eco_current_limit = [self getNSStringWithData:data Range:NSMakeRange(28, 2)];// ECO+电流限制
+        NSString *ammeter_address = [self getNSStringWithData:data Range:NSMakeRange(30, 12)];// 电表设备地址
         
         [dataDict setObject:[NSString stringWithFormat:@"%@", mode] forKey:@"mode"];
         [dataDict setObject:[NSString stringWithFormat:@"%@", max_current] forKey:@"max_current"];
@@ -626,7 +639,12 @@ static HSTCPWiFiManager *instance = nil;
         [dataDict setObject:[NSString stringWithFormat:@"%@", allow_time] forKey:@"allow_time"];
         [dataDict setObject:[NSString stringWithFormat:@"%@", peak_enable] forKey:@"peak_enable"];
         [dataDict setObject:[NSString stringWithFormat:@"%@", power_enable] forKey:@"power_enable"];
-        NSLog(@"充电桩 mode: %@, max_current: %@, rate: %@, protection_temp: %@, max_input_power: %@,  allow_time: %@,  peak_enable: %@,  power_enable: %@", mode, max_current, rate, protection_temp, max_input_power, allow_time, peak_enable ,power_enable);
+        [dataDict setObject:[NSString stringWithFormat:@"%@", external_current] forKey:@"external_current"];
+        [dataDict setObject:[NSString stringWithFormat:@"%@", solar_mode] forKey:@"solar_mode"];
+        [dataDict setObject:[NSString stringWithFormat:@"%@", eco_current_limit] forKey:@"eco_current_limit"];
+        [dataDict setObject:[NSString stringWithFormat:@"%@", ammeter_address] forKey:@"ammeter_address"];
+        
+        NSLog(@"充电桩 mode: %@, max_current: %@, rate: %@, protection_temp: %@, max_input_power: %@,  allow_time: %@,  peak_enable: %@,  power_enable: %@, external_current: %@, solar_mode: %@ ,eco_current_limit: %@, ammeter_address: %@", mode, max_current, rate, protection_temp, max_input_power, allow_time, peak_enable ,power_enable, external_current, solar_mode, eco_current_limit, ammeter_address);
     }
     
     if(cmd == 0x01 || cmd == 0x02 || cmd == 0x03 || cmd == 0x04 || cmd == 0x05){ // 获取设置信息命令

@@ -178,7 +178,7 @@
     [solarButton setBackgroundColor:[UIColor whiteColor]];
     [solarButton addTarget:self action:@selector(setSolar:) forControlEvents:UIControlEventTouchUpInside];
     XLViewBorderRadius(solarButton, solarH/2, 0, kClearColor);
-//    [self.scrollView addSubview:solarButton];
+    [self.scrollView addSubview:solarButton];
     _solarButton = solarButton;
     
 }
@@ -229,25 +229,39 @@
 // 设置solar值
 - (void)setSolar:(UIButton *)button{
     button.selected = !button.isSelected;
-    [self setButtonBackgroundColor:button.isSelected];
+    if (button.isSelected) {
+        [_solarButton setBackgroundColor:mainColor];
+    }else{
+        [_solarButton setBackgroundColor:[UIColor whiteColor]];
+    }
     
     SolarTipsAlert *solarAlert = [[SolarTipsAlert alloc]initWithButtonFrame:[self.scrollView convertRect:button.frame toView:KEYWINDOW]];
     solarAlert.state = button.isSelected;
+    solarAlert.deviceModel = self.deviceModel;
     [solarAlert show];
     __weak typeof(self) weakSelf = self;
     solarAlert.touchAlertEnter = ^{// 确定
         [weakSelf setChargeSolar:button.isSelected ? @1 : @0];
     };
-    
+    // 切换模式
+    solarAlert.touchAlertSwitchSolarModel = ^(NSNumber * _Nonnull model) {
+        [weakSelf setChargeSolar:model];
+    };
     solarAlert.touchAlertCancel = ^{// 取消
-        button.selected = !button.isSelected;// 恢复点击前状态
-        [weakSelf setButtonBackgroundColor:button.isSelected];
+        [weakSelf setButtonBackgroundColor];
     };
 }
-
-- (void)setButtonBackgroundColor:(BOOL)isSelected{
+// 更换按键颜色
+- (void)setButtonBackgroundColor{
+    // FAST 模式为关闭， 其他则为开启
+    NSString *solarModel = [NSString stringWithFormat:@"%@", self.deviceModel.G_SolarMode];
+    if ([solarModel isEqualToString:@"0"]) { // FAST模式
+        self.solarButton.selected = NO;
+    }else{ // ECO
+        self.solarButton.selected = YES;
+    }
     
-    if (isSelected) {
+    if (self.solarButton.isSelected) {
         [_solarButton setBackgroundColor:mainColor];
     }else{
         [_solarButton setBackgroundColor:[UIColor whiteColor]];
@@ -377,7 +391,8 @@
     }else{// 不预定(立即开始充电, 达到设置条件后停止)
         
         if ([_InfoModel.status isEqualToString:@"Available"]) {// 空闲
-            [self showToastViewWithTitle:HEM_wufachongdian];
+//            [self showToastViewWithTitle:HEM_wufachongdian];
+            [self showAlertViewWithTitle:@"" message:HEM_wufachongdian cancelButtonTitle:root_OK];
             return;
         }
         
@@ -518,9 +533,9 @@
             currentDevIndex = indexPath.row;
             self.deviceModel = self.dataSource[indexPath.row];
             currentConnectorId = 1;// 切换充电桩时,获取的充电枪编码默认为1
+            _dropdownListView.selectedIndex = 0; // 默认第一个枪
             [self getChargingPileInfomation:self.deviceModel];
-            self.solarButton.selected = [self.deviceModel.solar boolValue];
-            [self setButtonBackgroundColor:_solarButton.isSelected];
+            [self setButtonBackgroundColor];
         }
     }else{
         if (self.isBLE) {
@@ -561,8 +576,7 @@
                     weakSelf.deviceModel = weakSelf.dataSource[self->currentDevIndex];
                     self->currentConnectorId = 1;// 获取的充电枪编码默认为1
                     [weakSelf getChargingPileInfomation:weakSelf.dataSource[self->currentDevIndex]];
-                    weakSelf.solarButton.selected = [weakSelf.deviceModel.solar boolValue];
-                    [weakSelf setButtonBackgroundColor:self->_solarButton.isSelected];
+                    [weakSelf setButtonBackgroundColor];
                 }
             }
         });
@@ -669,22 +683,47 @@
 - (void)setChargeSolar:(NSNumber *)state{
     
     __weak typeof(self) weakSelf = self;
+//    [self showProgressView];
+//    [[DeviceManager shareInstenced] setChargeSolarWithSn:_deviceModel.chargeId userId:[UserInfo defaultUserInfo].userName solar:state success:^(id obj) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [weakSelf hideProgressView];
+//            if ([obj[@"code"] isEqualToNumber:@0]) {
+//                [weakSelf showToastViewWithTitle:root_shezhi_chenggong];
+//                weakSelf.deviceModel.solar = @(![weakSelf.deviceModel.solar integerValue]);
+//            }else{
+//                [weakSelf showToastViewWithTitle:obj[@"data"]];
+//                [weakSelf setButtonBackgroundColor];
+//            }
+//        });
+//    } failure:^(NSError *error) {
+//        [weakSelf hideProgressView];
+//        [weakSelf showToastViewWithTitle:root_shezhi_shibai];
+//    }];
+    
+    NSMutableDictionary *setInfoDict = [[NSMutableDictionary alloc]init];
+    [setInfoDict setObject:[UserInfo defaultUserInfo].userName forKey:@"userId"];
+    [setInfoDict setObject:self.deviceModel.chargeId forKey:@"chargeId"];
+    [setInfoDict setObject:[NSString stringWithFormat:@"%ld", (long)[state integerValue]] forKey:@"G_SolarMode"];
+    
+    NSLog(@"_setInfoDict： %@", setInfoDict);
     [self showProgressView];
-    [[DeviceManager shareInstenced] setChargeSolarWithSn:_deviceModel.chargeId userId:[UserInfo defaultUserInfo].userName solar:state success:^(id obj) {
+    [[DeviceManager shareInstenced] setChargeoConfigInfomationWithParms:setInfoDict success:^(id obj) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf hideProgressView];
             if ([obj[@"code"] isEqualToNumber:@0]) {
-                [weakSelf showToastViewWithTitle:root_shezhi_chenggong];
-                weakSelf.deviceModel.solar = @(![weakSelf.deviceModel.solar integerValue]);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    // 刷新电桩列表
+                    [weakSelf getChargingpileList];
+                });
             }else{
-                [weakSelf showToastViewWithTitle:obj[@"data"]];
-                weakSelf.solarButton.selected = !weakSelf.solarButton.isSelected;
-                [weakSelf setButtonBackgroundColor:weakSelf.solarButton.isSelected];
+                // 设置失败,还原按键状态
+                [self setButtonBackgroundColor];
             }
+            [weakSelf showToastViewWithTitle:obj[@"data"]];
         });
     } failure:^(NSError *error) {
         [weakSelf hideProgressView];
-        [weakSelf showToastViewWithTitle:root_shezhi_shibai];
+        [self setButtonBackgroundColor]; // 还原按键状态
     }];
 }
 

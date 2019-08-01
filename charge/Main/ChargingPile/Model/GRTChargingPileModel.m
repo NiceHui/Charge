@@ -14,7 +14,7 @@
 
 - (NSString *)getmodel{
     
-    if ([_model isEqualToString:@"ACChargingPoint"]) {
+    if ([_model.lowercaseString containsString:@"ac"]) {//[_model isEqualToString:@"ACChargingPoint"]
         return HEM_jiaoliu;
     }else{
         return HEM_zhiliu;

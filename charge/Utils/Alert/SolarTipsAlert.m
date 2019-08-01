@@ -20,6 +20,11 @@
 @property (nonatomic, strong)UIView *bouncedView;
 
 @property (nonatomic, strong)UILabel *titleLabel;
+
+@property (nonatomic, strong)UILabel *titleLabel2;
+
+@property (nonatomic, strong)UIButton *btnSwitch;
+
 @property (nonatomic, strong)UIButton *enterBtn;
 
 @end
@@ -42,7 +47,7 @@
     
     _state = state;
     
-    _titleLabel.text = state ? root_open_solar : root_close_solar ;
+//    _titleLabel.text = state ? root_open_solar : root_close_solar ;
     
     if (state) {
         [_enterBtn setTitle:root_kaiqi forState:UIControlStateNormal];
@@ -61,22 +66,36 @@
     XLViewBorderRadius(self.bouncedView, 10, 0, kClearColor);
     [self addSubview:self.bouncedView];
     
-    float paddingLF = 10*XLscaleW;
+    float paddingLF = 10*XLscaleW, paddingTop = (self.bouncedView.xmg_height-40*XLscaleH-30*XLscaleH)/3;
     // 标题
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(paddingLF, 2*paddingLF, bouncedView_Width-2*paddingLF, 15*XLscaleH)];
-    titleLabel.text = root_open_solar;
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(paddingLF, paddingTop, bouncedView_Width*XLscaleW-2*paddingLF, 15*XLscaleH)];
+    titleLabel.text = @"";
     titleLabel.textColor = colorblack_102;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = FontSize(12*XLscaleW);
+    titleLabel.adjustsFontSizeToFitWidth=YES;
     [self.bouncedView addSubview:titleLabel];
     _titleLabel = titleLabel;
     
-    UILabel *titleLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(paddingLF, CGRectGetMaxY(titleLabel.frame)+3*XLscaleH, bouncedView_Width-2*paddingLF, 15*XLscaleH)];
-    titleLabel2.text = @"8:00am~8:00pm";
+    UILabel *titleLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(paddingLF, CGRectGetMaxY(titleLabel.frame)+paddingTop, bouncedView_Width*XLscaleW-2*paddingLF, 15*XLscaleH)];
+    titleLabel2.text = @"";
     titleLabel2.textColor = colorblack_102;
     titleLabel2.textAlignment = NSTextAlignmentCenter;
     titleLabel2.font = FontSize(12*XLscaleW);
+    titleLabel.adjustsFontSizeToFitWidth=YES;
     [self.bouncedView addSubview:titleLabel2];
+    _titleLabel2 = titleLabel2;
+    
+    // 切换模式按键
+    UIButton *btnSwitch = [[UIButton alloc]initWithFrame:CGRectMake(paddingLF, CGRectGetMaxY(titleLabel2.frame)+3, bouncedView_Width*XLscaleW-2*paddingLF, paddingTop)];
+    [btnSwitch setTitle:[NSString stringWithFormat:@"%@ ECO+",root_MAX_300] forState:UIControlStateNormal];
+    [btnSwitch setTitle:[NSString stringWithFormat:@"%@ ECO",root_MAX_300] forState:UIControlStateSelected];
+    [btnSwitch setTitleColor:mainColor forState:UIControlStateNormal];
+    [btnSwitch addTarget:self action:@selector(touchSwitchSolarModel:) forControlEvents:UIControlEventTouchUpInside];
+    btnSwitch.titleLabel.font = FontSize(12*XLscaleH);
+    btnSwitch.titleLabel.adjustsFontSizeToFitWidth=YES;
+    [self.bouncedView addSubview:btnSwitch];
+    _btnSwitch = btnSwitch;
     
     // 取消
     UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.bouncedView.xmg_height-40*XLscaleH, self.bouncedView.xmg_width/2-1, 40*XLscaleH)];
@@ -150,5 +169,41 @@
     
 }
 
+// 切换模式
+- (void)touchSwitchSolarModel:(UIButton *)button{
+    
+    if (self.touchAlertSwitchSolarModel) {
+        // 1: ECO   2: ECO+
+        self.touchAlertSwitchSolarModel(button.isSelected ? @1 : @2);
+    }
+    
+    [self hide];
+}
+
+// 显示当前设置的solar模式
+- (void)setDeviceModel:(GRTChargingPileModel *)deviceModel{
+    
+    NSString *G_SolarMode = [NSString stringWithFormat:@"%@",deviceModel.G_SolarMode];
+    NSString *G_SolarLimitPower = [NSString stringWithFormat:@"%@", deviceModel.G_SolarLimitPower];
+    
+    _titleLabel.text = @"";
+    if ([G_SolarMode isEqualToString:@"2"]) {
+        _titleLabel.text = [NSString stringWithFormat:@"%@:%@",root_solar_mode, @"ECO+"];
+        _titleLabel2.text = [NSString stringWithFormat:@"%@:%@kWh",root_eco_current_limit,G_SolarLimitPower];
+        _btnSwitch.hidden=NO;
+        _btnSwitch.selected = YES;
+    } else if([G_SolarMode isEqualToString:@"1"]){
+        _titleLabel2.text = [NSString stringWithFormat:@"%@:%@",root_solar_mode, @"ECO"];
+        _btnSwitch.hidden=NO;
+        _btnSwitch.selected = NO;
+    } else if([G_SolarMode isEqualToString:@"0"]){
+        _titleLabel2.text = [NSString stringWithFormat:@"%@:%@",root_solar_mode, @"FAST"];
+        _btnSwitch.hidden=YES;
+    }else{
+        _titleLabel2.text = root_weishezhi;
+        _enterBtn.enabled = NO;
+        _btnSwitch.hidden=YES;
+    }
+}
 
 @end

@@ -101,7 +101,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    [_tableView registerNib:[UINib nibWithNibName:@"TimingTableViewCell" bundle:nil] forCellReuseIdentifier:@"TimmingViewCell"];
+    [_tableView registerClass:[TimingTableViewCell class] forCellReuseIdentifier:@"TimingTableViewCell"];
 }
 
 #pragma mark -- Http request
@@ -173,7 +173,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    TimingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimmingViewCell"];
+    TimingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimingTableViewCell"];
+    if (!cell) {
+        cell=[[TimingTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimingTableViewCell"];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     
